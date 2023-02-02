@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:fitmoi_mob_app/pages/view_account.dart';
 import 'package:fitmoi_mob_app/widgets/passwordfield.dart';
 import 'package:fitmoi_mob_app/widgets/upload_images.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +12,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:fitmoi_mob_app/models/user_model.dart';
-import 'package:fitmoi_mob_app/pages/view_account.dart';
 import 'package:fitmoi_mob_app/utils/color.dart';
 import 'package:fitmoi_mob_app/widgets/btn_widget.dart';
 import 'package:fitmoi_mob_app/widgets/header_container.dart';
@@ -269,20 +269,20 @@ class _RegisterPageState extends State<RegisterPage> {
                                       final userr = await FirebaseAuth.instance
                                           .fetchSignInMethodsForEmail(email);
                                       addUserDetails(
-                                              fisrtController.text,
-                                              lastController.text,
-                                              emailController.text,
-                                              addrController.text,
-                                              mobileController.text,
-                                              greyimage,
-                                              userId,
-                                              sideimage,
-                                              frontimage,
-                                              backimage,
-                                              "",
-                                              "",
-                                              _g.name)
-                                          .then((value) {
+                                        fisrtController.text,
+                                        lastController.text,
+                                        emailController.text,
+                                        addrController.text,
+                                        mobileController.text,
+                                        sideimage,
+                                        frontimage,
+                                        backimage,
+                                        greyimage,
+                                        "",
+                                        "",
+                                        _g.name,
+                                        userId,
+                                      ).then((value) {
                                         print("Created new account");
                                         Fluttertoast.showToast(
                                             msg: "Account created...",

@@ -1,6 +1,9 @@
 // ignore_for_file: dead_code
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fitmoi_mob_app/widgets/btn_with_image.dart';
+import 'package:fitmoi_mob_app/widgets/passwordfield.dart';
+import 'package:fitmoi_mob_app/widgets/reg_textinput.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -12,6 +15,7 @@ import 'package:fitmoi_mob_app/widgets/header_container.dart';
 import '../admin/admin.dart';
 import '../home/home_page.dart';
 import '../models/auth_service.dart';
+import '../models/user_model.dart';
 import '../widgets/app_bar.dart';
 
 TextEditingController emailController = TextEditingController();
@@ -87,46 +91,21 @@ class _LoginPageState extends State<LoginPage> {
                       child: Column(
                         mainAxisSize: MainAxisSize.max,
                         children: <Widget>[
-                          textInput(
-                              controller: emailController,
-                              hint: "Email",
-                              icon: Icons.email,
-                              torf: false),
-                          Container(
-                            margin: const EdgeInsets.only(top: 20),
-                            decoration: const BoxDecoration(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(20)),
-                              color: Colors.white,
-                            ),
-                            padding: const EdgeInsets.only(left: 10),
-                            child: TextFormField(
-                              controller: passwordController,
-                              obscureText: obscureText,
-                              decoration: InputDecoration(
-                                border: InputBorder.none,
-                                hintText: "Password",
-                                prefixIcon: const Icon(
-                                  Icons.vpn_key,
-                                  color: Color.fromARGB(255, 249, 118, 3),
-                                ),
-                                suffixIcon: GestureDetector(
-                                  onTap: _togglePasswordVisibility,
-                                  child: obscureText
-                                      ? Icon(Icons.visibility)
-                                      : Icon(Icons.visibility_off),
-                                ),
-                              ),
-                              validator: (value) {
-                                if (value!.isEmpty ||
-                                    passwordController.text.length < 6) {
-                                  return "Password must not be less than 6 characters";
-                                } else {
-                                  return null;
-                                }
-                              },
-                            ),
+                          RegTextInput(
+                            controller: emailController,
+                            hint: "Email",
+                            icon: Icons.email,
+                            torf: false,
+                            errormssg: emailerrormssg,
+                            regexp: eregexp,
+                            enable: true,
                           ),
+                          PasswordField(
+                              hintText: "Password",
+                              obscureText: obscureText,
+                              Controller: passwordController,
+                              perrormssg:
+                                  "Password must not be less than 6 characters"),
                           Container(
                             margin: const EdgeInsets.only(top: 10),
                             alignment: Alignment.centerRight,
@@ -134,7 +113,7 @@ class _LoginPageState extends State<LoginPage> {
                                 child: const Text(
                                     style: TextStyle(
                                         color:
-                                            Color.fromARGB(255, 249, 118, 3)),
+                                            Color.fromARGB(255, 10, 169, 159)),
                                     "Forgot Password?"),
                                 onPressed: () {
                                   Navigator.pushNamed(context, 'forgot_pass');
@@ -171,36 +150,21 @@ class _LoginPageState extends State<LoginPage> {
                               ),
                             ),
                           ),
-                          ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              primary: mintLightColors,
-                              textStyle: const TextStyle(
-                                  fontSize: 15,
-                                  color: Color.fromARGB(255, 64, 64, 64),
-                                  fontWeight: FontWeight.bold),
-                            ),
-                            onPressed: () {
-                              AuthService().signInWithGoogle();
-                              Navigator.of(context).pushReplacement(
-                                  MaterialPageRoute(
-                                      builder: (context) => MyHomePage()));
-                            },
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Text('Login with Google'),
-                                SizedBox(
-                                  width: 2,
-                                ),
-                                const Image(
-                                  image: NetworkImage(
-                                      'https://image.similarpng.com/very-thumbnail/2020/12/Colorful-google-logo-design-on-transparent-PNG-1.png'),
-                                  width: 20,
-                                  height: 20,
-                                ),
-                              ],
-                            ),
+                          const SizedBox(
+                            height: 20,
                           ),
+                          Expanded(
+                              child: Center(
+                            child: ButtonWithImage(
+                              btnText: "LOGIN WITH GOOGLE",
+                              onClick: () {
+                                AuthService().signInWithGoogle();
+                                Navigator.of(context).pushReplacement(
+                                    MaterialPageRoute(
+                                        builder: (context) => MyHomePage()));
+                              },
+                            ),
+                          )),
                           InkWell(
                             child: RichText(
                               text: TextSpan(children: [
@@ -224,39 +188,6 @@ class _LoginPageState extends State<LoginPage> {
             ],
           ),
         ),
-      ),
-    );
-  }
-
-  Widget textInput({controller, hint, icon, torf}) {
-    return Container(
-      margin: const EdgeInsets.only(top: 20),
-      decoration: const BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(20)),
-        color: Colors.white,
-      ),
-      padding: const EdgeInsets.only(left: 10),
-      child: TextFormField(
-        obscureText: torf,
-        controller: controller,
-        decoration: InputDecoration(
-          border: InputBorder.none,
-          hintText: hint,
-          prefixIcon: Icon(
-            icon,
-            color: Color.fromARGB(255, 249, 118, 3),
-          ),
-        ),
-        validator: (value) {
-          bool emailValid = RegExp(
-                  r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-              .hasMatch(value!);
-          if (value.isEmpty || !emailValid) {
-            return "Enter Email Correctly";
-          } else {
-            return null;
-          }
-        },
       ),
     );
   }

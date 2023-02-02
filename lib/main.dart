@@ -1,20 +1,22 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:fitmoi_mob_app/pages/forgot_pass.dart';
 import 'package:fitmoi_mob_app/pages/login_page.dart';
 import 'package:fitmoi_mob_app/pages/must_have_account.dart';
 import 'package:fitmoi_mob_app/pages/regi_page.dart';
-import 'package:fitmoi_mob_app/pages/view_account.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fitmoi_mob_app/admin/admin.dart';
 
-import 'package:fitmoi_mob_app/admin/users_admin.dart';
-
 import 'package:fitmoi_mob_app/home/home_page.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 
 import 'package:fitmoi_mob_app/home/navbar.dart';
+
+import 'admin/add_product.dart';
+import 'admin/view_product.dart';
 
 //import 'pages/cart_view.dart';
 //import 'pages/calendar.dart';
@@ -77,7 +79,7 @@ class _MyAppState extends State<MyApp> {
         'login': (context) => LoginPage(),
         'register': (context) => RegisterPage(),
         'dashboard': (context) => const Admin(),
-        'profile': (context) => const ViewAccountPage(),
+        //'profile': (context) => const ViewAccountPage(),
         /*'cart': (context) => CartItem(),
         'shop': (context) => Products(cat: 'Cables'),
         'contact_us': (context) => ContactUs(),
@@ -87,11 +89,11 @@ class _MyAppState extends State<MyApp> {
         'view_users': (context) => ViewUsersPage(),
         'view_orders': (context) => ViewOrdersPage(),
         'view_messages': (context) => ViewMessagesPage(),
-        'view_products': (context) => const ViewProductPage(),
+        
         'view_colors': (context) => const ViewcolorsPage(),
         'view_qualties': (context) => const ViewQualitiesPage(),
         'view_categories': (context) => const ViewCategoriesPage(),
-        'add_product': (context) => AddProductPage(),
+        
         'add_color': (context) => AddColorPage(),
         'add_quality': (context) => AddQualityPage(),
         'add_category': (context) => AddCategPage(),
@@ -99,8 +101,11 @@ class _MyAppState extends State<MyApp> {
         'add_gallery': (context) => const AddGallery(),
         'search_users': (context) => const FirebaseSearchUserScreen(),
         //'search_products': (context) => const ProductSearch(),
-        'forgot_pass': (context) => const ForgotPass(),
+        
         'araf': (context) => Offerrphoto(),*/
+        'forgot_pass': (context) => const ForgotPass(),
+        'add_product': (context) => AddProductPage(),
+        'view_products': (context) => const ViewProductPage(),
       },
     );
   }
