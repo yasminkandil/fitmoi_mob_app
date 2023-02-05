@@ -72,10 +72,12 @@ enum Gender { male, female }
 var imageUrl;
 var downloadUrl;
 var greyimage =
-    'https://www.google.com/search?q=profile+photo+&tbm=isch&ved=2ahUKEwis27rOz_76AhVFexoKHU2PBGoQ2-cCegQIABAA&oq=profile+photo+&gs_lcp=CgNpbWcQAzIECAAQQzIFCAAQgAQyBQgAEIAEMgUIABCABDIFCAAQgAQyBQgAEIAEMgUIABCABDIFCAAQgAQyBQgAEIAEMgUIABCABDoGCAAQBxAeULwEWLwEYKoIaABwAHgAgAGZAYgBkwKSAQMwLjKYAQCgAQGqAQtnd3Mtd2l6LWltZ8ABAQ&sclient=img&ei=d4lZY-zDCsX2ac2ektAG&bih=657&biw=1366#imgrc=nfkyptoYx2OzJM';
-var sideimage = 'assets/side.jpeg';
-var frontimage = 'assets/front.jpeg';
-var backimage = 'assets/back.jpeg';
+    'https://media.tarkett-image.com/large/TH_24567080_24594080_24596080_24601080_24563080_24565080_24588080_001.jpg';
+var sideimage = 'https://en.pimg.jp/062/964/876/1/62964876.jpg';
+var frontimage =
+    'https://thumbs.dreamstime.com/b/front-view-woman-body-silhouette-front-view-human-body-silhouette-adult-female-174553835.jpg';
+var backimage =
+    'https://thumbs.dreamstime.com/b/front-view-woman-body-silhouette-front-view-human-body-silhouette-adult-female-174553835.jpg';
 
 class UserModel {
   String firstname;
@@ -87,6 +89,12 @@ class UserModel {
   String userImageSide;
   String userImageFront;
   String userImageBack;
+  double height;
+  double weight;
+  String gender;
+  double hip;
+  double chest;
+  double back;
 
   UserModel({
     required this.firstname,
@@ -98,6 +106,12 @@ class UserModel {
     required this.userImageSide,
     required this.userImageFront,
     required this.userImageBack,
+    required this.height,
+    required this.weight,
+    required this.gender,
+    required this.hip,
+    required this.chest,
+    required this.back,
   });
 }
 

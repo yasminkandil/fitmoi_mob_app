@@ -388,26 +388,29 @@ class _AddProductPageState extends State<AddProductPage> {
                                   if (formKey.currentState!.validate()) {
                                     pp
                                         .addProduct(
-                                      pp.nameController.text,
-                                      pp.descriptionController.text,
-                                      pp.qualityController.text,
-                                      _selectedValue,
-                                      pp.priceController.text,
-                                      pp.quantityController.text,
-                                      DateTime.now().toString(),
-                                      pp.greyimage,
-                                      pp.greyimage2,
-                                      pp.greyimage3,
-                                      colorsList,
-                                      sizeList,
-                                      _uuid.v1(),
-                                      pp.squantityController.text,
-                                      pp.mquantityController.text,
-                                      pp.lquantityController.text,
-                                      pp.xlquantityController.text,
-                                      pp.xxlquantityController.text,
-                                    )
+                                            pp.nameController.text,
+                                            pp.descriptionController.text,
+                                            pp.qualityController.text,
+                                            _selectedValue,
+                                            pp.priceController.text,
+                                            pp.quantityController.text,
+                                            DateTime.now().toString(),
+                                            pp.greyimage,
+                                            pp.greyimage2,
+                                            pp.greyimage3,
+                                            colorsList,
+                                            sizeList,
+                                            _uuid.v1(),
+                                            pp.squantityController.text,
+                                            pp.mquantityController.text,
+                                            pp.lquantityController.text,
+                                            pp.xlquantityController.text,
+                                            pp.xxlquantityController.text,
+                                            false,
+                                            "")
                                         .then((value) {
+                                      sizeList.clear();
+                                      colorsList.clear();
                                       Fluttertoast.showToast(
                                         msg: "Product addedd...",
                                       );

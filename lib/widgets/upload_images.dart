@@ -46,7 +46,8 @@ class _UploadBodyImagesState extends State<UploadBodyImages> {
                   ],
                   shape: BoxShape.rectangle,
                   image: DecorationImage(
-                      fit: BoxFit.cover, image: AssetImage(widget.imagepath))),
+                      fit: BoxFit.cover,
+                      image: NetworkImage(widget.imagepath))),
             ),
             Positioned(
               bottom: 0,

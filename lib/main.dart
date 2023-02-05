@@ -4,6 +4,7 @@ import 'package:fitmoi_mob_app/pages/forgot_pass.dart';
 import 'package:fitmoi_mob_app/pages/login_page.dart';
 import 'package:fitmoi_mob_app/pages/must_have_account.dart';
 import 'package:fitmoi_mob_app/pages/regi_page.dart';
+import 'package:fitmoi_mob_app/pages/view_account.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -15,7 +16,9 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 
 import 'package:fitmoi_mob_app/home/navbar.dart';
 
+import 'admin/add_category.dart';
 import 'admin/add_product.dart';
+import 'admin/view_categories.dart';
 import 'admin/view_product.dart';
 
 //import 'pages/cart_view.dart';
@@ -71,7 +74,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Sahar',
+      title: 'fitmoi',
       initialRoute: "homepage",
       routes: {
         "homepage": (context) => const MyHomePage(),
@@ -79,12 +82,14 @@ class _MyAppState extends State<MyApp> {
         'login': (context) => LoginPage(),
         'register': (context) => RegisterPage(),
         'dashboard': (context) => const Admin(),
-        //'profile': (context) => const ViewAccountPage(),
+        'profile': (context) => const ViewAccountPage(),
         /*'cart': (context) => CartItem(),
         'shop': (context) => Products(cat: 'Cables'),
         'contact_us': (context) => ContactUs(),
         'gallery': (context) => gallery(),*/
         'must_have_account': (context) => MustHaveAccountPage(),
+        'add_category': (context) => AddCategPage(),
+        'view_categories': (context) => const ViewCategoriesPage(),
         /* 'order_history': (context) => OrderScreen(ord: 'salma'),
         'view_users': (context) => ViewUsersPage(),
         'view_orders': (context) => ViewOrdersPage(),
@@ -92,11 +97,11 @@ class _MyAppState extends State<MyApp> {
         
         'view_colors': (context) => const ViewcolorsPage(),
         'view_qualties': (context) => const ViewQualitiesPage(),
-        'view_categories': (context) => const ViewCategoriesPage(),
+        
         
         'add_color': (context) => AddColorPage(),
         'add_quality': (context) => AddQualityPage(),
-        'add_category': (context) => AddCategPage(),
+        
         'add_homeimage': (context) => const AddGalleryhome(),
         'add_gallery': (context) => const AddGallery(),
         'search_users': (context) => const FirebaseSearchUserScreen(),

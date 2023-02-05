@@ -48,7 +48,7 @@ class _AdminState extends State<Admin> {
                   child: ElevatedButton.icon(
                       style: ButtonStyle(
                         backgroundColor: MaterialStateProperty.all(
-                            Color.fromARGB(255, 249, 118, 3)),
+                            Color.fromARGB(255, 10, 169, 159)),
                       ),
                       onPressed: () {
                         setState(() => _selectedPage = Page.dashboard);
@@ -59,7 +59,7 @@ class _AdminState extends State<Admin> {
                   child: ElevatedButton.icon(
                       style: ButtonStyle(
                         backgroundColor: MaterialStateProperty.all(
-                            Color.fromARGB(255, 249, 118, 3)),
+                            Color.fromARGB(255, 10, 169, 159)),
                       ),
                       onPressed: () {
                         setState(() => _selectedPage = Page.manage);
@@ -219,31 +219,6 @@ class _AdminState extends State<Admin> {
                 leading: const Icon(Icons.library_books),
                 title: const Text("Category list"),
                 onTap: () => Navigator.pushNamed(context, 'view_categories')),
-            const Divider(),
-            ListTile(
-                leading: const Icon(Icons.add_circle_outline),
-                title: const Text("Add Color"),
-                onTap: () => Navigator.pushNamed(context, 'add_color')),
-            const Divider(),
-            ListTile(
-                leading: const Icon(Icons.library_books),
-                title: const Text("Colors List"),
-                onTap: () => Navigator.pushNamed(context, 'view_colors')),
-            const Divider(),
-            ListTile(
-                leading: const Icon(Icons.add_circle_outline),
-                title: const Text("Add Quality"),
-                onTap: () => Navigator.pushNamed(context, 'add_quality')),
-            const Divider(),
-            ListTile(
-                leading: const Icon(Icons.library_books),
-                title: const Text("Qualities List"),
-                onTap: () => Navigator.pushNamed(context, 'view_qualties')),
-            const Divider(),
-            ListTile(
-                leading: const Icon(Icons.add_circle_outline),
-                title: const Text("Add in gallery"),
-                onTap: () => Navigator.pushNamed(context, 'add_gallery')),
             const Divider(),
             ListTile(
                 leading: const Icon(Icons.add_circle_outline),

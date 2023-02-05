@@ -6,6 +6,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:fitmoi_mob_app/pages/view_account.dart';
 import 'package:fitmoi_mob_app/widgets/passwordfield.dart';
+import 'package:fitmoi_mob_app/widgets/uploadFunc.dart';
 import 'package:fitmoi_mob_app/widgets/upload_images.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -72,6 +73,8 @@ class _RegisterPageState extends State<RegisterPage> {
     }
   }
 
+  var sideee;
+
   /*@override
   void dispose() {
     // * TextEditingControllers should be always disposed
@@ -123,8 +126,14 @@ class _RegisterPageState extends State<RegisterPage> {
                               ),
                               UploadImages(
                                   textt: "Upload Profile Image",
-                                  function: () {
-                                    uploadImage();
+                                  function: () async {
+                                    //sideee =
+                                    //print(sideee);
+                                    setState(() async {
+                                      greyimage =
+                                          await uploadImagee('imageName');
+                                      print(greyimage);
+                                    });
                                   },
                                   imagepath: greyimage),
                             ],
@@ -134,22 +143,34 @@ class _RegisterPageState extends State<RegisterPage> {
                             children: [
                               UploadBodyImages(
                                   textt: "Upload Back Image",
-                                  onPressed: () {
-                                    uploadImage();
+                                  onPressed: () async {
+                                    setState(() async {
+                                      backimage =
+                                          await uploadImagee('backName');
+                                      print(backimage);
+                                    });
                                   },
-                                  imagepath: 'assets/back.jpeg'),
+                                  imagepath: backimage),
                               UploadBodyImages(
                                   textt: "Upload Side Image",
-                                  onPressed: () {
-                                    uploadImage();
+                                  onPressed: () async {
+                                    setState(() async {
+                                      sideimage =
+                                          await uploadImagee('sideName');
+                                      print(sideimage);
+                                    });
                                   },
-                                  imagepath: 'assets/side.jpeg'),
+                                  imagepath: sideimage),
                               UploadBodyImages(
                                   textt: "Upload Front Image",
-                                  onPressed: () {
-                                    uploadImage();
+                                  onPressed: () async {
+                                    setState(() async {
+                                      frontimage =
+                                          await uploadImagee('frontName');
+                                      print(frontimage);
+                                    });
                                   },
-                                  imagepath: 'assets/front.jpeg'),
+                                  imagepath: frontimage),
                             ],
                           ),
                           RegTextInput(

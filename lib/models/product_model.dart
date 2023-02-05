@@ -24,9 +24,12 @@ TextEditingController xxlquantityController = TextEditingController();
 var imageUrl;
 var downloadUrl;
 var imagee;
-var greyimage = 'assets/greyimage.jpeg';
-var greyimage3 = 'assets/greyimage.jpeg';
-var greyimage2 = 'assets/greyimage.jpeg';
+var greyimage =
+    'https://media.tarkett-image.com/large/TH_24567080_24594080_24596080_24601080_24563080_24565080_24588080_001.jpg';
+var greyimage3 =
+    'https://media.tarkett-image.com/large/TH_24567080_24594080_24596080_24601080_24563080_24565080_24588080_001.jpg';
+var greyimage2 =
+    'https://media.tarkett-image.com/large/TH_24567080_24594080_24596080_24601080_24563080_24565080_24588080_001.jpg';
 late String Cvalue;
 var imageUrl2;
 var downloadUrl2;
@@ -36,6 +39,15 @@ var imageUrl3;
 var downloadUrl3;
 List<String> colorsList = [];
 List<String> sizeList = [];
+List<String> categList = [];
+setCateg(List<String> categ) {
+  categList = categ;
+}
+
+getCateg() {
+  return categList;
+}
+
 setColors(List<String> colors) {
   colorsList = colors;
 }
@@ -103,27 +115,28 @@ List ListCateg = [
 ];
 
 Future addProduct(
-  String name,
-  String description,
-  //String brand,
-  String quality,
-  //String color,
-  String category,
-  String price,
-  String quantity,
-  String date,
-  String prodimage,
-  String img2,
-  String img3,
-  List<String> colors,
-  List<String> size,
-  String id,
-  String squantity,
-  String mquantity,
-  String lquantity,
-  String xlquantity,
-  String xxlquantity,
-) async {
+    String name,
+    String description,
+    //String brand,
+    String quality,
+    //String color,
+    String category,
+    String price,
+    String quantity,
+    String date,
+    String prodimage,
+    String img2,
+    String img3,
+    List<String> colors,
+    List<String> size,
+    String id,
+    String squantity,
+    String mquantity,
+    String lquantity,
+    String xlquantity,
+    String xxlquantity,
+    bool onSale,
+    String price2) async {
   await FirebaseFirestore.instance.collection('product').doc(id).set({
     'name': name,
     'description': description,
@@ -142,7 +155,9 @@ Future addProduct(
     'mquantity': mquantity,
     'lquantity': lquantity,
     'xlquantity': xlquantity,
-    'xxlquantity': xxlquantity
+    'xxlquantity': xxlquantity,
+    'onSale': onSale,
+    'price2': price2
   });
 }
 

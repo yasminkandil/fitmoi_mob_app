@@ -1,15 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:fitmoi_mob_app/admin/add_product.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-
+import 'package:fitmoi_mob_app/admin/add_product.dart';
+import 'package:fitmoi_mob_app/widgets/app_bar.dart';
+import 'package:fitmoi_mob_app/widgets/btn_widget.dart';
+import 'package:fitmoi_mob_app/widgets/reg_textinput.dart';
+import '../models/product_model.dart';
 import "package:path/path.dart" as p;
 
-import '../models/product_model.dart';
 import '../utils/color.dart';
-import '../widgets/app_bar.dart';
-import '../widgets/btn_widget.dart';
-import '../widgets/reg_textinput.dart';
 
 class AddOfferPage extends StatefulWidget {
   const AddOfferPage({super.key, required this.prodid, required this.p2});
@@ -70,7 +69,7 @@ class _AddOfferPageState extends State<AddOfferPage> {
                                       if (formKey.currentState!.validate()) {
                                         final updateprod = FirebaseFirestore
                                             .instance
-                                            .collection('products')
+                                            .collection('product')
                                             .doc(widget.prodid)
                                             .update(
                                           {
@@ -94,7 +93,7 @@ class _AddOfferPageState extends State<AddOfferPage> {
                                       onClick: () {
                                         final updateprod = FirebaseFirestore
                                             .instance
-                                            .collection('products')
+                                            .collection('product')
                                             .doc(widget.prodid)
                                             .update(
                                           {
