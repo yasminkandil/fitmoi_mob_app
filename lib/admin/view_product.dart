@@ -1,3 +1,4 @@
+import 'package:fitmoi_mob_app/admin/add_offer.dart';
 import 'package:fitmoi_mob_app/admin/add_product.dart';
 import 'package:fitmoi_mob_app/admin/editProdPage.dart';
 import 'package:fitmoi_mob_app/models/product_model.dart';
@@ -6,7 +7,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import '../provider/product_provider.dart';
 import '../utils/color.dart';
-import 'edit_product.dart';
 
 class ViewProductPage extends ConsumerWidget {
   const ViewProductPage({super.key});
@@ -93,7 +93,24 @@ class ViewProductPage extends ConsumerWidget {
                                       height: 10,
                                       width: 10,
                                     ),
-                                    Text("Quantity: ${product.quantity}"),
+                                    product.onSale
+                                        ? Text(
+                                            "Price: ${product.price2}",
+                                          )
+                                        : Text("Price: ${product.price}"),
+                                    const SizedBox(
+                                      height: 10,
+                                      width: 10,
+                                    ),
+                                    const SizedBox(
+                                      height: 10,
+                                      width: 10,
+                                    ),
+                                    int.parse(product.quantity) < 10
+                                        ? Text("Quantity: ${product.quantity}",
+                                            style: const TextStyle(
+                                                color: Colors.red))
+                                        : Text("Quantity: ${product.quantity}"),
                                     const SizedBox(
                                       height: 10,
                                       width: 10,
@@ -125,6 +142,37 @@ class ViewProductPage extends ConsumerWidget {
                                 Navigator.of(context).push(MaterialPageRoute(
                                     builder: (context) =>
                                         EditProd(prodd: product.id)));
+                                Fluttertoast.showToast(
+                                    msg: product.id,
+                                    toastLength: Toast.LENGTH_SHORT,
+                                    gravity: ToastGravity.BOTTOM,
+                                    timeInSecForIosWeb: 1,
+                                    backgroundColor: Colors.grey,
+                                    textColor: Colors.white,
+                                    fontSize: 16.0);
+                              },
+                            ),
+                          ),
+                          Center(
+                            child: InkWell(
+                              child: RichText(
+                                text: TextSpan(children: [
+                                  const TextSpan(
+                                      text:
+                                          "To add offer to this product click ",
+                                      style: TextStyle(
+                                          color: Colors.black, fontSize: 15)),
+                                  TextSpan(
+                                      text: "here",
+                                      style: TextStyle(
+                                          color: mintColors, fontSize: 15)),
+                                ]),
+                              ),
+                              onTap: () {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) => AddOfferPage(
+                                        prodid: product.id,
+                                        p2: product.price2)));
                                 Fluttertoast.showToast(
                                     msg: product.id,
                                     toastLength: Toast.LENGTH_SHORT,

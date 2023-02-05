@@ -130,7 +130,7 @@ class _LoginPageState extends State<LoginPage> {
                                   print(user);
                                   if (user != null &&
                                       emailController.text ==
-                                          "sahar@gmail.com") {
+                                          "fitmoi@gmail.com") {
                                     Navigator.of(context).pushReplacement(
                                         MaterialPageRoute(
                                             builder: (context) => Admin()));
@@ -157,11 +157,8 @@ class _LoginPageState extends State<LoginPage> {
                               child: Center(
                             child: ButtonWithImage(
                               btnText: "LOGIN WITH GOOGLE",
-                              onClick: () {
-                                AuthService().signInWithGoogle();
-                                Navigator.of(context).pushReplacement(
-                                    MaterialPageRoute(
-                                        builder: (context) => MyHomePage()));
+                              onClick: () async {
+                                AuthService().handleSignIn();
                               },
                             ),
                           )),
