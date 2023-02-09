@@ -147,7 +147,7 @@ class HomeNavbar extends State<Navigation_bar> {
             Navigator.pushNamed(context, 'homepage');
             currentPage = Sections.Log_Out;
           } else if (id == 1) {
-            Navigator.pushNamed(context, 'gallery');
+            Navigator.pushNamed(context, 'tryon');
             currentPage = Sections.Gallery;
           } else if (id == 8) {
             if (FirebaseAuth.instance.currentUser == null) {

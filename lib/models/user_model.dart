@@ -9,6 +9,11 @@ String addrerrormssg = "Enter Address";
 String mobileerrormssg = "Enter Mobile Number Correctly";
 String heighterrormssg = "Enter Height Correctly";
 String weighterrormssg = "Enter Weight Correctly";
+String herrormessage = "Please write height correctly";
+String werrormessage = "Please write weight correctly";
+String cerrormessage = "Please write chest correctly";
+String berrormessage = "Please write back correctly";
+String hiperrormessage = "Please write hip correctly";
 String eregexp =
     r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+";
 String aregexp = r'^[a-z A-Z]+$';
@@ -32,8 +37,6 @@ Future addUserDetails(
     String userImageFront,
     String userImageBack,
     String userImage,
-    String height,
-    String weight,
     String gender,
     String id) async {
   await FirebaseFirestore.instance.collection('users').doc(id).set(
@@ -47,9 +50,12 @@ Future addUserDetails(
       'imageS': userImageSide,
       'imageF': userImageFront,
       'imageB': userImageBack,
-      'height': height,
-      'weight': weight,
+      'height': 0.0,
+      'weight': 0.0,
       'gender': gender,
+      'back': 0.0,
+      'chest': 0.0,
+      'hip': 0.0,
       'id': id,
     },
   );

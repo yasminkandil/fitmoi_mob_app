@@ -4,6 +4,7 @@ import 'package:fitmoi_mob_app/pages/forgot_pass.dart';
 import 'package:fitmoi_mob_app/pages/login_page.dart';
 import 'package:fitmoi_mob_app/pages/must_have_account.dart';
 import 'package:fitmoi_mob_app/pages/regi_page.dart';
+import 'package:fitmoi_mob_app/pages/try-on.dart';
 import 'package:fitmoi_mob_app/pages/view_account.dart';
 
 import 'package:flutter/material.dart';
@@ -80,6 +81,7 @@ class _MyAppState extends State<MyApp> {
         "homepage": (context) => const MyHomePage(),
         "navbar": (context) => Navigation_bar(),
         'login': (context) => LoginPage(),
+        'tryon': (context) => TryOn(),
         'register': (context) => RegisterPage(),
         'dashboard': (context) => const Admin(),
         'profile': (context) => const ViewAccountPage(),

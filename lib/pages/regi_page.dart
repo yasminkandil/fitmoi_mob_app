@@ -299,8 +299,6 @@ class _RegisterPageState extends State<RegisterPage> {
                                         frontimage,
                                         backimage,
                                         greyimage,
-                                        "",
-                                        "",
                                         _g.name,
                                         userId,
                                       ).then((value) {
