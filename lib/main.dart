@@ -3,9 +3,11 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:fitmoi_mob_app/pages/forgot_pass.dart';
 import 'package:fitmoi_mob_app/pages/login_page.dart';
 import 'package:fitmoi_mob_app/pages/must_have_account.dart';
+import 'package:fitmoi_mob_app/pages/products_all.dart';
 import 'package:fitmoi_mob_app/pages/regi_page.dart';
 import 'package:fitmoi_mob_app/pages/try-on.dart';
 import 'package:fitmoi_mob_app/pages/view_account.dart';
+import 'package:fitmoi_mob_app/shop/Orders_Screen/order_screen.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -18,9 +20,14 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:fitmoi_mob_app/home/navbar.dart';
 
 import 'admin/add_category.dart';
+import 'admin/add_homePageImage.dart';
 import 'admin/add_product.dart';
+import 'admin/orders_admin.dart';
+import 'admin/search_user.dart';
+import 'admin/users_admin.dart';
 import 'admin/view_categories.dart';
 import 'admin/view_product.dart';
+import 'home/newarrival_homepage.dart';
 
 //import 'pages/cart_view.dart';
 //import 'pages/calendar.dart';
@@ -85,31 +92,23 @@ class _MyAppState extends State<MyApp> {
         'register': (context) => RegisterPage(),
         'dashboard': (context) => const Admin(),
         'profile': (context) => const ViewAccountPage(),
-        /*'cart': (context) => CartItem(),
+        //'cart': (context) => CartItem(),
         'shop': (context) => Products(cat: 'Cables'),
-        'contact_us': (context) => ContactUs(),
-        'gallery': (context) => gallery(),*/
+        // 'contact_us': (context) => ContactUs(),
+        //'gallery': (context) => gallery(),
         'must_have_account': (context) => MustHaveAccountPage(),
         'add_category': (context) => AddCategPage(),
         'view_categories': (context) => const ViewCategoriesPage(),
-        /* 'order_history': (context) => OrderScreen(ord: 'salma'),
+        'order_history': (context) => OrderScreen(ord: 'salma'),
         'view_users': (context) => ViewUsersPage(),
         'view_orders': (context) => ViewOrdersPage(),
-        'view_messages': (context) => ViewMessagesPage(),
-        
-        'view_colors': (context) => const ViewcolorsPage(),
-        'view_qualties': (context) => const ViewQualitiesPage(),
-        
-        
-        'add_color': (context) => AddColorPage(),
-        'add_quality': (context) => AddQualityPage(),
-        
+        //  'view_messages': (context) => ViewMessagesPage(),
         'add_homeimage': (context) => const AddGalleryhome(),
-        'add_gallery': (context) => const AddGallery(),
+        //'add_gallery': (context) => const AddGallery(),
         'search_users': (context) => const FirebaseSearchUserScreen(),
         //'search_products': (context) => const ProductSearch(),
-        
-        'araf': (context) => Offerrphoto(),*/
+
+        'araf': (context) => Offerrphoto(),
         'forgot_pass': (context) => const ForgotPass(),
         'add_product': (context) => AddProductPage(),
         'view_products': (context) => const ViewProductPage(),
