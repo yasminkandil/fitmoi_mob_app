@@ -30,6 +30,12 @@ class ProductsService {
         image3: document.data().toString().contains('image3')
             ? document.get('image3')
             : '',
+        front: document.data().toString().contains('front')
+            ? document.get('front')
+            : '',
+        back: document.data().toString().contains('back')
+            ? document.get('back')
+            : '',
         price2: document.data().toString().contains('price2')
             ? document.get('price2')
             : '',
@@ -41,6 +47,9 @@ class ProductsService {
             : '',
         category: document.data().toString().contains('category')
             ? document.get('category')
+            : '',
+        subcategory: document.data().toString().contains('subcategory')
+            ? document.get('subcategory')
             : '',
         id: document.data().toString().contains('id') ? document.get('id') : '',
         onSale: document.data().toString().contains('onSale')
@@ -75,7 +84,7 @@ class ProductsService {
     return products;
   }
 
-  Future<ProductModel> getSpecificproduct(String id) async {
+  /*Future<ProductModel> getSpecificproduct(String id) async {
     List<ProductModel> products = [];
     DocumentSnapshot snapshot =
         await _productsCollectionReference.doc(id).get();
@@ -138,5 +147,5 @@ class ProductsService {
     );
 
     return product;
-  }
+  }*/
 }

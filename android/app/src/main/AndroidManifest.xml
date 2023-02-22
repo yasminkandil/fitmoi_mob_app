@@ -2,7 +2,7 @@
     package="com.SYKR.fitmoi_mob_app">
       <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />   
    <application
-        android:label="SYKR Mobile Care"
+        android:label="Fit Moi"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         

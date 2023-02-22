@@ -90,12 +90,12 @@ BEGIN
         BLOCK "040904e4"
         BEGIN
             VALUE "CompanyName", "com.example" "\0"
-            VALUE "FileDescription", "SYKR Mobile Care" "\0"
+            VALUE "FileDescription", "Fit Moi" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "SYKR Mobile Care" "\0"
+            VALUE "InternalName", "Fit Moi" "\0"
             VALUE "LegalCopyright", "Copyright (C) 2022 com.example. All rights reserved." "\0"
             VALUE "OriginalFilename", "fitmoi_mob_app.exe" "\0"
-            VALUE "ProductName", "SYKR Mobile Care" "\0"
+            VALUE "ProductName", "Fit Moi" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END

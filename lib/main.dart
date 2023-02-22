@@ -6,6 +6,8 @@ import 'package:fitmoi_mob_app/pages/must_have_account.dart';
 import 'package:fitmoi_mob_app/pages/regi_page.dart';
 import 'package:fitmoi_mob_app/pages/try-on.dart';
 import 'package:fitmoi_mob_app/pages/view_account.dart';
+import 'admin/orders_admin.dart';
+import 'admin/users_admin.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -92,9 +94,11 @@ class _MyAppState extends State<MyApp> {
         'must_have_account': (context) => MustHaveAccountPage(),
         'add_category': (context) => AddCategPage(),
         'view_categories': (context) => const ViewCategoriesPage(),
-        /* 'order_history': (context) => OrderScreen(ord: 'salma'),
         'view_users': (context) => ViewUsersPage(),
         'view_orders': (context) => ViewOrdersPage(),
+        /* 'order_history': (context) => OrderScreen(ord: 'salma'),
+        
+        
         'view_messages': (context) => ViewMessagesPage(),
         
         'view_colors': (context) => const ViewcolorsPage(),

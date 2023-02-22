@@ -167,6 +167,9 @@ class ProductModel {
   String image3;
   bool onSale;
   String name;
+  String front;
+  String back;
+  String subcategory;
   String quantity;
   String price;
   String price2;
@@ -188,6 +191,9 @@ class ProductModel {
     required this.image2,
     required this.image3,
     required this.onSale,
+    required this.front,
+    required this.back,
+    required this.subcategory,
     required this.quantity,
     required this.price,
     required this.price2,

@@ -42,11 +42,10 @@ class _AddProductPageState extends State<AddProductPage> {
   }
 
   void _getDropdownValues() async {
-    final snapshot = await _firestore.collection("categ").get();
+    final snapshot = await _firestore.collection("category").get();
     setState(() {
-      _dropdownValues = snapshot.docs
-          .map((doc) => doc.data()['category'].toString())
-          .toList();
+      _dropdownValues =
+          snapshot.docs.map((doc) => doc.data()['name'].toString()).toList();
       _selectedValue = _dropdownValues[0];
     });
   }
