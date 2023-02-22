@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import '../pages/my_drawer_header.dart';
 import '../utils/color.dart';
 import '../widgets/header_container.dart';
+import 'categoryhome.dart';
 
 class Navigation_bar extends StatefulWidget {
   @override
@@ -61,7 +62,7 @@ class HomeNavbar extends State<Navigation_bar> {
         child: Container(
           child: Column(children: <Widget>[
             HeaderContainer("Home Page"),
-            //HomeScreen(salma: 'salma'),
+            CategoryGender(),
           ]),
         ),
       ),
