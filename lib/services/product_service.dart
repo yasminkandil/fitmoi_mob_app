@@ -76,6 +76,9 @@ class ProductsService {
         xxlquantity: document.data().toString().contains('xxlquantity')
             ? document.get('xxlquantity')
             : '',
+        quality: document.data().toString().contains('quality')
+            ? document.get('quality')
+            : '',
       );
 
       products.add(product);

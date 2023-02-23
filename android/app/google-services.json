@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "846138108754",
-    "project_id": "fitmoi-8ae70",
-    "storage_bucket": "fitmoi-8ae70.appspot.com"
+    "project_number": "561970013041",
+    "project_id": "fitmoi-ee901",
+    "storage_bucket": "fitmoi-ee901.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:846138108754:android:bc11d41ced3b124aaca88b",
+        "mobilesdk_app_id": "1:561970013041:android:052df2d8ff2fb7153d0cd0",
         "android_client_info": {
-          "package_name": "com.SYKR.fitmoi_mob_app"
+          "package_name": "com.fitmoi.fitmoi_mob_app"
         }
       },
       "oauth_client": [
         {
-          "client_id": "846138108754-c924hgnl3gu7itd6p9c7d7cvti2m60mc.apps.googleusercontent.com",
+          "client_id": "561970013041-t90ifs0hvtl0iapnuevba7h6id2u3274.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCFUS8vp7zOrhvAzYA0Dw652x75IoVFyhg"
+          "current_key": "AIzaSyBlikhJj4M_ruhh-TjM4d5doDM5unMG_ik"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "846138108754-c924hgnl3gu7itd6p9c7d7cvti2m60mc.apps.googleusercontent.com",
+              "client_id": "561970013041-t90ifs0hvtl0iapnuevba7h6id2u3274.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

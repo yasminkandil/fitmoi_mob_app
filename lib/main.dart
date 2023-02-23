@@ -108,8 +108,6 @@ class _MyAppState extends State<MyApp> {
         
         'view_messages': (context) => ViewMessagesPage(),
         
-        'view_colors': (context) => const ViewcolorsPage(),
-        'view_qualties': (context) => const ViewQualitiesPage(),
         
         
         'add_color': (context) => AddColorPage(),
@@ -121,9 +119,11 @@ class _MyAppState extends State<MyApp> {
         //'search_products': (context) => const ProductSearch(),
 
         'araf': (context) => Offerrphoto(),
-        'forgot_pass': (context) => const ForgotPass(),
+        
+        */
         'add_product': (context) => AddProductPage(),
-        'view_products': (context) => const ViewProductPage(),*/
+        'view_products': (context) => const ViewProductPage(),
+        'forgot_pass': (context) => const ForgotPass(),
       },
     );
   }

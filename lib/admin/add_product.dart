@@ -34,11 +34,13 @@ class AddProductPage extends StatefulWidget {
 class _AddProductPageState extends State<AddProductPage> {
   final _firestore = FirebaseFirestore.instance;
   List<String> _dropdownValues = [];
+  //List<String> _dropdownValuessub = [];
 
   @override
   void initState() {
     super.initState();
     _getDropdownValues();
+    //_getDropdownValuesSub();
   }
 
   void _getDropdownValues() async {
@@ -49,6 +51,16 @@ class _AddProductPageState extends State<AddProductPage> {
       _selectedValue = _dropdownValues[0];
     });
   }
+
+  /*void _getDropdownValuesSub() async {
+    final snapshot = await _firestore.collection("category").get();
+    setState(() {
+      _dropdownValues = snapshot.docs
+          .map((doc) => doc.data()['subcategory'].toString())
+          .toList();
+      _selectedValue = _dropdownValues[0];
+    });
+  }*/
 
   uploadImage() async {
     final _storage = FirebaseStorage.instance;

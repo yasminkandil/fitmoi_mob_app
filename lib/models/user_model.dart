@@ -50,12 +50,12 @@ Future addUserDetails(
       'imageS': userImageSide,
       'imageF': userImageFront,
       'imageB': userImageBack,
-      'height': 0.0,
-      'weight': 0.0,
+      'height': '0.0',
+      'weight': '0.0',
       'gender': gender,
-      'back': 0.0,
-      'chest': 0.0,
-      'hip': 0.0,
+      'back': '0.0',
+      'chest': '0.0',
+      'hip': '0.0',
       'id': id,
     },
   );
@@ -95,12 +95,12 @@ class UserModel {
   String userImageSide;
   String userImageFront;
   String userImageBack;
-  double height;
-  double weight;
+  String height;
+  String weight;
   String gender;
-  double hip;
-  double chest;
-  double back;
+  String hip;
+  String chest;
+  String back;
 
   UserModel({
     required this.firstname,

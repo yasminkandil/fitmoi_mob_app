@@ -185,6 +185,7 @@ class ProductModel {
   String lquantity;
   String xlquantity;
   String xxlquantity;
+  String quality;
 
   ProductModel({
     required this.image,
@@ -209,6 +210,7 @@ class ProductModel {
     required this.lquantity,
     required this.xlquantity,
     required this.xxlquantity,
+    required this.quality,
 
     // required this.brand,
   });

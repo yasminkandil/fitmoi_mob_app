@@ -50,9 +50,9 @@ class _AddCategPageState extends State<AddCategPage> {
   final _nameController = TextEditingController();
   final _subtitleController = TextEditingController();
   Future addCategory(String name, List<String> subtitle) async {
-    await FirebaseFirestore.instance.collection('categ').doc().set({
+    await FirebaseFirestore.instance.collection('category').doc().set({
       'name': name,
-      'subtitle': subtitle,
+      'subcategory': subtitle,
     });
   }
 
