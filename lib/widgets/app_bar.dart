@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 //import 'package:fitmoi_mob_app/controllers/search_product.dart';
 import 'package:fitmoi_mob_app/utils/color.dart';
 
+import '../controllers/search_product.dart';
+
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   String text;
   CustomAppBar({Key? key, required this.text})
@@ -14,13 +16,13 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    /*Future<void> ProdSearch() async {
+    Future<void> ProdSearch() async {
       await showSearch(
         context: context,
         delegate: ProductSearch(),
       );
     }
-*/
+
     return AppBar(
       backgroundColor: GreyColors,
       title: Text(text),

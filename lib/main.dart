@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:fitmoi_mob_app/pages/contact_us.dart';
 import 'package:fitmoi_mob_app/pages/forgot_pass.dart';
 import 'package:fitmoi_mob_app/pages/login_page.dart';
 import 'package:fitmoi_mob_app/pages/must_have_account.dart';
@@ -28,7 +29,9 @@ import 'admin/orders_admin.dart';
 import 'admin/search_user.dart';
 import 'admin/users_admin.dart';
 import 'admin/view_categories.dart';
+import 'admin/view_messages.dart';
 import 'admin/view_product.dart';
+import 'controllers/search_product.dart';
 import 'home/newarrival_homepage.dart';
 
 //import 'pages/cart_view.dart';
@@ -96,34 +99,23 @@ class _MyAppState extends State<MyApp> {
         'profile': (context) => const ViewAccountPage(),
         //'cart': (context) => CartItem(),
         'shop': (context) => Products(cat: 'Cables'),
-        // 'contact_us': (context) => ContactUs(),
-        //'gallery': (context) => gallery(),
+        'contact_us': (context) => ContactUs(),
         'must_have_account': (context) => MustHaveAccountPage(),
         'add_category': (context) => AddCategPage(),
         'view_categories': (context) => const ViewCategoriesPage(),
         'view_users': (context) => ViewUsersPage(),
         'view_orders': (context) => ViewOrdersPage(),
-        /* 'order_history': (context) => OrderScreen(ord: 'salma'),
-        
-        
         'view_messages': (context) => ViewMessagesPage(),
-        
-        
-        
-        'add_color': (context) => AddColorPage(),
-        'add_quality': (context) => AddQualityPage(),
-        
-        'add_homeimage': (context) => const AddGalleryhome(),
-        //'add_gallery': (context) => const AddGallery(),
+        //'order_history': (context) => OrderScreen(ord: 'salma'),
         'search_users': (context) => const FirebaseSearchUserScreen(),
-        //'search_products': (context) => const ProductSearch(),
+        //'search_products': (context) => ProductSearch(),
 
-        'araf': (context) => Offerrphoto(),
-        
-        */
+        //'araf': (context) => Offerrphoto(),
+
         'add_product': (context) => AddProductPage(),
         'view_products': (context) => const ViewProductPage(),
         'forgot_pass': (context) => const ForgotPass(),
+        'add_homeimage': (context) => const AddGalleryhome(),
       },
     );
   }

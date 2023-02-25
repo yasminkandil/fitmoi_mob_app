@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
+import '../controllers/search_product.dart';
 import '../pages/my_drawer_header.dart';
 import '../utils/color.dart';
 import '../widgets/header_container.dart';
@@ -33,14 +34,14 @@ class HomeNavbar extends State<Navigation_bar> {
           ),*/
           IconButton(
             onPressed: () {
-              /* Future<void> ProdSearch() async {
+              Future<void> ProdSearch() async {
                 await showSearch(
                   context: context,
                   delegate: ProductSearch(),
                 );
               }
 
-              ProdSearch();*/
+              ProdSearch();
             },
             icon: const Icon(Icons.search),
           ),
@@ -96,7 +97,7 @@ class HomeNavbar extends State<Navigation_bar> {
               currentPage == Sections.Categories ? true : false),
           menuItem(8, "Cart", Icons.shop_two_outlined,
               currentPage == Sections.Cart ? true : false),
-          menuItem(1, "Gallery", Icons.image,
+          menuItem(1, "Try-On", Icons.image,
               currentPage == Sections.Gallery ? true : false),
           menuItem(9, "Order History", Icons.history,
               currentPage == Sections.order_history ? true : false),
@@ -113,7 +114,7 @@ class HomeNavbar extends State<Navigation_bar> {
 
   Widget menuItem(int id, String title, IconData icon, bool selected) {
     return Material(
-      color: selected ? Colors.grey : Colors.transparent,
+      //color: selected ? Colors.grey : Colors.transparent,
       child: InkWell(
         onTap: () {
           if (id == 7) {

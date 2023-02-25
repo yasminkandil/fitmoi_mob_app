@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 
 import '../home/home_page.dart';
 import '../utils/color.dart';
+import '../widgets/header_container.dart';
+import '../widgets/header_containerdash.dart';
 
 enum Page { dashboard, manage }
 
@@ -19,14 +21,11 @@ class Admin extends StatefulWidget {
 }
 
 class _AdminState extends State<Admin> {
-  Page _selectedPage = Page.dashboard;
-  MaterialColor active = Colors.orange;
-  MaterialColor notActive = Colors.grey;
-  int count = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          title: const Text("Dashboard"),
           backgroundColor: GreyColors,
           leading: IconButton(
               icon: Icon(
@@ -41,206 +40,106 @@ class _AdminState extends State<Admin> {
                   }),
                 );
               }),
-
-          title: Row(
-            children: <Widget>[
-              Expanded(
-                  child: ElevatedButton.icon(
-                      style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all(
-                            Color.fromARGB(255, 10, 169, 159)),
-                      ),
-                      onPressed: () {
-                        setState(() => _selectedPage = Page.dashboard);
-                      },
-                      icon: const Icon(Icons.dashboard, color: Colors.white),
-                      label: const Text('Dashboard'))),
-              Expanded(
-                  child: ElevatedButton.icon(
-                      style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all(
-                            Color.fromARGB(255, 10, 169, 159)),
-                      ),
-                      onPressed: () {
-                        setState(() => _selectedPage = Page.manage);
-                      },
-                      icon: const Icon(Icons.sort, color: Colors.white),
-                      label: const Text('Manage'))),
-            ],
-          ),
-          //elevation: 0.0,
-          //backgroundColor: Colors.white,
         ),
         body: _loadScreen());
   }
 
   Widget _loadScreen() {
-    switch (_selectedPage) {
-      case Page.dashboard:
-        return Column(
-          children: <Widget>[
-            ListTile(
-              subtitle: ElevatedButton.icon(
-                onPressed: null,
-                icon: const Icon(
-                  Icons.attach_money,
-                  size: 30.0,
-                  color: Colors.black,
-                ),
-                label: Text('12,000',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 30.0, color: mintColors)),
-              ),
-              title: const Text(
-                'Revenue',
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 24.0, color: Colors.black),
-              ),
-            ),
-            Expanded(
-              child: GridView(
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2),
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.all(18.0),
-                    child: Card(
-                      child: ListTile(
-                          title: ElevatedButton.icon(
-                              onPressed: null,
-                              icon: const Icon(Icons.people_outline),
-                              label: const Text("Users")),
-                          subtitle: Text(
-                            '150',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(color: mintColors, fontSize: 50.0),
-                          )),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(18.0),
-                    child: Card(
-                      child: ListTile(
-                          title: ElevatedButton.icon(
-                              onPressed: null,
-                              icon: const Icon(Icons.category),
-                              label: const Text("Categorie")),
-                          subtitle: Text(
-                            '23',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(color: mintColors, fontSize: 50.0),
-                          )),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(22.0),
-                    child: Card(
-                      child: ListTile(
-                          title: ElevatedButton.icon(
-                              onPressed: null,
-                              icon: const Icon(Icons.track_changes),
-                              label: const Text("Products")),
-                          subtitle: Text(
-                            '120',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(color: mintColors, fontSize: 50.0),
-                          )),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(22.0),
-                    child: Card(
-                      child: ListTile(
-                          title: ElevatedButton.icon(
-                              onPressed: null,
-                              icon: const Icon(Icons.date_range),
-                              label: const Text("In Fix")),
-                          subtitle: Text(
-                            '13',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(color: mintColors, fontSize: 50.0),
-                          )),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(22.0),
-                    child: Card(
-                      child: ListTile(
-                          title: ElevatedButton.icon(
-                              onPressed: null,
-                              icon: const Icon(Icons.shopping_cart),
-                              label: const Text("Orders")),
-                          subtitle: Text(
-                            '500',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(color: mintColors, fontSize: 50.0),
-                          )),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(22.0),
-                    child: Card(
-                      child: ListTile(
-                          title: ElevatedButton.icon(
-                              onPressed: null,
-                              icon: const Icon(Icons.close),
-                              label: const Text("Messages")),
-                          subtitle: Text(
-                            '20',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(color: mintColors, fontSize: 50.0),
-                          )),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        );
-      case Page.manage:
-        return ListView(
-          children: <Widget>[
-            ListTile(
-                leading: const Icon(Icons.add_circle_outline),
-                title: const Text("Add product"),
-                onTap: () => Navigator.pushNamed(context, 'add_product')),
-            const Divider(),
-            ListTile(
-                leading: const Icon(Icons.library_books),
-                title: const Text("Products list"),
-                onTap: () => Navigator.pushNamed(context, 'view_products')),
-            const Divider(),
-            ListTile(
-                leading: const Icon(Icons.add_circle_outline),
-                title: const Text("Add category"),
-                onTap: () => Navigator.pushNamed(context, 'add_category')),
-            const Divider(),
-            ListTile(
-                leading: const Icon(Icons.library_books),
-                title: const Text("Category list"),
-                onTap: () => Navigator.pushNamed(context, 'view_categories')),
-            const Divider(),
-            ListTile(
-                leading: const Icon(Icons.add_circle_outline),
-                title: const Text("Add in homepage images"),
-                onTap: () => Navigator.pushNamed(context, 'add_homeimage')),
-            const Divider(),
-            ListTile(
-                leading: const Icon(Icons.library_books),
-                title: const Text("Orders List"),
-                onTap: () => Navigator.pushNamed(context, 'view_orders')),
-            const Divider(),
-            ListTile(
-                leading: const Icon(Icons.library_books),
-                title: const Text("Users List"),
-                onTap: () => Navigator.pushNamed(context, 'view_users')),
-            const Divider(),
-            ListTile(
-                leading: const Icon(Icons.library_books),
-                title: const Text("Messages List"),
-                onTap: () => Navigator.pushNamed(context, 'view_messages')),
-          ],
-        );
-    }
+    return ListView(
+      children: <Widget>[
+        HeaderContainerDash("Dashboard"),
+        SizedBox(
+          height: 10,
+        ),
+        ListTile(
+            leading: const Icon(Icons.add_circle_outline),
+            title: const Text("Add product"),
+            onTap: () => Navigator.pushNamed(context, 'add_product')),
+        Divider(
+          color: mintColors,
+          height: 10,
+          thickness: 3,
+          indent: 25,
+          endIndent: 25,
+        ),
+        ListTile(
+            leading: const Icon(Icons.library_books),
+            title: const Text("Products list"),
+            onTap: () => Navigator.pushNamed(context, 'view_products')),
+        Divider(
+          color: mintColors,
+          height: 10,
+          thickness: 3,
+          indent: 25,
+          endIndent: 25,
+        ),
+        ListTile(
+            leading: const Icon(Icons.add_circle_outline),
+            title: const Text("Add category"),
+            onTap: () => Navigator.pushNamed(context, 'add_category')),
+        Divider(
+          color: mintColors,
+          height: 10,
+          thickness: 3,
+          indent: 25,
+          endIndent: 25,
+        ),
+        ListTile(
+            leading: const Icon(Icons.library_books),
+            title: const Text("Category list"),
+            onTap: () => Navigator.pushNamed(context, 'view_categories')),
+        Divider(
+          color: mintColors,
+          height: 10,
+          thickness: 3,
+          indent: 25,
+          endIndent: 25,
+        ),
+        ListTile(
+            leading: const Icon(Icons.add_circle_outline),
+            title: const Text("Add in homepage images"),
+            onTap: () => Navigator.pushNamed(context, 'add_homeimage')),
+        Divider(
+          color: mintColors,
+          height: 10,
+          thickness: 3,
+          indent: 25,
+          endIndent: 25,
+        ),
+        ListTile(
+            leading: const Icon(Icons.library_books),
+            title: const Text("Orders List"),
+            onTap: () => Navigator.pushNamed(context, 'view_orders')),
+        Divider(
+          color: mintColors,
+          height: 10,
+          thickness: 3,
+          indent: 25,
+          endIndent: 25,
+        ),
+        ListTile(
+            leading: const Icon(Icons.library_books),
+            title: const Text("Users List"),
+            onTap: () => Navigator.pushNamed(context, 'view_users')),
+        Divider(
+          color: mintColors,
+          height: 10,
+          thickness: 3,
+          indent: 25,
+          endIndent: 25,
+        ),
+        ListTile(
+            leading: const Icon(Icons.library_books),
+            title: const Text("Messages List"),
+            onTap: () => Navigator.pushNamed(context, 'view_messages')),
+        Divider(
+          color: mintColors,
+          height: 10,
+          thickness: 3,
+          indent: 25,
+          endIndent: 25,
+        ),
+      ],
+    );
   }
 }

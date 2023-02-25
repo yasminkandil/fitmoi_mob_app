@@ -10,59 +10,61 @@ class MustHaveAccountPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(text: ""),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 150.0),
-        child: Column(
-          children: [
-            Center(
-                child: Container(
-              child: Image.asset('assets/6712526.jpg'),
-              height: 140,
-              width: 140,
-            )),
-            SizedBox(
-              height: 30,
-              width: 30,
-            ),
-            Center(
-              child: Text(
-                  style: TextStyle(color: mintColors),
-                  'Sorry...You must have an account to view this page.'),
-            ),
-            SizedBox(
-              height: 70,
-              width: 70,
-            ),
-            InkWell(
-              child: RichText(
-                text: TextSpan(children: [
-                  const TextSpan(
-                      text: "Don't have an account ? ",
-                      style: TextStyle(color: Colors.black)),
-                  TextSpan(
-                      text: "Register", style: TextStyle(color: mintColors)),
-                ]),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 150.0),
+          child: Column(
+            children: [
+              Center(
+                  child: Container(
+                child: Image.asset('assets/6712526.jpg'),
+                height: 140,
+                width: 140,
+              )),
+              SizedBox(
+                height: 20,
+                width: 20,
               ),
-              onTap: () => Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => RegisterPage())),
-            ),
-            InkWell(
-              child: RichText(
-                text: TextSpan(children: [
-                  const TextSpan(
-                      text: "Already a member ? ",
-                      style: TextStyle(color: Colors.black)),
-                  TextSpan(
-                      text: "Login",
-                      style: TextStyle(
-                        color: mintColors,
-                      )),
-                ]),
+              Center(
+                child: Text(
+                    style: TextStyle(color: mintColors),
+                    'Sorry...You must have an account to view this page.'),
               ),
-              onTap: () => Navigator.of(context)
-                  .push(MaterialPageRoute(builder: (context) => LoginPage())),
-            )
-          ],
+              SizedBox(
+                height: 70,
+                width: 70,
+              ),
+              InkWell(
+                child: RichText(
+                  text: TextSpan(children: [
+                    const TextSpan(
+                        text: "Don't have an account ? ",
+                        style: TextStyle(color: Colors.black)),
+                    TextSpan(
+                        text: "Register", style: TextStyle(color: mintColors)),
+                  ]),
+                ),
+                onTap: () => Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => RegisterPage())),
+              ),
+              InkWell(
+                child: RichText(
+                  text: TextSpan(children: [
+                    const TextSpan(
+                        text: "Already a member ? ",
+                        style: TextStyle(color: Colors.black)),
+                    TextSpan(
+                        text: "Login",
+                        style: TextStyle(
+                          color: mintColors,
+                        )),
+                  ]),
+                ),
+                onTap: () => Navigator.of(context)
+                    .push(MaterialPageRoute(builder: (context) => LoginPage())),
+              )
+            ],
+          ),
         ),
       ),
     );

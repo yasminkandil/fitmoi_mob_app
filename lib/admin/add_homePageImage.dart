@@ -117,7 +117,7 @@ class _AddGalleryhomeState extends State<AddGalleryhome> {
                               width: 4,
                               color: Colors.white,
                             ),
-                            color: Colors.orange),
+                            color: mintColors),
                         child: TextButton(
                           child: const Icon(
                             Icons.upload,

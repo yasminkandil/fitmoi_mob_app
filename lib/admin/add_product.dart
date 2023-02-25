@@ -34,13 +34,13 @@ class AddProductPage extends StatefulWidget {
 class _AddProductPageState extends State<AddProductPage> {
   final _firestore = FirebaseFirestore.instance;
   List<String> _dropdownValues = [];
-  //List<String> _dropdownValuessub = [];
 
   @override
   void initState() {
     super.initState();
     _getDropdownValues();
-    //_getDropdownValuesSub();
+    fetchSubcategoriesF();
+    fetchSubcategoriesM();
   }
 
   void _getDropdownValues() async {
@@ -52,15 +52,55 @@ class _AddProductPageState extends State<AddProductPage> {
     });
   }
 
-  /*void _getDropdownValuesSub() async {
-    final snapshot = await _firestore.collection("category").get();
-    setState(() {
-      _dropdownValues = snapshot.docs
-          .map((doc) => doc.data()['subcategory'].toString())
-          .toList();
-      _selectedValue = _dropdownValues[0];
-    });
-  }*/
+  Future<List<dynamic>> getSubcategoriesF() async {
+    final DocumentSnapshot<Map<String, dynamic>> documentSnapshot =
+        await FirebaseFirestore.instance
+            .collection('category')
+            .doc('iIDinMSxd9LMHvl1zlWy')
+            .get();
+    final data = documentSnapshot.data();
+    if (data == null) {
+      return [];
+    } // Return an empty list if the document doesn't exist
+    return data['subcategory'] ??
+        []; // Return the subcategory array or an empty list if it doesn't exist
+  }
+
+  List<dynamic> _subcategoriesF = [];
+  dynamic _selectedValuee;
+  void fetchSubcategoriesF() async {
+    _subcategoriesF = await getSubcategoriesF();
+    if (_subcategoriesF.isNotEmpty) {
+      setState(() {
+        _selectedValuee = _subcategoriesF[0]; // Set the initial selected value
+      });
+    }
+  }
+
+  Future<List<dynamic>> getSubcategoriesM() async {
+    final DocumentSnapshot<Map<String, dynamic>> documentSnapshot =
+        await FirebaseFirestore.instance
+            .collection('category')
+            .doc('ypF4q51E7j7zVBlvFoYx')
+            .get();
+    final data = documentSnapshot.data();
+    if (data == null) {
+      return [];
+    } // Return an empty list if the document doesn't exist
+    return data['subcategory'] ??
+        []; // Return the subcategory array or an empty list if it doesn't exist
+  }
+
+  List<dynamic> _subcategoriesM = [];
+  dynamic _selectedValueeM;
+  void fetchSubcategoriesM() async {
+    _subcategoriesM = await getSubcategoriesM();
+    if (_subcategoriesM.isNotEmpty) {
+      setState(() {
+        _selectedValueeM = _subcategoriesM[0]; // Set the initial selected value
+      });
+    }
+  }
 
   uploadImage() async {
     final _storage = FirebaseStorage.instance;
@@ -391,6 +431,67 @@ class _AddProductPageState extends State<AddProductPage> {
                                 ),
                                 border: UnderlineInputBorder()),
                           ),
+                          _selectedValue == 'female'
+                              ? DropdownButtonFormField(
+                                  value: _selectedValuee,
+                                  onChanged: (dynamic newValue) {
+                                    setState(() {
+                                      _selectedValuee = newValue;
+                                    });
+                                  },
+                                  items: _subcategoriesF
+                                      .map<DropdownMenuItem<dynamic>>(
+                                          (dynamic value) {
+                                    return DropdownMenuItem<dynamic>(
+                                      value: value,
+                                      child: Text(value.toString()),
+                                    );
+                                  }).toList(),
+                                  icon: const Icon(
+                                    Icons.arrow_drop_down_circle,
+                                    color: Color.fromARGB(255, 10, 169, 159),
+                                  ),
+                                  dropdownColor:
+                                      Color.fromARGB(255, 10, 169, 159),
+                                  decoration: const InputDecoration(
+                                      labelText: "SubCategory",
+                                      prefixIcon: Icon(
+                                        Icons.category,
+                                        color:
+                                            Color.fromARGB(255, 10, 169, 159),
+                                      ),
+                                      border: UnderlineInputBorder()),
+                                )
+                              : DropdownButtonFormField(
+                                  value: _selectedValueeM,
+                                  onChanged: (dynamic newValue) {
+                                    setState(() {
+                                      _selectedValueeM = newValue;
+                                    });
+                                  },
+                                  items: _subcategoriesM
+                                      .map<DropdownMenuItem<dynamic>>(
+                                          (dynamic value) {
+                                    return DropdownMenuItem<dynamic>(
+                                      value: value,
+                                      child: Text(value.toString()),
+                                    );
+                                  }).toList(),
+                                  icon: const Icon(
+                                    Icons.arrow_drop_down_circle,
+                                    color: Color.fromARGB(255, 10, 169, 159),
+                                  ),
+                                  dropdownColor:
+                                      Color.fromARGB(255, 10, 169, 159),
+                                  decoration: const InputDecoration(
+                                      labelText: "SubCategory",
+                                      prefixIcon: Icon(
+                                        Icons.category,
+                                        color:
+                                            Color.fromARGB(255, 10, 169, 159),
+                                      ),
+                                      border: UnderlineInputBorder()),
+                                ),
                           Expanded(
                             child: Center(
                               child: ButtonWidget(

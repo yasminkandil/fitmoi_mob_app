@@ -49,9 +49,10 @@ class _AddCategPageState extends State<AddCategPage> {
 
   final _nameController = TextEditingController();
   final _subtitleController = TextEditingController();
-  Future addCategory(String name, List<String> subtitle) async {
+  Future addCategory(String name, String image, List<String> subtitle) async {
     await FirebaseFirestore.instance.collection('category').doc().set({
       'name': name,
+      'image': image,
       'subcategory': subtitle,
     });
   }
@@ -89,15 +90,15 @@ class _AddCategPageState extends State<AddCategPage> {
                         right: 0,
                         bottom: 0,
                         child: Container(
-                            height: 30,
-                            width: 30,
+                            height: 40,
+                            width: 40,
                             decoration: BoxDecoration(
                                 shape: BoxShape.circle,
                                 border: Border.all(
                                   width: 2,
                                   color: Colors.white,
                                 ),
-                                color: Colors.orange),
+                                color: mintColors),
                             child: TextButton(
                               child: Center(
                                 child: Icon(
@@ -167,12 +168,12 @@ class _AddCategPageState extends State<AddCategPage> {
                                 mainAxisSize: MainAxisSize.max,
                                 children: <Widget>[
                                   Expanded(
-                                    child: ButtonWidget2(
+                                    child: ButtonWidget(
                                       btnText: "Add Category",
                                       onClick: () {
                                         if (formKey.currentState!.validate()) {
                                           addCategory(_nameController.text,
-                                                  getCateg())
+                                                  greyimage, getCateg())
                                               .then((value) {
                                             categList.clear();
                                             Fluttertoast.showToast(

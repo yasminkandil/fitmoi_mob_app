@@ -354,7 +354,7 @@ class _BodyState extends State<Body> {
 
   void getProducatInfo() {
     FirebaseFirestore.instance
-        .collection("products")
+        .collection("product")
         .doc(widget.prod)
         .get()
         .then((value) {

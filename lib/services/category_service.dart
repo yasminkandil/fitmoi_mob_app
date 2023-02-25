@@ -5,7 +5,7 @@ import '../models/category_model.dart';
 
 class CategoriesService {
   final CollectionReference _categoriesCollectionReference =
-      FirebaseFirestore.instance.collection('categ');
+      FirebaseFirestore.instance.collection('category');
 
   Future<List<CategoryModel>> getcategories() async {
     List<CategoryModel> categories = [];
@@ -18,8 +18,8 @@ class CategoriesService {
         image: document.data().toString().contains('image')
             ? document.get('image')
             : '',
-        subcategory: document.data().toString().contains('subtitle')
-            ? List<String>.from(document.get('subtitle'))
+        subcategory: document.data().toString().contains('subcategory')
+            ? List<String>.from(document.get('subcategory'))
             : [],
         id: document.data().toString().contains('id') ? document.get('id') : '',
       );

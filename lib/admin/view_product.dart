@@ -1,5 +1,6 @@
 import 'package:fitmoi_mob_app/admin/add_offer.dart';
 import 'package:fitmoi_mob_app/admin/add_product.dart';
+import 'package:fitmoi_mob_app/admin/add_texture.dart';
 import 'package:fitmoi_mob_app/admin/editProdPage.dart';
 import 'package:fitmoi_mob_app/models/product_model.dart';
 import 'package:flutter/material.dart';
@@ -173,14 +174,28 @@ class ViewProductPage extends ConsumerWidget {
                                     builder: (context) => AddOfferPage(
                                         prodid: product.id,
                                         p2: product.price2)));
-                                Fluttertoast.showToast(
-                                    msg: product.id,
-                                    toastLength: Toast.LENGTH_SHORT,
-                                    gravity: ToastGravity.BOTTOM,
-                                    timeInSecForIosWeb: 1,
-                                    backgroundColor: Colors.grey,
-                                    textColor: Colors.white,
-                                    fontSize: 16.0);
+                              },
+                            ),
+                          ),
+                          Center(
+                            child: InkWell(
+                              child: RichText(
+                                text: TextSpan(children: [
+                                  const TextSpan(
+                                      text:
+                                          "To add texture to this product click ",
+                                      style: TextStyle(
+                                          color: Colors.black, fontSize: 15)),
+                                  TextSpan(
+                                      text: "here",
+                                      style: TextStyle(
+                                          color: mintColors, fontSize: 15)),
+                                ]),
+                              ),
+                              onTap: () {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) =>
+                                        AddTexturePage(prodid: product.id)));
                               },
                             ),
                           ),

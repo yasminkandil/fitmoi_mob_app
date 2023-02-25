@@ -1,3 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fitmoi_mob_app/pages/must_have_account.dart';
+import 'package:fitmoi_mob_app/pages/view_account.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -13,16 +16,20 @@ class MyHomePage extends StatelessWidget {
     var controller = Get.put(HomeController());
     var navbarItem = [
       BottomNavigationBarItem(icon: const Icon(Icons.home), label: 'Home'),
-      BottomNavigationBarItem(icon: const Icon(Icons.photo), label: 'Gallery'),
-      BottomNavigationBarItem(icon: const Icon(Icons.shop), label: 'Shop'),
+      BottomNavigationBarItem(icon: const Icon(Icons.person), label: 'Account'),
+      BottomNavigationBarItem(icon: const Icon(Icons.shop), label: 'Cart'),
     ];
     var navBody = [
       Container(child: Navigation_bar()),
       Container(
-          // child: gallery(),
-          ),
+        child: FirebaseAuth.instance.currentUser == null
+            ? MustHaveAccountPage()
+            : ViewAccountPage(),
+      ),
       Container(
-          //child: CategoryPage(),
+          // child: FirebaseAuth.instance.currentUser == null
+          //   ? MustHaveAccountPage()
+          //   : Cart(),
           ),
       Container(
           // child: Products(cat: 'Cables'),
