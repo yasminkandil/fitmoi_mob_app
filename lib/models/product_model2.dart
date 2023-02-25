@@ -12,6 +12,12 @@ class ProductModel2 {
   String? id;
   String? category;
   String? brand;
+  String? squantity;
+  String? mquantity;
+  String? lquantity;
+  String? xlquantity;
+  String? xxlquantity;
+
   //String? Date;
 
   ProductModel2({
@@ -27,6 +33,11 @@ class ProductModel2 {
     required this.name,
     required this.category,
     required this.brand,
+    required this.squantity,
+    required this.mquantity,
+    required this.lquantity,
+    required this.xlquantity,
+    required this.xxlquantity,
   });
 
   ProductModel2.fromJson(Map<String, dynamic> json) {
@@ -43,6 +54,11 @@ class ProductModel2 {
     id = json["id"];
     category = json["category"];
     brand = json["brand"];
+    squantity = json["squantity"];
+    mquantity = json["mquantity"];
+    lquantity = json["lquantity"];
+    xlquantity = json["xlquantity"];
+    xxlquantity = json["xxlquantity"];
     //Date = json["Date"];
   }
 }

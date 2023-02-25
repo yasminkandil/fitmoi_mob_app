@@ -95,9 +95,10 @@ class _MyAppState extends State<MyApp> {
         'dashboard': (context) => const Admin(),
         'profile': (context) => const ViewAccountPage(),
         //'cart': (context) => CartItem(),
-        'shop': (context) => Products(cat: 'Cables'),
+        'shop': (context) => Products(cat: 'female'),
         // 'contact_us': (context) => ContactUs(),
         //'gallery': (context) => gallery(),
+
         'must_have_account': (context) => MustHaveAccountPage(),
         'add_category': (context) => AddCategPage(),
         'view_categories': (context) => const ViewCategoriesPage(),

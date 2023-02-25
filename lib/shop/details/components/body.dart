@@ -12,6 +12,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 
 import '../../../models/cart_model2.dart';
 import '../../../models/product_model2.dart';
+import '../quantityinfo.dart';
 
 class Body extends StatefulWidget {
   final String prod;
@@ -59,6 +60,7 @@ class _BodyState extends State<Body> {
                       child: Column(
                         children: <Widget>[
                           productinfo(productModel2!),
+                          //  const QuantityDropDown(),
                           description(productModel2!),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -354,7 +356,7 @@ class _BodyState extends State<Body> {
 
   void getProducatInfo() {
     FirebaseFirestore.instance
-        .collection("products")
+        .collection("product")
         .doc(widget.prod)
         .get()
         .then((value) {
