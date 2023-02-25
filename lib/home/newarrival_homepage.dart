@@ -18,7 +18,7 @@ class _OfferrphotoState extends State<Offerrphoto> {
 
   Future Offeraraff() async {
     await FirebaseFirestore.instance
-        .collection('products')
+        .collection('product')
         .where('onSale', isEqualTo: true)
         .get()
         .then(

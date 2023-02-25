@@ -25,32 +25,32 @@ class Products extends StatelessWidget {
     );
   }
 
-  AppBar buildAppBar(BuildContext context) {
-    return AppBar(
-      title: Text("Shop"),
-      backgroundColor: mintColors,
-      elevation: 0,
-      leading: IconButton(
-        onPressed: () {
-          Navigator.pop(context);
-        },
-        icon: Icon(Icons.arrow_back_ios),
-      ),
-      actions: <Widget>[
-        IconButton(
-          icon: Icon(Icons.search),
-          onPressed: () {},
-        ),
-        IconButton(
-          icon: Icon(
-            Icons.add_shopping_cart_outlined,
-          ),
-          onPressed: () {},
-        ),
-        SizedBox(
-          width: 2,
-        )
-      ],
-    );
-  }
+  // AppBar buildAppBar(BuildContext context) {
+  // return AppBar(
+  //   title: Text("Shop"),
+  //   backgroundColor: mintColors,
+  //   elevation: 0,
+  //   leading: IconButton(
+  //     onPressed: () {
+  //       Navigator.pop(context);
+  //     },
+  //     icon: Icon(Icons.arrow_back_ios),
+  //   ),
+  //   actions: <Widget>[
+  //     IconButton(
+  //       icon: Icon(Icons.search),
+  //       onPressed: () {},
+  //     ),
+  //     IconButton(
+  //       icon: Icon(
+  //         Icons.add_shopping_cart_outlined,
+  //       ),
+  //       onPressed: () {},
+  //     ),
+  //     SizedBox(
+  //       width: 2,
+  //     )
+  //   ],
+  // );
+  // }
 }

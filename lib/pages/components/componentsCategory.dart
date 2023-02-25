@@ -15,7 +15,7 @@ class Categorie extends StatefulWidget {
 class _CategorieState extends State<Categorie> {
   List<String> prod = [];
   Future getDocProd() async {
-    await FirebaseFirestore.instance.collection('categories').get().then(
+    await FirebaseFirestore.instance.collection('category').get().then(
           (snapshot) => snapshot.docs.forEach((document) {
             print(document.reference);
             prod.add(document.reference.id);
@@ -29,12 +29,12 @@ class _CategorieState extends State<Categorie> {
         future: getDocProd(),
         builder: (context, snapshot) {
           return Padding(
-            padding: const EdgeInsets.symmetric(vertical: 15),
+            padding: const EdgeInsets.symmetric(vertical: 30),
             child: SizedBox(
-              height: 30,
+              height: 430,
               child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: prod.length,
+                //  scrollDirection: Axis.horizontal,
+                itemCount: 2,
                 itemBuilder: (context, indexx) =>
                     buildCategory(category: prod[indexx], index: indexx),
               ),
@@ -55,7 +55,7 @@ class buildCategory extends StatelessWidget {
     int selected = 0;
     return FutureBuilder(
         future: FirebaseFirestore.instance
-            .collection('categories')
+            .collection('category')
             .doc(category)
             .get(),
         builder: ((context, snapshot) {
@@ -65,55 +65,92 @@ class buildCategory extends StatelessWidget {
                 : <String, dynamic>{};
             return GestureDetector(
               onTap: () {
-                if (data['name'] == "Powerbank") {
+                if (data['name'] == "female") {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (context) => Products(
-                        cat: 'Powerbank',
+                        cat: 'female',
                       ),
                     ),
                   );
-                } else if (data['name'] == 'Cabels') {
+                } else if (data['name'] == 'male') {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (context) => Products(
-                        cat: 'Cables',
-                      ),
-                    ),
-                  );
-                } else if (data['name'] == 'Covers') {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => Products(
-                        cat: 'Covers',
-                      ),
-                    ),
-                  );
-                } else if (data['name'] == 'Headphones') {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => Products(
-                        cat: 'Headphones',
+                        cat: 'male',
                       ),
                     ),
                   );
                 }
+                // else if (data['name'] == 'Covers') {
+                //   Navigator.push(
+                //     context,
+                //     MaterialPageRoute(
+                //       builder: (context) => Products(
+                //         cat: 'Covers',
+                //       ),
+                //     ),
+                //   );
+                // } else if (data['name'] == 'Headphones') {
+                //   Navigator.push(
+                //     context,
+                //     MaterialPageRoute(
+                //       builder: (context) => Products(
+                //         cat: 'Headphones',
+                //       ),
+                //     ),
+                //   );
+                // }
               },
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 15),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Text("${data['name']}",
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: selected == data[index]
-                                ? Color.fromARGB(72, 0, 0, 0)
-                                : Color.fromARGB(72, 0, 0, 0))),
+                    InkWell(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => Products(
+                              cat: 'female',
+                            ),
+                          ),
+                        );
+                      },
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(20.0),
+                        child: Image.asset('assets/womenhome.jpeg',
+                            width: 400, height: 200.0),
+                      ),
+                    ),
+                    Center(
+                      child: Text("${data['name']}",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: selected == data[index]
+                                  ? Color.fromARGB(72, 0, 0, 0)
+                                  : Color.fromARGB(72, 0, 0, 0))),
+                    ),
+                    InkWell(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => Products(
+                              cat: 'male',
+                            ),
+                          ),
+                        );
+                      },
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(20.0),
+                        child: Image.asset('assets/menhome.jpeg',
+                            width: 400, height: 200.0),
+                      ),
+                    ),
                     Container(
                       margin: EdgeInsets.only(top: 15 / 4),
                       height: 2,

@@ -1,26 +1,31 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fitmoi_mob_app/utils/color.dart';
 import 'package:flutter/material.dart';
 
 import '../../../models/product_model2.dart';
+import '../quantityinfo.dart';
 
-
-class productinfo extends StatelessWidget {
+class productinfo extends StatefulWidget {
   ProductModel2 productModel2;
 
   productinfo(this.productModel2);
 
   @override
+  State<productinfo> createState() => _productinfoState();
+}
+
+class _productinfoState extends State<productinfo> {
+  @override
   Widget build(BuildContext context) {
-    var count = productModel2.quantity;
+    var count = widget.productModel2.quantity;
+    String dropdownValue = list.first;
 
     return Container(
       child: Row(
         children: <Widget>[
-          Column(
-            children: <Widget>[],
-          ),
+          Quantity(),
           Expanded(
-            child: productModel2.quantity != "0"
+            child: widget.productModel2.lquantity != "0"
                 ? RichText(
                     text: TextSpan(
                         style: TextStyle(color: Color.fromARGB(225, 0, 0, 0)),
@@ -33,7 +38,7 @@ class productinfo extends StatelessWidget {
                                   .headline5
                                   ?.copyWith(
                                       fontWeight: FontWeight.bold,
-                                      color: Colors.green))
+                                      color: GreyLightColors))
                         ]),
                   )
                 : RichText(
