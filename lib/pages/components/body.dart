@@ -18,7 +18,7 @@ class Body extends StatelessWidget {
 
   Future getDocProd() async {
     await FirebaseFirestore.instance
-        .collection('products')
+        .collection('product')
         .where('category', isEqualTo: cat)
         .get()
         .then(
@@ -34,7 +34,7 @@ class Body extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Categorie(),
+        //Categorie(),
         Expanded(
           child: FutureBuilder(
               future: getDocProd(),

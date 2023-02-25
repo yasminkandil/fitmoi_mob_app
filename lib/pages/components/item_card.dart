@@ -14,12 +14,12 @@ class Itemcard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     CollectionReference products =
-        FirebaseFirestore.instance.collection('products');
-    final pro = FirebaseFirestore.instance.collection('products');
+        FirebaseFirestore.instance.collection('product');
+    final pro = FirebaseFirestore.instance.collection('product');
 
     return FutureBuilder<DocumentSnapshot>(
         future:
-            FirebaseFirestore.instance.collection('products').doc(prod).get(),
+            FirebaseFirestore.instance.collection('product').doc(prod).get(),
         builder: ((context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
             Map<String, dynamic> data = snapshot.data?.data() != null
