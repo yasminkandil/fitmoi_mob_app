@@ -20,47 +20,10 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-//Connection to Gallery
-    List<String> imageList = [];
-    // Future getDocImage() async {
-    //   await FirebaseFirestore.instance.collection('homePage').get().then(
-    //         (snapshot) => snapshot.docs.forEach((document) {
-    //           print(document.reference);
-    //           imageList.add(document.reference.id);
-    //         }),
-    //       );
-    // }
-
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
         child: Column(children: <Widget>[
-          VxSwiper.builder(
-            aspectRatio: 16 / 5,
-            autoPlay: true,
-            height: 150,
-            itemCount: 7,
-            enlargeCenterPage: true,
-            itemBuilder: (context, index) {
-              //getDocImage();
-              builder:
-              (context, snapshot) {
-                itemCount:
-                snapshot.data.length;
-
-                if (snapshot.hasError) {
-                  return Center(child: CircularProgressIndicator());
-                }
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Text("Loading");
-                }
-              };
-
-              return Container(
-                  //child: GetHomePhoto(homeimage: imageList[index])
-                  );
-            },
-          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: List.generate(
