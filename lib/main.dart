@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:fitmoi_mob_app/pages/cart.dart';
 import 'package:fitmoi_mob_app/pages/contact_us.dart';
+import 'package:fitmoi_mob_app/pages/fav.dart';
 import 'package:fitmoi_mob_app/pages/forgot_pass.dart';
 import 'package:fitmoi_mob_app/pages/login_page.dart';
 import 'package:fitmoi_mob_app/pages/must_have_account.dart';
@@ -97,8 +99,8 @@ class _MyAppState extends State<MyApp> {
         'register': (context) => RegisterPage(),
         'dashboard': (context) => const Admin(),
         'profile': (context) => const ViewAccountPage(),
-        //'cart': (context) => CartItem(),
-        'shop': (context) => Products(cat: 'Cables'),
+        'cart': (context) => CartItem(),
+        'shop': (context) => Products(cat: 'female'),
         'contact_us': (context) => ContactUs(),
         'must_have_account': (context) => MustHaveAccountPage(),
         'add_category': (context) => AddCategPage(),
@@ -106,12 +108,12 @@ class _MyAppState extends State<MyApp> {
         'view_users': (context) => ViewUsersPage(),
         'view_orders': (context) => ViewOrdersPage(),
         'view_messages': (context) => ViewMessagesPage(),
-        //'order_history': (context) => OrderScreen(ord: 'salma'),
+        'order_history': (context) => OrderScreen(ord: 'salma'),
         'search_users': (context) => const FirebaseSearchUserScreen(),
         //'search_products': (context) => ProductSearch(),
 
         //'araf': (context) => Offerrphoto(),
-
+        'fav': (context) => FavScreen(),
         'add_product': (context) => AddProductPage(),
         'view_products': (context) => const ViewProductPage(),
         'forgot_pass': (context) => const ForgotPass(),

@@ -23,7 +23,7 @@ class _productinfoState extends State<productinfo> {
     return Container(
       child: Row(
         children: <Widget>[
-          Quantity(),
+          QuantityDropDown(),
           Expanded(
             child: widget.productModel2.lquantity != "0"
                 ? RichText(
