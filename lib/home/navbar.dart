@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../controllers/search_product.dart';
 import '../pages/my_drawer_header.dart';
+import '../shop/details/components/body.dart';
 import '../utils/color.dart';
 import '../widgets/header_container.dart';
 import 'categoryhome.dart';
@@ -107,6 +108,8 @@ class HomeNavbar extends State<Navigation_bar> {
               currentPage == Sections.contacts ? true : false),
           menuItem(4, " Profile", Icons.edit_attributes_rounded,
               currentPage == Sections.Edit_Profile ? true : false),
+          menuItem(5, " Favourites", Icons.favorite,
+              currentPage == Sections.fav ? true : false),
           menuItem(6, "Log Out", Icons.logout_rounded,
               currentPage == Sections.Log_Out ? true : false),
         ],
@@ -129,6 +132,13 @@ class HomeNavbar extends State<Navigation_bar> {
               Navigator.pushNamed(context, 'contact_us');
             }
             currentPage = Sections.contacts;
+          } else if (id == 5) {
+            if (FirebaseAuth.instance.currentUser == null) {
+              Navigator.pushNamed(context, 'must_have_account');
+            } else {
+              Navigator.pushNamed(context, 'fav');
+            }
+            currentPage = Sections.contacts;
           } else if (id == 3) {
             Navigator.pushNamed(context, 'shop');
             currentPage = Sections.Categories;
@@ -147,8 +157,10 @@ class HomeNavbar extends State<Navigation_bar> {
             }
             currentPage = Sections.order_history;
           } else if (id == 6) {
+            favprod.clear();
             FirebaseAuth.instance.signOut();
             Navigator.pushNamed(context, 'homepage');
+
             currentPage = Sections.Log_Out;
           } else if (id == 1) {
             Navigator.pushNamed(context, 'tryon');
@@ -203,5 +215,6 @@ enum Sections {
   CheckOut,
   login,
   Gallery,
-  order_history
+  order_history,
+  fav
 }

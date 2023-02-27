@@ -18,10 +18,6 @@ class ProductTitleWithImage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Text(
-              "${productModel2.brand}",
-              style: TextStyle(color: Colors.white),
-            ),
-            Text(
               "${productModel2.name}",
               style: Theme.of(context)
                   .textTheme

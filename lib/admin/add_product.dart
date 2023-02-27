@@ -519,7 +519,7 @@ class _AddProductPageState extends State<AddProductPage> {
                                             pp.xlquantityController.text,
                                             pp.xxlquantityController.text,
                                             false,
-                                            "")
+                                            "0")
                                         .then((value) {
                                       sizeList.clear();
                                       colorsList.clear();
