@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import 'package:velocity_x/velocity_x.dart';
+import '../read data/get_newarrival.dart';
 import '../widgets/app_bar.dart';
 
 class Offerrphoto extends StatefulWidget {
@@ -63,9 +64,9 @@ class _OfferrphotoState extends State<Offerrphoto> {
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.center,
                                             children: <Widget>[
-                                              // OffersData(
-                                              // offersitemss: offershome[index],
-                                              // ),
+                                              GetOffersPage(
+                                                offer: offershome[index],
+                                              ),
                                             ],
                                           )
                                               .box

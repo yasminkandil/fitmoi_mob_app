@@ -32,7 +32,7 @@ import 'admin/view_categories.dart';
 import 'admin/view_messages.dart';
 import 'admin/view_product.dart';
 import 'controllers/search_product.dart';
-import 'home/newarrival_homepage.dart';
+import 'home/offerhomepage.dart';
 
 //import 'pages/cart_view.dart';
 //import 'pages/calendar.dart';

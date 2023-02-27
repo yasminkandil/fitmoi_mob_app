@@ -34,7 +34,7 @@ class Body extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        //Categorie(),
+        Categorie(),
         Expanded(
           child: FutureBuilder(
               future: getDocProd(),

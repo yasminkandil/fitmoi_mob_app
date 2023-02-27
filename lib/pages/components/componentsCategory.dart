@@ -1,8 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fitmoi_mob_app/admin/test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
-
-import '../../home/home_page.dart';
 import '../products_all.dart';
 
 class Categorie extends StatefulWidget {
@@ -23,18 +22,68 @@ class _CategorieState extends State<Categorie> {
         );
   }
 
+  Future<List<dynamic>> getSubcategoriesF() async {
+    final DocumentSnapshot<Map<String, dynamic>> documentSnapshot =
+        await FirebaseFirestore.instance
+            .collection('category')
+            .doc('iIDinMSxd9LMHvl1zlWy')
+            .get();
+    final data = documentSnapshot.data();
+    if (data == null) {
+      return [];
+    } // Return an empty list if the document doesn't exist
+    return data['subcategory'] ??
+        []; // Return the subcategory array or an empty list if it doesn't exist
+  }
+
+  List<dynamic> _subcategoriesF = [];
+  dynamic _selectedValuee;
+  void fetchSubcategoriesF() async {
+    _subcategoriesF = await getSubcategoriesF();
+    if (_subcategoriesF.isNotEmpty) {
+      setState(() {
+        _selectedValuee = _subcategoriesF[0]; // Set the initial selected value
+      });
+    }
+  }
+
+  Future<List<dynamic>> getSubcategoriesM() async {
+    final DocumentSnapshot<Map<String, dynamic>> documentSnapshot =
+        await FirebaseFirestore.instance
+            .collection('category')
+            .doc('ypF4q51E7j7zVBlvFoYx')
+            .get();
+    final data = documentSnapshot.data();
+    if (data == null) {
+      return [];
+    } // Return an empty list if the document doesn't exist
+    return data['subcategory'] ??
+        []; // Return the subcategory array or an empty list if it doesn't exist
+  }
+
+  List<dynamic> _subcategoriesM = [];
+  dynamic _selectedValueeM;
+  void fetchSubcategoriesM() async {
+    _subcategoriesM = await getSubcategoriesM();
+    if (_subcategoriesM.isNotEmpty) {
+      setState(() {
+        _selectedValueeM = _subcategoriesM[0]; // Set the initial selected value
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
         future: getDocProd(),
         builder: (context, snapshot) {
           return Padding(
-            padding: const EdgeInsets.symmetric(vertical: 30),
+            padding: const EdgeInsets.symmetric(vertical: 15),
             child: SizedBox(
-              height: 430,
+              height: 30,
               child: ListView.builder(
-                //  scrollDirection: Axis.horizontal,
-                itemCount: 2,
+                scrollDirection: Axis.horizontal,
+                itemCount: prod.length,
                 itemBuilder: (context, indexx) =>
                     buildCategory(category: prod[indexx], index: indexx),
               ),
@@ -84,73 +133,18 @@ class buildCategory extends StatelessWidget {
                     ),
                   );
                 }
-                // else if (data['name'] == 'Covers') {
-                //   Navigator.push(
-                //     context,
-                //     MaterialPageRoute(
-                //       builder: (context) => Products(
-                //         cat: 'Covers',
-                //       ),
-                //     ),
-                //   );
-                // } else if (data['name'] == 'Headphones') {
-                //   Navigator.push(
-                //     context,
-                //     MaterialPageRoute(
-                //       builder: (context) => Products(
-                //         cat: 'Headphones',
-                //       ),
-                //     ),
-                //   );
-                // }
               },
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 15),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    InkWell(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => Products(
-                              cat: 'female',
-                            ),
-                          ),
-                        );
-                      },
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(20.0),
-                        child: Image.asset('assets/womenhome.jpeg',
-                            width: 400, height: 200.0),
-                      ),
-                    ),
-                    Center(
-                      child: Text("${data['name']}",
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: selected == data[index]
-                                  ? Color.fromARGB(72, 0, 0, 0)
-                                  : Color.fromARGB(72, 0, 0, 0))),
-                    ),
-                    InkWell(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => Products(
-                              cat: 'male',
-                            ),
-                          ),
-                        );
-                      },
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(20.0),
-                        child: Image.asset('assets/menhome.jpeg',
-                            width: 400, height: 200.0),
-                      ),
-                    ),
+                    Text("subcategori",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: selected == data[index]
+                                ? Color.fromARGB(72, 0, 0, 0)
+                                : Color.fromARGB(72, 0, 0, 0))),
                     Container(
                       margin: EdgeInsets.only(top: 15 / 4),
                       height: 2,

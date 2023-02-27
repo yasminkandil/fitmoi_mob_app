@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fitmoi_mob_app/home/home_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../controllers/search_product.dart';
@@ -64,6 +65,7 @@ class HomeNavbar extends State<Navigation_bar> {
           child: Column(children: <Widget>[
             HeaderContainer("Home Page"),
             CategoryGender(),
+            HomeScreen(salma: "salma")
           ]),
         ),
       ),
