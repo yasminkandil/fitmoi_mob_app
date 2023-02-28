@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fitmoi_mob_app/shop/details/components/tryyonn.dart';
 import 'package:flutter/material.dart';
 
 import '../../../models/product_model2.dart';
@@ -11,10 +12,14 @@ class description extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10),
+      padding: const EdgeInsets.all(10),
       child: Text(
+        textAlign: TextAlign.left,
         "${productModel2.description}",
-        style: TextStyle(height: 1.5),
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: 20,
+        ),
       ),
     );
   }

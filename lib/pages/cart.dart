@@ -94,6 +94,7 @@ class _CartItemState extends State<CartItem> {
                 child: CupertinoActivityIndicator(),
               )
             : Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   SizedBox(height: 15),
                   Expanded(
@@ -123,13 +124,13 @@ class _CartItemState extends State<CartItem> {
                             itemCount: cartList.length,
                           ),
                   ),
-                  SizedBox(height: 10),
                   Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
                       color: Colors.grey[500],
                     ),
                     child: Column(
+                      mainAxisSize: MainAxisSize.min,
                       children: [
                         SizedBox(height: 10),
                         Row(
@@ -142,7 +143,6 @@ class _CartItemState extends State<CartItem> {
                                     fontSize: 22)),
                           ],
                         ),
-                        SizedBox(height: 10),
                         MaterialButton(
                           height: 60.0,
                           minWidth: double.infinity,

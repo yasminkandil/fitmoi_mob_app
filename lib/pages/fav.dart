@@ -82,10 +82,12 @@ class FavScreen extends StatelessWidget {
                       ],
                     ),
                     child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Container(
                                 width: 110,
@@ -104,9 +106,6 @@ class FavScreen extends StatelessWidget {
                                         fit: BoxFit.cover,
                                         image: NetworkImage(product['image']))),
                               ),
-                              SizedBox(
-                                width: 30,
-                              ),
                               Column(
                                 children: [
                                   Text(
@@ -115,10 +114,6 @@ class FavScreen extends StatelessWidget {
                                         fontWeight: FontWeight.bold,
                                         color: mintColors),
                                   ),
-                                  const SizedBox(
-                                    height: 10,
-                                    width: 10,
-                                  ),
                                   Container(
                                     width: 100.0,
                                     height: 20.0,
@@ -126,10 +121,6 @@ class FavScreen extends StatelessWidget {
                                       fit: BoxFit.contain,
                                       child: Text("${product['description']}"),
                                     ),
-                                  ),
-                                  const SizedBox(
-                                    height: 10,
-                                    width: 10,
                                   ),
                                   product['onSale']
                                       ? Text(

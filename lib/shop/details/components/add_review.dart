@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fitmoi_mob_app/utils/color.dart';
+import 'package:fitmoi_mob_app/widgets/btn_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -35,50 +36,60 @@ class _AddReviewState extends State<AddReview> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(text: "Add Review"),
-      body: Column(
-        children: [
-          Padding(padding: EdgeInsets.all(10)),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              RatingBar.builder(
-                initialRating: 0,
-                minRating: 1,
-                direction: Axis.horizontal,
-                allowHalfRating: true,
-                itemCount: 5,
-                itemPadding: EdgeInsets.symmetric(horizontal: 1.0),
-                itemBuilder: (context, _) => Icon(
-                  Icons.star,
-                  color: Colors.amber,
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Center(
+          child: Container(
+            height: 400,
+            width: 400,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Padding(padding: EdgeInsets.all(10)),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    RatingBar.builder(
+                      initialRating: 0,
+                      minRating: 1,
+                      direction: Axis.horizontal,
+                      allowHalfRating: true,
+                      itemCount: 5,
+                      itemPadding: EdgeInsets.symmetric(horizontal: 1.0),
+                      itemBuilder: (context, _) => Icon(
+                        Icons.star,
+                        color: Colors.amber,
+                      ),
+                      onRatingUpdate: (rating) {
+                        setState(() {
+                          this.rating = rating;
+                        });
+                      },
+                    ),
+                  ],
                 ),
-                onRatingUpdate: (rating) {
-                  setState(() {
-                    this.rating = rating;
-                  });
-                },
-              ),
-            ],
+                TextField(
+                  controller: comment,
+                  decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'Review',
+                      hintText: "Add a comment"),
+                ),
+                ButtonWidget(
+                    onClick: () {
+                      addrate(FirebaseAuth.instance.currentUser?.email,
+                              comment.text.trim(), rating, widget.ratee!)
+                          .then((value) {
+                        Fluttertoast.showToast(
+                            msg: "Review addedd...",
+                            backgroundColor: mintColors);
+                      });
+                    },
+                    btnText: "Submit"),
+              ],
+            ),
           ),
-          TextField(
-            controller: comment,
-            decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: 'Review',
-                hintText: "Add a comment"),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              addrate(FirebaseAuth.instance.currentUser?.email,
-                      comment.text.trim(), rating, widget.ratee!)
-                  .then((value) {
-                Fluttertoast.showToast(
-                    msg: "Review addedd...", backgroundColor: mintColors);
-              });
-            },
-            child: Text("Submit"),
-          ),
-        ],
+        ),
       ),
     );
   }

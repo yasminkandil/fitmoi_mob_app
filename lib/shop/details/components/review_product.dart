@@ -43,9 +43,40 @@ class _ReviewState extends State<Review> {
       body: FutureBuilder(
         future: getDocreview(),
         builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+          if (rev.isEmpty) {
+            return const Center(
+                child: Text(
+              "No Reviews yet! \n"
+              "Be the first to review this product",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  color: Colors.grey,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 40),
+            ));
+          }
           return ListView.builder(
             itemCount: rev.length,
             itemBuilder: (context, index) => Container(
+              margin: const EdgeInsets.all(10),
+              padding: const EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(10),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.5),
+                    spreadRadius: 5,
+                    blurRadius: 7,
+                    offset: const Offset(0, 3), // changes position of shadow
+                  ),
+                ],
+              ),
               child: Column(
                 children: [
                   FutureBuilder(
@@ -64,7 +95,7 @@ class _ReviewState extends State<Review> {
                           child: Column(
                             children: [
                               Text("Email: " + data['email']),
-                              SizedBox(
+                              const SizedBox(
                                 height: 10,
                               ),
                               RatingBar.builder(
@@ -74,8 +105,8 @@ class _ReviewState extends State<Review> {
                                 allowHalfRating: true,
                                 itemCount: 5,
                                 itemPadding:
-                                    EdgeInsets.symmetric(horizontal: 4.0),
-                                itemBuilder: (context, _) => Icon(
+                                    const EdgeInsets.symmetric(horizontal: 4.0),
+                                itemBuilder: (context, _) => const Icon(
                                   Icons.star,
                                   color: Colors.amber,
                                 ),
@@ -83,11 +114,11 @@ class _ReviewState extends State<Review> {
                                   setState(() {});
                                 },
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 10,
                               ),
                               Text("Comment: " + data['comment']),
-                              SizedBox(
+                              const SizedBox(
                                 height: 10,
                               ),
                             ],
@@ -95,7 +126,7 @@ class _ReviewState extends State<Review> {
                         );
                       }
 
-                      return Text("Loading....");
+                      return const Text("Loading....");
                     },
                   ),
                 ],

@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
-
 class DetailScreen extends StatelessWidget {
   final String prod;
   const DetailScreen({super.key, required this.prod});
@@ -13,7 +12,7 @@ class DetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: mintColors,
+      backgroundColor: GreyLightColors,
       appBar: buildAppBar(context),
       body: Body(
         prod: prod,
@@ -23,14 +22,15 @@ class DetailScreen extends StatelessWidget {
 
   AppBar buildAppBar(BuildContext context) {
     return AppBar(
-      backgroundColor: GreyLightColors,
+      backgroundColor: GreyColors,
       elevation: 0,
       leading: IconButton(
         onPressed: () {
           Navigator.pop(context);
         },
-        icon: Icon(Icons.arrow_back_ios),
+        icon: Icon(Icons.arrow_back, color: mintColors),
       ),
+      title: Text('Details'),
       actions: <Widget>[
         IconButton(
           icon: Icon(

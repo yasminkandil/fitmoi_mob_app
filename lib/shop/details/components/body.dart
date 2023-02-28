@@ -2,11 +2,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:fitmoi_mob_app/pages/cart.dart';
+import 'package:fitmoi_mob_app/pages/try-on.dart';
 import 'package:fitmoi_mob_app/shop/details/components/add_review.dart';
+import 'package:fitmoi_mob_app/shop/details/components/colors.dart';
 import 'package:fitmoi_mob_app/shop/details/components/description.dart';
 import 'package:fitmoi_mob_app/shop/details/components/product_info.dart';
 import 'package:fitmoi_mob_app/shop/details/components/product_title_with_image.dart';
 import 'package:fitmoi_mob_app/shop/details/components/review_product.dart';
+import 'package:fitmoi_mob_app/shop/details/components/tryyonn.dart';
 import 'package:fitmoi_mob_app/utils/color.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -46,6 +49,8 @@ class _BodyState extends State<Body> {
               child: CircularProgressIndicator(),
             )
           : Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 SizedBox(
                   height: size.height,
@@ -56,15 +61,17 @@ class _BodyState extends State<Body> {
                           top: size.height * 0.12, left: 10, right: 10),
                       height: 500,
                       decoration: BoxDecoration(
-                          color: mintColors,
+                          color: mintLightColors,
                           borderRadius: const BorderRadius.only(
                               topLeft: Radius.circular(24),
                               topRight: Radius.circular(24))),
                       child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: <Widget>[
-                          productinfo(productModel2!),
-                          //  const QuantityDropDown(),
                           description(productModel2!),
+
+                          //  const QuantityDropDown(),
+
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
@@ -175,6 +182,8 @@ class _BodyState extends State<Body> {
                               ),
                             ],
                           ),
+                          productinfo(productModel2!),
+
                           Column(
                             children: [
                               Padding(
@@ -401,32 +410,52 @@ class _BodyState extends State<Body> {
                                                 },
                                                 child: Text("Add Review",
                                                     style: TextStyle(
-                                                        fontSize: 17,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        color: Colors.white)),
+                                                      fontSize: 17,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color: Colors.white,
+                                                    )),
                                               )),
                                         ),
                                       ],
                                     ),
-                                    Container(
-                                      margin: const EdgeInsets.only(top: 10),
-                                      alignment: Alignment.centerRight,
-                                      child: TextButton(
-                                          child: const Text(
-                                              style: TextStyle(
-                                                  color: Colors.white),
-                                              "View Reviews"),
-                                          onPressed: () {
-                                            Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        Review(
-                                                          ratee: widget.prod
-                                                              .toString(),
-                                                        )));
-                                          }),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Container(
+                                          margin:
+                                              const EdgeInsets.only(top: 10),
+                                          alignment: Alignment.centerRight,
+                                          child: TextButton(
+                                              child: const Text(
+                                                  style: TextStyle(
+                                                      color: Colors.white),
+                                                  "View Reviews"),
+                                              onPressed: () {
+                                                Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            Review(
+                                                              ratee: widget.prod
+                                                                  .toString(),
+                                                            )));
+                                              }),
+                                        ),
+                                        Container(
+                                          //margin: const EdgeInsets.only(top: 5),
+                                          alignment: Alignment.centerRight,
+                                          child: TextButton(
+                                              child: const Text(
+                                                  style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                  "Recommend Outfit"),
+                                              onPressed: () {}),
+                                        ),
+                                      ],
                                     ),
                                   ],
                                 ),

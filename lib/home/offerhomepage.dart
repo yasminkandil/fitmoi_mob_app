@@ -1,8 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fitmoi_mob_app/utils/color.dart';
 import 'package:flutter/material.dart';
 
 import 'package:velocity_x/velocity_x.dart';
 import '../read data/get_newarrival.dart';
+import '../read data/get_offers.dart';
 import '../widgets/app_bar.dart';
 
 class Offerrphoto extends StatefulWidget {
@@ -49,9 +51,12 @@ class _OfferrphotoState extends State<Offerrphoto> {
                     itemCount: 1,
                     itemBuilder: (context, index) {
                       return Container(
+                        // color: mintColors,
                         height: 220,
                         width: double.infinity,
-                        // decoration: BoxDecoration(color: GreyColors),
+                        decoration: BoxDecoration(
+                            color: mintColors,
+                            borderRadius: BorderRadius.circular(20)),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
@@ -64,13 +69,12 @@ class _OfferrphotoState extends State<Offerrphoto> {
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.center,
                                             children: <Widget>[
-                                              GetOffersPage(
-                                                offer: offershome[index],
+                                              OffersData(
+                                                offersitemss: offershome[index],
                                               ),
                                             ],
                                           )
                                               .box
-                                              .orange400
                                               .rounded
                                               .padding(const EdgeInsets.all(10))
                                               .make()),

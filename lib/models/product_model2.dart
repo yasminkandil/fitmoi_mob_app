@@ -7,7 +7,7 @@ class ProductModel2 {
   String? quantity;
   String? price;
   String? price2;
-
+  List<String>? color;
   String? description;
   String? id;
   String? category;
@@ -38,6 +38,7 @@ class ProductModel2 {
     required this.lquantity,
     required this.xlquantity,
     required this.xxlquantity,
+    required this.color,
   });
 
   ProductModel2.fromJson(Map<String, dynamic> json) {
@@ -49,7 +50,7 @@ class ProductModel2 {
     quantity = json["quantity"];
     price = json["price"];
     price2 = json["price2"];
-
+    //color = json["color"];
     description = json["description"];
     id = json["id"];
     category = json["category"];

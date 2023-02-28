@@ -513,11 +513,21 @@ class _AddProductPageState extends State<AddProductPage> {
                                             colorsList,
                                             sizeList,
                                             _uuid.v1(),
-                                            pp.squantityController.text,
-                                            pp.mquantityController.text,
-                                            pp.lquantityController.text,
-                                            pp.xlquantityController.text,
-                                            pp.xxlquantityController.text,
+                                            pp.squantityController.text == ""
+                                                ? "0"
+                                                : pp.squantityController.text,
+                                            pp.mquantityController.text == ""
+                                                ? "0"
+                                                : pp.squantityController.text,
+                                            pp.lquantityController.text == ""
+                                                ? "0"
+                                                : pp.squantityController.text,
+                                            pp.xlquantityController.text == ""
+                                                ? "0"
+                                                : pp.squantityController.text,
+                                            pp.xxlquantityController.text == ""
+                                                ? "0"
+                                                : pp.squantityController.text,
                                             false,
                                             "0")
                                         .then((value) {

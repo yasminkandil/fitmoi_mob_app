@@ -91,7 +91,7 @@ class NewArrivalHome extends StatelessWidget {
                                                     height: 280,
                                                     width: 240,
                                                     decoration: BoxDecoration(
-                                                      color: Colors.black,
+                                                      color: GreyColors,
                                                       //borderRadius: BorderRadius.circular(16)
                                                     ),
                                                     child: Image(
@@ -118,16 +118,12 @@ class NewArrivalHome extends StatelessWidget {
                                                     padding: EdgeInsets.all(35),
                                                     width: 240,
                                                     decoration: BoxDecoration(
-                                                      color: Colors.black,
+                                                      color: GreyColors,
                                                     ),
                                                     child: Text(
-                                                        snapshot.data
-                                                                ?.docs[index]
-                                                                .get('name') +
-                                                            snapshot.data
-                                                                ?.docs[index]
-                                                                .get(
-                                                                    'category'),
+                                                        snapshot
+                                                            .data?.docs[index]
+                                                            .get('name'),
                                                         style: TextStyle(
                                                             fontSize: 20,
                                                             fontWeight:

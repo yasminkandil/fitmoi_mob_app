@@ -16,59 +16,65 @@ class _CategoryGenderState extends State<CategoryGender> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      child: Column(
-        children: [
-          SizedBox(
-            height: 15,
-            width: 15,
-          ),
-          Center(
-            child: InkWell(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => Products(
-                      cat: 'female',
+      child: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Column(
+          //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            SizedBox(
+              height: 15,
+              width: 15,
+            ),
+            Center(
+              child: InkWell(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => Products(
+                        cat: 'female',
+                      ),
                     ),
+                  );
+                },
+                child: ClipRRect(
+                  //borderRadius: BorderRadius.circular(20.0),
+                  child: Image.asset(
+                    'assets/womenhome.jpeg',
                   ),
-                );
-              },
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(20.0),
-                child: Image.asset('assets/womenhome.jpeg',
-                    width: 400, height: 200.0),
+                ),
               ),
             ),
-          ),
-          SizedBox(
-            height: 15,
-            width: 15,
-          ),
-          Center(
-            child: InkWell(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => Products(
-                      cat: 'male',
+            SizedBox(
+              height: 15,
+              width: 15,
+            ),
+            Center(
+              child: InkWell(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => Products(
+                        cat: 'male',
+                      ),
                     ),
+                  );
+                },
+                child: ClipRRect(
+                  // borderRadius: BorderRadius.circular(20.0),
+                  child: Image.asset(
+                    'assets/menhome.jpeg',
                   ),
-                );
-              },
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(20.0),
-                child: Image.asset('assets/menhome.jpeg',
-                    width: 400, height: 200.0),
+                ),
               ),
             ),
-          ),
-          SizedBox(
-            height: 15,
-            width: 15,
-          ),
-        ],
+            SizedBox(
+              height: 15,
+              width: 15,
+            ),
+          ],
+        ),
       ),
     );
   }

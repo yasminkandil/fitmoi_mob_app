@@ -1,8 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:fitmoi_mob_app/admin/test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
-import '../products_all.dart';
+import 'package:fitmoi_mob_app/pages/contact_us.dart';
+import 'package:fitmoi_mob_app/pages/products_all.dart';
+//import 'package:fitmoi_mob_app/product_powerbank.dart';
+
+import '../../home/home_page.dart';
 
 class Categorie extends StatefulWidget {
   const Categorie({super.key});
@@ -20,56 +23,6 @@ class _CategorieState extends State<Categorie> {
             prod.add(document.reference.id);
           }),
         );
-  }
-
-  Future<List<dynamic>> getSubcategoriesF() async {
-    final DocumentSnapshot<Map<String, dynamic>> documentSnapshot =
-        await FirebaseFirestore.instance
-            .collection('category')
-            .doc('iIDinMSxd9LMHvl1zlWy')
-            .get();
-    final data = documentSnapshot.data();
-    if (data == null) {
-      return [];
-    } // Return an empty list if the document doesn't exist
-    return data['subcategory'] ??
-        []; // Return the subcategory array or an empty list if it doesn't exist
-  }
-
-  List<dynamic> _subcategoriesF = [];
-  dynamic _selectedValuee;
-  void fetchSubcategoriesF() async {
-    _subcategoriesF = await getSubcategoriesF();
-    if (_subcategoriesF.isNotEmpty) {
-      setState(() {
-        _selectedValuee = _subcategoriesF[0]; // Set the initial selected value
-      });
-    }
-  }
-
-  Future<List<dynamic>> getSubcategoriesM() async {
-    final DocumentSnapshot<Map<String, dynamic>> documentSnapshot =
-        await FirebaseFirestore.instance
-            .collection('category')
-            .doc('ypF4q51E7j7zVBlvFoYx')
-            .get();
-    final data = documentSnapshot.data();
-    if (data == null) {
-      return [];
-    } // Return an empty list if the document doesn't exist
-    return data['subcategory'] ??
-        []; // Return the subcategory array or an empty list if it doesn't exist
-  }
-
-  List<dynamic> _subcategoriesM = [];
-  dynamic _selectedValueeM;
-  void fetchSubcategoriesM() async {
-    _subcategoriesM = await getSubcategoriesM();
-    if (_subcategoriesM.isNotEmpty) {
-      setState(() {
-        _selectedValueeM = _subcategoriesM[0]; // Set the initial selected value
-      });
-    }
   }
 
   @override
@@ -114,21 +67,39 @@ class buildCategory extends StatelessWidget {
                 : <String, dynamic>{};
             return GestureDetector(
               onTap: () {
-                if (data['name'] == "female") {
+                if (data['name'] == "Powerbank") {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (context) => Products(
-                        cat: 'female',
+                        cat: 'Powerbank',
                       ),
                     ),
                   );
-                } else if (data['name'] == 'male') {
+                } else if (data['name'] == 'Cabels') {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (context) => Products(
-                        cat: 'male',
+                        cat: 'Cables',
+                      ),
+                    ),
+                  );
+                } else if (data['name'] == 'Covers') {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => Products(
+                        cat: 'Covers',
+                      ),
+                    ),
+                  );
+                } else if (data['name'] == 'Headphones') {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => Products(
+                        cat: 'Headphones',
                       ),
                     ),
                   );
@@ -139,7 +110,7 @@ class buildCategory extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Text("subcategori",
+                    Text("${data['name']}",
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
                             color: selected == data[index]
