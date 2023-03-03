@@ -306,7 +306,8 @@ class _RegisterPageState extends State<RegisterPage> {
                                         Fluttertoast.showToast(
                                             msg: "Account created...",
                                             backgroundColor: mintColors);
-                                        Navigator.pushNamed(context, 'home');
+                                        Navigator.pushNamed(
+                                            context, 'homepage');
                                       });
                                       //}
                                     }

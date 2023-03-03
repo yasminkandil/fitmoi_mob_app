@@ -13,14 +13,16 @@ import 'package:fitmoi_mob_app/pages/components/body.dart';
 import '../widgets/app_bar.dart';
 
 class Products extends StatelessWidget {
-  Products({super.key, required this.cat});
+  Products({super.key, required this.cat, required this.subcat});
   String cat;
+  String subcat;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(text: "Shop"),
       body: Body(
         cat: cat,
+        subcat: subcat,
       ),
     );
   }

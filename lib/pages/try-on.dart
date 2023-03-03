@@ -8,6 +8,7 @@ import '../widgets/app_bar.dart';
 import '../widgets/btn_widget.dart';
 import '../widgets/image_text_inp.dart';
 import '../widgets/reg_textinput.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class TryOn extends StatefulWidget {
   //String id;
@@ -125,7 +126,13 @@ class _TryOnState extends State<TryOn> {
                   Expanded(
                     child: ButtonWidget2(
                       btnText: "Recommend outfit",
-                      onClick: () {
+                      onClick: () async {
+                        const url = 'http://127.0.0.1:8050';
+                        if (await canLaunch(url)) {
+                          await launch(url);
+                        } else {
+                          throw 'Could not launch $url';
+                        }
                         Navigator.pop(context);
                       },
                     ),

@@ -33,6 +33,7 @@ class _CategoryGenderState extends State<CategoryGender> {
                     MaterialPageRoute(
                       builder: (context) => Products(
                         cat: 'female',
+                        subcat: 'shirt',
                       ),
                     ),
                   );
@@ -57,6 +58,7 @@ class _CategoryGenderState extends State<CategoryGender> {
                     MaterialPageRoute(
                       builder: (context) => Products(
                         cat: 'male',
+                        subcat: 'shirts',
                       ),
                     ),
                   );

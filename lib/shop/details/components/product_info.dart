@@ -57,7 +57,7 @@ class _productinfoState extends State<productinfo> {
                         ]),
                   ),
           ),
-          ColorsInfo(),
+          ColorsInfo(prodId: widget.productModel2),
           QuantityDropDown(productModel2: widget.productModel2),
         ],
       ),

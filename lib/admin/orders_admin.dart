@@ -24,7 +24,7 @@ class ViewOrdersPage extends StatelessWidget {
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
-      // appBar: AdminAppBar(text: "Orders List"),
+      appBar: CustomAppBar(text: "Orders List"),
       body: FutureBuilder(
         future: getDocorder(),
         builder: (context, snapshot) {

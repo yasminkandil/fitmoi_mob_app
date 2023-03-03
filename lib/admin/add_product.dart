@@ -500,36 +500,40 @@ class _AddProductPageState extends State<AddProductPage> {
                                   if (formKey.currentState!.validate()) {
                                     pp
                                         .addProduct(
-                                            pp.nameController.text,
-                                            pp.descriptionController.text,
-                                            pp.qualityController.text,
-                                            _selectedValue,
-                                            pp.priceController.text,
-                                            pp.quantityController.text,
-                                            DateTime.now().toString(),
-                                            pp.greyimage,
-                                            pp.greyimage2,
-                                            pp.greyimage3,
-                                            colorsList,
-                                            sizeList,
-                                            _uuid.v1(),
-                                            pp.squantityController.text == ""
-                                                ? "0"
-                                                : pp.squantityController.text,
-                                            pp.mquantityController.text == ""
-                                                ? "0"
-                                                : pp.squantityController.text,
-                                            pp.lquantityController.text == ""
-                                                ? "0"
-                                                : pp.squantityController.text,
-                                            pp.xlquantityController.text == ""
-                                                ? "0"
-                                                : pp.squantityController.text,
-                                            pp.xxlquantityController.text == ""
-                                                ? "0"
-                                                : pp.squantityController.text,
-                                            false,
-                                            "0")
+                                      pp.nameController.text,
+                                      pp.descriptionController.text,
+                                      pp.qualityController.text,
+                                      _selectedValue,
+                                      pp.priceController.text,
+                                      pp.quantityController.text,
+                                      DateTime.now().toString(),
+                                      pp.greyimage,
+                                      pp.greyimage2,
+                                      pp.greyimage3,
+                                      colorsList,
+                                      sizeList,
+                                      _uuid.v1(),
+                                      pp.squantityController.text == ""
+                                          ? "0"
+                                          : pp.squantityController.text,
+                                      pp.mquantityController.text == ""
+                                          ? "0"
+                                          : pp.squantityController.text,
+                                      pp.lquantityController.text == ""
+                                          ? "0"
+                                          : pp.squantityController.text,
+                                      pp.xlquantityController.text == ""
+                                          ? "0"
+                                          : pp.squantityController.text,
+                                      pp.xxlquantityController.text == ""
+                                          ? "0"
+                                          : pp.squantityController.text,
+                                      false,
+                                      "0",
+                                      _selectedValue == "male"
+                                          ? _selectedValueeM
+                                          : _selectedValuee,
+                                    )
                                         .then((value) {
                                       sizeList.clear();
                                       colorsList.clear();

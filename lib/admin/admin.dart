@@ -139,6 +139,17 @@ class _AdminState extends State<Admin> {
           indent: 25,
           endIndent: 25,
         ),
+        ListTile(
+            leading: const Icon(Icons.library_books),
+            title: const Text("Refunds Requests"),
+            onTap: () => Navigator.pushNamed(context, 'view_refunds')),
+        Divider(
+          color: mintColors,
+          height: 10,
+          thickness: 3,
+          indent: 25,
+          endIndent: 25,
+        ),
       ],
     );
   }

@@ -12,7 +12,8 @@ import '../../shop/details/details_screen.dart';
 
 class Body extends StatelessWidget {
   String cat;
-  Body({super.key, required this.cat});
+  String subcat;
+  Body({super.key, required this.cat, required this.subcat});
 
   List<String> products = [];
 
@@ -20,6 +21,7 @@ class Body extends StatelessWidget {
     await FirebaseFirestore.instance
         .collection('product')
         .where('category', isEqualTo: cat)
+        .where('subcategory', isEqualTo: subcat)
         .get()
         .then(
           (snapshot) => snapshot.docs.forEach((document) {
@@ -34,7 +36,7 @@ class Body extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Categorie(),
+        Categorie(cat: cat),
         Expanded(
           child: FutureBuilder(
               future: getDocProd(),

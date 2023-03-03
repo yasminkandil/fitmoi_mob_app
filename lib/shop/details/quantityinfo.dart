@@ -9,6 +9,7 @@ const List<String> list = <String>[
   'XLarge',
   'XXLarge'
 ];
+String chosenSize = '';
 
 class QuantityDropDown extends StatefulWidget {
   ProductModel2 productModel2;
@@ -39,6 +40,7 @@ class _QuantityDropDownState extends State<QuantityDropDown> {
                         onTap: () {
                           setState(() {
                             size = "S";
+                            chosenSize = 'S';
                           });
                         },
                         child: Container(
@@ -84,6 +86,7 @@ class _QuantityDropDownState extends State<QuantityDropDown> {
                         onTap: () {
                           setState(() {
                             size = "M";
+                            chosenSize = 'M';
                           });
                         },
                         child: Container(
@@ -129,6 +132,7 @@ class _QuantityDropDownState extends State<QuantityDropDown> {
                         onTap: () {
                           setState(() {
                             size = "L";
+                            chosenSize = 'L';
                           });
                         },
                         child: Container(
@@ -174,6 +178,7 @@ class _QuantityDropDownState extends State<QuantityDropDown> {
                         onTap: () {
                           setState(() {
                             size = "XL";
+                            chosenSize = 'XL';
                           });
                         },
                         child: Container(
@@ -217,6 +222,7 @@ class _QuantityDropDownState extends State<QuantityDropDown> {
                         onTap: () {
                           setState(() {
                             size = "XXL";
+                            chosenSize = 'XXL';
                           });
                         },
                         child: Container(

@@ -9,18 +9,23 @@ class OrderModel2 {
   String? orderStatus;
   String? paymentMethod;
   List<String>? products;
+  Map<String, String>? sizes;
+  Map<String, String>? color;
 
-  OrderModel2(
-      {required this.totalPrice,
-      required this.orderBy,
-      required this.orderDate,
-      required this.orderNo,
-      required this.phone,
-      required this.name,
-      required this.address,
-      this.orderStatus = "Pending",
-      required this.paymentMethod,
-      required this.products});
+  OrderModel2({
+    required this.totalPrice,
+    required this.orderBy,
+    required this.orderDate,
+    required this.orderNo,
+    required this.phone,
+    required this.name,
+    required this.address,
+    this.orderStatus = "Pending",
+    required this.paymentMethod,
+    required this.products,
+    required this.sizes,
+    required this.color,
+  });
 
   OrderModel2.fromJson(Map<String, dynamic> json) {
     totalPrice = json["totalPrice"];
@@ -38,6 +43,26 @@ class OrderModel2 {
         products!.add(element);
       });
     }
+    if (json['sizes'] != null) {
+      // sizes!.clear();
+      json['sizes'].forEach((key, value) {
+        sizes!.addAll(
+          {
+            key: value,
+          },
+        );
+      });
+    }
+    if (json['color'] != null) {
+      // color!.clear();
+      json['color'].forEach((key, value) {
+        color!.addAll(
+          {
+            key: value,
+          },
+        );
+      });
+    }
   }
 
   Map<String, dynamic> toMap() {
@@ -52,6 +77,8 @@ class OrderModel2 {
       "orderStatus": orderStatus,
       "paymentMethod": paymentMethod,
       "products": products,
+      "sizes": sizes,
+      "color": color,
     };
   }
 }

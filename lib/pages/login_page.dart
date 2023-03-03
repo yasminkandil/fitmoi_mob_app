@@ -14,7 +14,7 @@ import 'package:fitmoi_mob_app/widgets/header_container.dart';
 
 import '../admin/admin.dart';
 import '../home/home_page.dart';
-import '../models/auth_service.dart';
+import '../services/auth_service.dart';
 import '../models/user_model.dart';
 import '../widgets/app_bar.dart';
 

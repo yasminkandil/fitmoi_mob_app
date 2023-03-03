@@ -7,7 +7,8 @@ class ProductModel2 {
   String? quantity;
   String? price;
   String? price2;
-  List<String>? color;
+  String? color;
+  String? size;
   String? description;
   String? id;
   String? category;

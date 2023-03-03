@@ -230,6 +230,8 @@ class _BodyState extends State<Body> {
                                                         .description,
                                                     id: productModel2!.id,
                                                     name: productModel2!.name,
+                                                    size: chosenSize,
+                                                    color: chosenColor,
                                                     image: productModel2!.image,
                                                     onSale:
                                                         productModel2!.onSale,

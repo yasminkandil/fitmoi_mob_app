@@ -8,6 +8,8 @@ class CartModel2 {
   int? price2;
   bool? onSale;
   int? count;
+  String? size;
+  String? color;
 
   CartModel2(
       {required this.id,
@@ -18,7 +20,9 @@ class CartModel2 {
       required this.count,
       required this.price,
       required this.onSale,
-      required this.price2});
+      required this.price2,
+      required this.size,
+      required this.color});
 
   CartModel2.fromJson(Map<String, dynamic> map) {
     id = map['id'];
@@ -32,6 +36,8 @@ class CartModel2 {
     totalPrice = map['totalPrice'];
     price = map['price'];
     count = map['count'];
+    size = map['size'];
+    color = map['color'];
   }
 
   Map<String, dynamic> toMap() {
@@ -45,6 +51,8 @@ class CartModel2 {
       "count": count,
       "totalPrice": totalPrice,
       "price": price,
+      "size": size,
+      "color": color,
     };
   }
 }

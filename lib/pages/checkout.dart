@@ -12,8 +12,15 @@ import '../widgets/app_bar.dart';
 class checkout extends StatefulWidget {
   final int totalPrice;
   final List<String> products;
-
-  const checkout({super.key, required this.totalPrice, required this.products});
+  final Map<String, String> sizes;
+  final Map<String, String> color;
+  const checkout({
+    super.key,
+    required this.totalPrice,
+    required this.products,
+    required this.sizes,
+    required this.color,
+  });
 
   @override
   _CheckoutState createState() => _CheckoutState();
@@ -165,18 +172,21 @@ class _CheckoutState extends State<checkout> {
                                 onPressed: () {
                                   if (formKey.currentState!.validate()) {
                                     OrderModel2 model = OrderModel2(
-                                        phone: phoneController.text,
-                                        name: nameController.text,
-                                        address: addressController.text,
-                                        totalPrice: "${widget.totalPrice}",
-                                        orderBy: email,
-                                        orderDate: DateTime.now()
-                                            .toString()
-                                            .split(" ")[0],
-                                        orderNo: UniqueKey().toString(),
-                                        paymentMethod:
-                                            isCash[0] ? "Cash" : "Visa",
-                                        products: widget.products);
+                                      phone: phoneController.text,
+                                      name: nameController.text,
+                                      address: addressController.text,
+                                      totalPrice: "${widget.totalPrice}",
+                                      orderBy: email,
+                                      orderDate: DateTime.now()
+                                          .toString()
+                                          .split(" ")[0],
+                                      orderNo: UniqueKey().toString(),
+                                      paymentMethod:
+                                          isCash[0] ? "Cash" : "Visa",
+                                      products: widget.products,
+                                      sizes: widget.sizes,
+                                      color: widget.color,
+                                    );
 
                                     FirebaseFirestore.instance
                                         .collection("orders")

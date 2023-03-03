@@ -18,6 +18,8 @@ class _CartItemState extends State<CartItem> {
   List<CartModel2> cartList = [];
   List<String> productsName = [];
   bool isLoading = false;
+  Map<String, String> sizes = {};
+  Map<String, String> color = {};
 
   @override
   void initState() {
@@ -63,6 +65,10 @@ class _CartItemState extends State<CartItem> {
         CartModel2 cartModel2 = CartModel2.fromJson(element.data());
         cartList.add(cartModel2);
         productsName.add("${cartModel2.name}");
+        sizes.addAll({
+          "${cartModel2.name}": "${cartModel2.size}"
+        }); // MapEntry("${cartModel2.name}", "${cartModel2.size}"
+        color.addAll({"${cartModel2.name}": "${cartModel2.color}"});
       });
       setState(() {
         isLoading = false;
@@ -159,6 +165,8 @@ class _CartItemState extends State<CartItem> {
                                       builder: (context) => checkout(
                                             products: productsName,
                                             totalPrice: allPrices,
+                                            sizes: sizes,
+                                            color: color,
                                           )));
                             }
                           },

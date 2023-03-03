@@ -136,7 +136,8 @@ Future addProduct(
     String xlquantity,
     String xxlquantity,
     bool onSale,
-    String price2) async {
+    String price2,
+    String subcategory) async {
   await FirebaseFirestore.instance.collection('product').doc(id).set({
     'name': name,
     'description': description,
@@ -157,7 +158,8 @@ Future addProduct(
     'xlquantity': xlquantity,
     'xxlquantity': xxlquantity,
     'onSale': onSale,
-    'price2': price2
+    'price2': price2,
+    'subcategory': subcategory,
   });
 }
 

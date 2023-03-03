@@ -7,6 +7,7 @@ import 'package:fitmoi_mob_app/pages/forgot_pass.dart';
 import 'package:fitmoi_mob_app/pages/login_page.dart';
 import 'package:fitmoi_mob_app/pages/must_have_account.dart';
 import 'package:fitmoi_mob_app/pages/products_all.dart';
+import 'package:fitmoi_mob_app/pages/refund.dart';
 import 'package:fitmoi_mob_app/pages/regi_page.dart';
 import 'package:fitmoi_mob_app/pages/try-on.dart';
 import 'package:fitmoi_mob_app/pages/view_account.dart';
@@ -33,6 +34,7 @@ import 'admin/users_admin.dart';
 import 'admin/view_categories.dart';
 import 'admin/view_messages.dart';
 import 'admin/view_product.dart';
+import 'admin/view_refunds.dart';
 import 'controllers/search_product.dart';
 import 'home/offerhomepage.dart';
 
@@ -100,11 +102,16 @@ class _MyAppState extends State<MyApp> {
         'dashboard': (context) => const Admin(),
         'profile': (context) => const ViewAccountPage(),
         'cart': (context) => CartItem(),
-        'shop': (context) => Products(cat: 'female'),
+        'shop': (context) => Products(
+              cat: 'female',
+              subcat: 'shirt',
+            ),
         'contact_us': (context) => ContactUs(),
+        //'refund': (context) => const Refund(),
         'must_have_account': (context) => MustHaveAccountPage(),
         'add_category': (context) => AddCategPage(),
         'view_categories': (context) => const ViewCategoriesPage(),
+        'view_refunds': (context) => ViewRefundsPage(),
         'view_users': (context) => ViewUsersPage(),
         'view_orders': (context) => ViewOrdersPage(),
         'view_messages': (context) => ViewMessagesPage(),
