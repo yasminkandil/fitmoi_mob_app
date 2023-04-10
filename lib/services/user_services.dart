@@ -39,22 +39,22 @@ class UserService {
             : '',
         height: document.data().toString().contains('height')
             ? document.get('height')
-            : '',
+            : 0.0,
         weight: document.data().toString().contains('weight')
             ? document.get('weight')
-            : '',
+            : 0.0,
         gender: document.data().toString().contains('gender')
             ? document.get('gender')
             : '',
         hip: document.data().toString().contains('hip')
             ? document.get('hip')
-            : '',
+            : 0.0,
         back: document.data().toString().contains('back')
             ? document.get('back')
-            : '',
+            : 0.0,
         chest: document.data().toString().contains('chest')
             ? document.get('chest')
-            : '',
+            : 0.0,
       );
       users.add(user);
     });

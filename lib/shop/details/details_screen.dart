@@ -46,7 +46,19 @@ class DetailScreen extends StatelessWidget {
         ),
         SizedBox(
           width: 2,
-        )
+        ),
+        IconButton(
+          icon: Icon(
+            Icons.favorite,
+          ),
+          onPressed: () {
+            if (FirebaseAuth.instance.currentUser == null) {
+              Navigator.pushNamed(context, 'must_have_account');
+            } else {
+              Navigator.pushNamed(context, 'fav');
+            }
+          },
+        ),
       ],
     );
   }

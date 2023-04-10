@@ -33,9 +33,6 @@ Future addUserDetails(
     String userEmail,
     String useraddress,
     String userPhoneNumber,
-    String userImageSide,
-    String userImageFront,
-    String userImageBack,
     String userImage,
     String gender,
     String id) async {
@@ -47,15 +44,15 @@ Future addUserDetails(
       'mobile': userPhoneNumber,
       'address': useraddress,
       'image': userImage,
-      'imageS': userImageSide,
-      'imageF': userImageFront,
-      'imageB': userImageBack,
-      'height': '0.0',
-      'weight': '0.0',
+      'imageS': '',
+      'imageF': '',
+      'imageB': "",
+      'height': 0.0,
+      'weight': 0.0,
       'gender': gender,
-      'back': '0.0',
-      'chest': '0.0',
-      'hip': '0.0',
+      'back': 0.0,
+      'chest': 0.0,
+      'hip': 0.0,
       'id': id,
     },
   );
@@ -95,12 +92,12 @@ class UserModel {
   String userImageSide;
   String userImageFront;
   String userImageBack;
-  String height;
-  String weight;
+  double height;
+  double weight;
   String gender;
-  String hip;
-  String chest;
-  String back;
+  double hip;
+  double chest;
+  double back;
 
   UserModel({
     required this.firstname,

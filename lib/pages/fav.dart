@@ -156,13 +156,14 @@ class FavScreen extends StatelessWidget {
                                       });
                                     }
                                     Fluttertoast.showToast(
-                                        msg: "Removed from Favourites",
-                                        toastLength: Toast.LENGTH_SHORT,
-                                        gravity: ToastGravity.BOTTOM,
-                                        timeInSecForIosWeb: 1,
-                                        backgroundColor: Colors.grey,
-                                        textColor: Colors.white,
-                                        fontSize: 16.0);
+                                      msg: "Removed from Favourites",
+                                      // toastLength: Toast.LENGTH_SHORT,
+                                      // gravity: ToastGravity.BOTTOM,
+                                      // timeInSecForIosWeb: 1,
+                                      // backgroundColor: Colors.grey,
+                                      // textColor: Colors.white,
+                                      // fontSize: 16.0
+                                    );
                                   }),
                               IconButton(
                                   icon: Icon(

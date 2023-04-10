@@ -1,8 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fitmoi_mob_app/pages/edit_measurments.dart';
+import 'package:fitmoi_mob_app/services/api_getM.dart';
 import 'package:flutter/material.dart';
+import '../models/measurments.dart';
 import '../models/user_model.dart';
-import '../shop/details/components/tryyonn.dart';
+import '../shop/details/components/generate_model.dart';
 import '../utils/color.dart';
 import '../widgets/app_bar.dart';
 import '../widgets/btn_widget.dart';
@@ -73,7 +75,7 @@ class _TryOnState extends State<TryOn> {
                       enable: true),
                   ButtonWidget(
                     btnText: "Generate Model",
-                    onClick: () {
+                    onClick: () async {
                       final addHandW = FirebaseFirestore.instance
                           .collection('users')
                           .doc()

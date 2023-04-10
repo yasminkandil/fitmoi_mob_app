@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fitmoi_mob_app/pages/cart.dart';
 import 'package:fitmoi_mob_app/pages/must_have_account.dart';
 import 'package:fitmoi_mob_app/pages/view_account.dart';
 import 'package:flutter/material.dart';
@@ -27,10 +28,9 @@ class MyHomePage extends StatelessWidget {
             : ViewAccountPage(),
       ),
       Container(
-          // child: FirebaseAuth.instance.currentUser == null
-          //   ? MustHaveAccountPage()
-          //   : Cart(),
-          ),
+          child: FirebaseAuth.instance.currentUser == null
+              ? MustHaveAccountPage()
+              : CartItem()),
       Container(
           // child: Products(cat: 'Cables'),
           ),

@@ -81,8 +81,9 @@ class _AddReviewState extends State<AddReview> {
                               comment.text.trim(), rating, widget.ratee!)
                           .then((value) {
                         Fluttertoast.showToast(
-                            msg: "Review addedd...",
-                            backgroundColor: mintColors);
+                          msg: "Review addedd...",
+                        );
+                        Navigator.pop(context);
                       });
                     },
                     btnText: "Submit"),

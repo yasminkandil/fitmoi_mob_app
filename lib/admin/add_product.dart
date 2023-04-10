@@ -296,14 +296,15 @@ class _AddProductPageState extends State<AddProductPage> {
                                 setState(() {
                                   colorsList.add(pp.colorController.text);
                                   Fluttertoast.showToast(
-                                      msg: "Color Added",
-                                      toastLength: Toast.LENGTH_SHORT,
-                                      gravity: ToastGravity.BOTTOM,
-                                      timeInSecForIosWeb: 1,
-                                      backgroundColor:
-                                          Color.fromARGB(255, 10, 169, 159),
-                                      textColor: Colors.white,
-                                      fontSize: 16.0);
+                                    msg: "Color Added",
+                                    // toastLength: Toast.LENGTH_SHORT,
+                                    // gravity: ToastGravity.BOTTOM,
+                                    // timeInSecForIosWeb: 1,
+                                    // backgroundColor:
+                                    //     Color.fromARGB(255, 10, 169, 159),
+                                    // textColor: Colors.white,
+                                    // fontSize: 16.0
+                                  );
                                   setColors(colorsList);
                                   // pp.colorController.clear();
                                 });
@@ -325,14 +326,15 @@ class _AddProductPageState extends State<AddProductPage> {
                                 setState(() {
                                   sizeList.add(pp.sizeController.text);
                                   Fluttertoast.showToast(
-                                      msg: "Size Added",
-                                      toastLength: Toast.LENGTH_SHORT,
-                                      gravity: ToastGravity.BOTTOM,
-                                      timeInSecForIosWeb: 1,
-                                      backgroundColor:
-                                          Color.fromARGB(255, 10, 169, 159),
-                                      textColor: Colors.white,
-                                      fontSize: 16.0);
+                                    msg: "Size Added",
+                                    // toastLength: Toast.LENGTH_SHORT,
+                                    // gravity: ToastGravity.BOTTOM,
+                                    // timeInSecForIosWeb: 1,
+                                    // backgroundColor:
+                                    //     Color.fromARGB(255, 10, 169, 159),
+                                    // textColor: Colors.white,
+                                    // fontSize: 16.0
+                                  );
                                   setSizes(sizeList);
                                   //pp.sizeController.clear();
                                 });

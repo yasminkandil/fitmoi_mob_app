@@ -61,8 +61,9 @@ class ContactUsForm extends State<ContactUs> {
                           .then((value) {
                         print("Message Sent");
                         Fluttertoast.showToast(
-                            msg: "Message sent...",
-                            backgroundColor: mintColors);
+                          msg: "Message sent...",
+                          //backgroundColor: mintColors
+                        );
                         Navigator.pushNamed(context, 'home');
                       });
                     },

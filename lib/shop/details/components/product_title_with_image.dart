@@ -1,6 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:fitmoi_mob_app/shop/details/components/tryyonn.dart';
+import 'package:fitmoi_mob_app/shop/details/components/generate_model.dart';
 import 'package:flutter/material.dart';
 
 import '../../../models/product_model2.dart';
@@ -16,12 +16,16 @@ class ProductTitleWithImage extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 TryyOn(),
+                SizedBox(
+                  width: 10,
+                ),
                 Center(
                   child: Text(
                     "${productModel2.name}",
@@ -106,7 +110,7 @@ class ProductTitleWithImage extends StatelessWidget {
                               style: TextStyle(
                                   color: Colors.white,
                                   backgroundColor:
-                                      Color.fromARGB(255, 26, 250, 1),
+                                      Color.fromARGB(255, 238, 121, 11),
                                   fontWeight: FontWeight.bold)),
                           TextSpan(
                             text: "${productModel2.price2} LE ",

@@ -129,13 +129,14 @@ class _EditCategState extends State<EditCateg> {
                               .update({
                             'name': _nameController.text.trim()
                           }).then((value) => Fluttertoast.showToast(
-                                  msg: "Category name edited",
-                                  toastLength: Toast.LENGTH_SHORT,
-                                  gravity: ToastGravity.BOTTOM,
-                                  timeInSecForIosWeb: 1,
-                                  backgroundColor: mintColors,
-                                  textColor: Colors.black,
-                                  fontSize: 16.0));
+                                    msg: "Category name edited",
+                                    // toastLength: Toast.LENGTH_SHORT,
+                                    // gravity: ToastGravity.BOTTOM,
+                                    // timeInSecForIosWeb: 1,
+                                    // backgroundColor: mintColors,
+                                    // textColor: Colors.black,
+                                    // fontSize: 16.0
+                                  ));
                         },
                       ),
                     ),

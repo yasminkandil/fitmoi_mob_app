@@ -4,12 +4,13 @@ import 'package:fitmoi_mob_app/pages/cart.dart';
 import 'package:fitmoi_mob_app/pages/contact_us.dart';
 import 'package:fitmoi_mob_app/pages/fav.dart';
 import 'package:fitmoi_mob_app/pages/forgot_pass.dart';
+import 'package:fitmoi_mob_app/pages/humanModelPage.dart';
 import 'package:fitmoi_mob_app/pages/login_page.dart';
 import 'package:fitmoi_mob_app/pages/must_have_account.dart';
 import 'package:fitmoi_mob_app/pages/products_all.dart';
 import 'package:fitmoi_mob_app/pages/refund.dart';
 import 'package:fitmoi_mob_app/pages/regi_page.dart';
-import 'package:fitmoi_mob_app/pages/try-on.dart';
+import 'package:fitmoi_mob_app/pages/view3DModel.dart';
 import 'package:fitmoi_mob_app/pages/view_account.dart';
 import 'admin/orders_admin.dart';
 import 'admin/users_admin.dart';
@@ -96,6 +97,9 @@ class _MyAppState extends State<MyApp> {
       routes: {
         "homepage": (context) => const MyHomePage(),
         "navbar": (context) => Navigation_bar(),
+        "3d": (context) => HumanModelPage(
+              humanModelPath: '',
+            ),
         'login': (context) => LoginPage(),
         'tryon': (context) => TryOn(),
         'register': (context) => RegisterPage(),

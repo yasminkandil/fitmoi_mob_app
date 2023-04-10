@@ -23,12 +23,12 @@ class ImageTextInp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(top: 5),
-      decoration: BoxDecoration(
+      margin: const EdgeInsets.only(top: 5),
+      decoration: const BoxDecoration(
         borderRadius: BorderRadius.all(Radius.circular(20)),
         color: Colors.white,
       ),
-      padding: EdgeInsets.only(left: 10),
+      padding: const EdgeInsets.only(left: 10),
       child: TextFormField(
         obscureText: torf,
         controller: controller,
@@ -40,10 +40,8 @@ class ImageTextInp extends StatelessWidget {
             width: 30,
             height: 30,
             decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage(icon),
-                fit: BoxFit.cover,
-              ),
+              borderRadius: const BorderRadius.all(Radius.circular(20)),
+              image: DecorationImage(image: AssetImage(icon), fit: BoxFit.fill),
             ),
           ),
         ),

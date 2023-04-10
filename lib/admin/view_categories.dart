@@ -121,13 +121,14 @@ class ViewCategoriesPage extends ConsumerWidget {
                                           name: Categories.name,
                                         )));
                                 Fluttertoast.showToast(
-                                    msg: Categories.id,
-                                    toastLength: Toast.LENGTH_SHORT,
-                                    gravity: ToastGravity.BOTTOM,
-                                    timeInSecForIosWeb: 1,
-                                    backgroundColor: Colors.grey,
-                                    textColor: Colors.white,
-                                    fontSize: 16.0);
+                                  msg: Categories.id,
+                                  // toastLength: Toast.LENGTH_SHORT,
+                                  // gravity: ToastGravity.BOTTOM,
+                                  // timeInSecForIosWeb: 1,
+                                  // backgroundColor: Colors.grey,
+                                  // textColor: Colors.white,
+                                  // fontSize: 16.0
+                                );
                               },
                             ),
                           ),

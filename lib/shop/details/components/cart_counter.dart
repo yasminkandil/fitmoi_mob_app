@@ -1,5 +1,5 @@
+import 'package:fitmoi_mob_app/utils/color.dart';
 import 'package:flutter/material.dart';
-
 
 class CartCounter extends StatefulWidget {
   const CartCounter({super.key});
@@ -16,6 +16,7 @@ class _CartCounterState extends State<CartCounter> {
     return Row(
       children: <Widget>[
         IconButton(
+            color: GreyColors,
             onPressed: (() {
               if (numofItems > 1) {
                 setState(() {
@@ -32,6 +33,7 @@ class _CartCounterState extends State<CartCounter> {
           ),
         ),
         IconButton(
+            color: GreyColors,
             onPressed: (() {
               setState(() {
                 numofItems++;

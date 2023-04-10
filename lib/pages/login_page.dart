@@ -44,11 +44,15 @@ class _LoginPageState extends State<LoginPage> {
       if (e.code == "user-not-found") {
         print("No user found");
         Fluttertoast.showToast(
-            msg: "No User Found", backgroundColor: mintColors);
+          msg: "No User Found",
+          //backgroundColor: mintColors
+        );
       } else if (e.code == 'wrong-password') {
         print("wrong password");
         Fluttertoast.showToast(
-            msg: "Wrong Password", backgroundColor: mintColors);
+          msg: "Wrong Password",
+          //backgroundColor: mintColors
+        );
       }
     }
     return user;
@@ -142,8 +146,9 @@ class _LoginPageState extends State<LoginPage> {
                                   }
                                   if (formKey.currentState!.validate()) {
                                     Fluttertoast.showToast(
-                                        msg: "Logging in...",
-                                        backgroundColor: mintColors);
+                                      msg: "Logging in...",
+                                      // backgroundColor: mintColors
+                                    );
                                   }
                                 },
                                 btnText: "LOGIN",

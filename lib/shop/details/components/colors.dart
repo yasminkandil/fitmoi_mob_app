@@ -59,7 +59,7 @@ class _ColorsInfoState extends State<ColorsInfo> {
           value: _selectedValuee,
           icon: const Icon(Icons.arrow_downward),
           elevation: 16,
-          style: TextStyle(color: GreyLightColors),
+          style: TextStyle(color: GreyLightColors, fontWeight: FontWeight.bold),
           underline: Container(
             height: 2,
             // color: Colors.deepPurpleAccent,

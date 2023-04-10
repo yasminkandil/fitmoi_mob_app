@@ -56,8 +56,9 @@ class _ForgotPassState extends State<ForgotPass> {
                                     .then(
                                   (value) {
                                     Fluttertoast.showToast(
-                                        msg: "Email Sent...",
-                                        backgroundColor: mintColors);
+                                      msg: "Email Sent...",
+                                      //backgroundColor: mintColors
+                                    );
                                     Navigator.of(context).pop();
                                   },
                                 );

@@ -2,14 +2,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:fitmoi_mob_app/pages/cart.dart';
-import 'package:fitmoi_mob_app/pages/try-on.dart';
 import 'package:fitmoi_mob_app/shop/details/components/add_review.dart';
 import 'package:fitmoi_mob_app/shop/details/components/colors.dart';
 import 'package:fitmoi_mob_app/shop/details/components/description.dart';
 import 'package:fitmoi_mob_app/shop/details/components/product_info.dart';
 import 'package:fitmoi_mob_app/shop/details/components/product_title_with_image.dart';
 import 'package:fitmoi_mob_app/shop/details/components/review_product.dart';
-import 'package:fitmoi_mob_app/shop/details/components/tryyonn.dart';
+import 'package:fitmoi_mob_app/shop/details/components/generate_model.dart';
 import 'package:fitmoi_mob_app/utils/color.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -33,6 +32,63 @@ class _BodyState extends State<Body> {
   bool _isFavorited = true;
   int _favoriteCount = 41;
   int numofItems = 1;
+  Future<void> updateFavorites() async {
+    if (_isFavorited) {
+      _isFavorited = false;
+      favprod.add(widget.prod);
+      DocumentReference docRef = FirebaseFirestore.instance
+          .collection('fav')
+          .doc(FirebaseAuth.instance.currentUser!.uid);
+      final DocumentSnapshot docSnap = await docRef.get();
+
+      if (docSnap.exists) {
+        await FirebaseFirestore.instance
+            .collection('fav')
+            .doc(FirebaseAuth.instance.currentUser!.uid)
+            .update({
+          'products': favprod,
+        });
+      } else {
+        await FirebaseFirestore.instance
+            .collection('fav')
+            .doc(FirebaseAuth.instance.currentUser!.uid)
+            .set({
+          'products': favprod,
+          'useremail': FirebaseAuth.instance.currentUser!.email,
+        });
+      }
+
+      Fluttertoast.showToast(
+        msg: "Added to Favourites",
+        // toastLength: Toast.LENGTH_SHORT,
+        // gravity: ToastGravity.BOTTOM,
+        // timeInSecForIosWeb: 1,
+        // backgroundColor: Colors.grey,
+        // textColor: Colors.white,
+        // fontSize: 16.0,
+      );
+    } else {
+      _isFavorited = true;
+      favprod.remove(widget.prod);
+
+      await FirebaseFirestore.instance
+          .collection('fav')
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .update({
+        'products': favprod,
+      });
+
+      Fluttertoast.showToast(
+        msg: "Removed from Favourites",
+        // toastLength: Toast.LENGTH_SHORT,
+        // gravity: ToastGravity.BOTTOM,
+        // timeInSecForIosWeb: 1,
+        // backgroundColor: Colors.grey,
+        // textColor: Colors.white,
+        // fontSize: 16.0,
+      );
+    }
+  }
 
   @override
   void initState() {
@@ -78,6 +134,7 @@ class _BodyState extends State<Body> {
                               Row(
                                 children: <Widget>[
                                   IconButton(
+                                      color: GreyColors,
                                       onPressed: (() {
                                         if (numofItems > 1) {
                                           setState(() {
@@ -85,7 +142,7 @@ class _BodyState extends State<Body> {
                                           });
                                         }
                                       }),
-                                      icon: Icon(Icons.remove)),
+                                      icon: const Icon(Icons.remove)),
                                   Padding(
                                     padding: const EdgeInsets.symmetric(
                                         horizontal: 15 / 2),
@@ -96,89 +153,27 @@ class _BodyState extends State<Body> {
                                     ),
                                   ),
                                   IconButton(
+                                      color: GreyColors,
                                       onPressed: (() {
                                         setState(() {
                                           numofItems++;
                                         });
                                       }),
-                                      icon: Icon(Icons.add)),
+                                      icon: const Icon(Icons.add)),
                                 ],
                               ),
-                              Container(
-                                height: 32,
-                                width: 32,
-                                child: IconButton(
-                                  onPressed: () {
-                                    setState(() async {
-                                      if (_isFavorited) {
-                                        //_favoriteCount -= 1;
-                                        _isFavorited = false;
-                                        favprod.add(widget.prod);
-                                        DocumentReference docRef =
-                                            FirebaseFirestore
-                                                .instance
-                                                .collection('fav')
-                                                .doc(FirebaseAuth
-                                                    .instance.currentUser!.uid);
-                                        final DocumentSnapshot docSnap =
-                                            await docRef.get();
 
-                                        if (docSnap.exists) {
-                                          await FirebaseFirestore.instance
-                                              .collection('fav')
-                                              .doc(FirebaseAuth
-                                                  .instance.currentUser!.uid)
-                                              .update({
-                                            'products': favprod,
-                                          });
-                                        } else {
-                                          await FirebaseFirestore.instance
-                                              .collection('fav')
-                                              .doc(FirebaseAuth
-                                                  .instance.currentUser!.uid)
-                                              .set({
-                                            'products': favprod,
-                                            'useremail': FirebaseAuth
-                                                .instance.currentUser!.email,
-                                          });
-                                        }
-
-                                        Fluttertoast.showToast(
-                                            msg: "Added to Favourites",
-                                            toastLength: Toast.LENGTH_SHORT,
-                                            gravity: ToastGravity.BOTTOM,
-                                            timeInSecForIosWeb: 1,
-                                            backgroundColor: Colors.grey,
-                                            textColor: Colors.white,
-                                            fontSize: 16.0);
-                                      } else {
-                                        //_favoriteCount += 1;
-                                        _isFavorited = true;
-                                        favprod.remove(widget.prod);
-
-                                        FirebaseFirestore.instance
-                                            .collection('fav')
-                                            .doc(FirebaseAuth
-                                                .instance.currentUser!.uid)
-                                            .update({
-                                          'products': favprod,
-                                        });
-                                        Fluttertoast.showToast(
-                                            msg: "Removed from Favourites",
-                                            toastLength: Toast.LENGTH_SHORT,
-                                            gravity: ToastGravity.BOTTOM,
-                                            timeInSecForIosWeb: 1,
-                                            backgroundColor: Colors.grey,
-                                            textColor: Colors.white,
-                                            fontSize: 16.0);
-                                      }
-                                    });
-                                  },
-                                  icon: (_isFavorited
-                                      ? Icon(Icons.favorite_border)
-                                      : Icon(Icons.favorite)),
-                                  color: Colors.red[500],
-                                ),
+// Update your IconButton onPressed callback
+                              IconButton(
+                                onPressed: () {
+                                  setState(() {
+                                    updateFavorites(); // Call the separate function to handle the asynchronous update
+                                  });
+                                },
+                                icon: (_isFavorited
+                                    ? const Icon(Icons.favorite_border)
+                                    : const Icon(Icons.favorite)),
+                                color: Colors.red[500],
                               ),
                             ],
                           ),
@@ -193,26 +188,6 @@ class _BodyState extends State<Body> {
                                   children: [
                                     Row(
                                       children: <Widget>[
-                                        Container(
-                                          margin: EdgeInsets.only(right: 10),
-                                          height: 50,
-                                          width: 58,
-                                          decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(18),
-                                              border: Border.all(
-                                                  color: GreyLightColors)),
-                                          child: IconButton(
-                                            icon: Icon(
-                                              Icons.add_shopping_cart_outlined,
-                                            ),
-                                            onPressed: () => Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        CartItem())),
-                                          ),
-                                        ),
                                         Expanded(
                                           child: SizedBox(
                                               height: 38,
@@ -317,11 +292,13 @@ class _BodyState extends State<Body> {
                                                             "id": val.id
                                                           });
                                                         }).then((value) {
-                                                          Fluttertoast.showToast(
-                                                              msg:
-                                                                  "Product added to cart sucessfully ✔️",
-                                                              backgroundColor:
-                                                                  GreyLightColors);
+                                                          Fluttertoast
+                                                              .showToast(
+                                                            msg:
+                                                                "Product added to cart sucessfully ✔️",
+                                                            // backgroundColor:
+                                                            //     GreyLightColors
+                                                          );
                                                         });
                                                       } else {
                                                         int oldPrice = contain
@@ -355,25 +332,28 @@ class _BodyState extends State<Body> {
                                                           "totalPrice":
                                                               newPrice,
                                                         }).then((value) {
-                                                          Fluttertoast.showToast(
-                                                              msg:
-                                                                  "Product added to cart sucessfully ✔️",
-                                                              backgroundColor:
-                                                                  GreyLightColors);
+                                                          Fluttertoast
+                                                              .showToast(
+                                                            msg:
+                                                                "Product added to cart sucessfully ✔️",
+                                                            // backgroundColor:
+                                                            //     GreyLightColors
+                                                          );
                                                         });
                                                       }
                                                     });
                                                   } else {
                                                     Fluttertoast.showToast(
-                                                        msg:
-                                                            "Please Sign-In first.",
-                                                        backgroundColor:
-                                                            GreyLightColors);
+                                                      msg:
+                                                          "Please Sign-In first.",
+                                                      // backgroundColor:
+                                                      //     GreyLightColors
+                                                    );
                                                     Navigator.pushNamed(
                                                         context, 'login');
                                                   }
                                                 },
-                                                child: Text("Add To Cart",
+                                                child: const Text("Add To Cart",
                                                     style: TextStyle(
                                                         fontSize: 17,
                                                         fontWeight:
@@ -410,7 +390,7 @@ class _BodyState extends State<Body> {
                                                                     )));
                                                   }
                                                 },
-                                                child: Text("Add Review",
+                                                child: const Text("Add Review",
                                                     style: TextStyle(
                                                       fontSize: 17,
                                                       fontWeight:
@@ -458,6 +438,95 @@ class _BodyState extends State<Body> {
                                               onPressed: () {}),
                                         ),
                                       ],
+                                    ),
+                                    RichText(
+                                      text: TextSpan(
+                                        style:
+                                            DefaultTextStyle.of(context).style,
+                                        children: <TextSpan>[
+                                          TextSpan(
+                                            text: 'DELIVERY AND RETURNS:\n',
+                                            style: const TextStyle(
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.bold),
+                                            children: <InlineSpan>[
+                                              // TextSpan(text: '\n'),
+                                              const WidgetSpan(
+                                                child: Padding(
+                                                  padding: EdgeInsets.symmetric(
+                                                      horizontal: 4.0),
+                                                  child: Icon(
+                                                    IconData(0xe3a6,
+                                                        fontFamily:
+                                                            'MaterialIcons'),
+                                                  ),
+                                                ),
+                                              ),
+                                              TextSpan(
+                                                text:
+                                                    'Free shipping on all orders over 500 EGP.\n',
+                                                style:
+                                                    DefaultTextStyle.of(context)
+                                                        .style
+                                                        .copyWith(
+                                                          fontStyle:
+                                                              FontStyle.italic,
+                                                          color: GreyColors,
+                                                        ),
+                                              ),
+                                              const WidgetSpan(
+                                                child: Padding(
+                                                  padding: EdgeInsets.symmetric(
+                                                      horizontal: 4.0),
+                                                  child: Icon(
+                                                    IconData(0xe3a6,
+                                                        fontFamily:
+                                                            'MaterialIcons'),
+                                                  ),
+                                                ),
+                                              ),
+                                              TextSpan(
+                                                text:
+                                                    'Door delivery 40 EGP within 3-5 working days.',
+                                                style:
+                                                    DefaultTextStyle.of(context)
+                                                        .style
+                                                        .copyWith(
+                                                          fontStyle:
+                                                              FontStyle.italic,
+                                                          color: GreyColors,
+                                                        ),
+                                              ),
+                                            ],
+                                          ),
+                                          const TextSpan(text: '\n'),
+                                          TextSpan(
+                                            children: <InlineSpan>[
+                                              WidgetSpan(
+                                                child: Padding(
+                                                  padding: EdgeInsets.symmetric(
+                                                      horizontal: 4.0),
+                                                  child: Icon(IconData(0xe84d,
+                                                      fontFamily:
+                                                          'MaterialIcons')),
+                                                ),
+                                              ),
+                                              TextSpan(
+                                                text:
+                                                    'Free return within the legal return period from 14 to 30 days , only if they meet the terms and conditions.',
+                                                style:
+                                                    DefaultTextStyle.of(context)
+                                                        .style
+                                                        .copyWith(
+                                                          fontStyle:
+                                                              FontStyle.italic,
+                                                          color: GreyColors,
+                                                        ),
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ],
                                 ),

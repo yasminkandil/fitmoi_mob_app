@@ -147,14 +147,15 @@ class _AddCategPageState extends State<AddCategPage> {
                                 setState(() {
                                   categList.add(_subtitleController.text);
                                   Fluttertoast.showToast(
-                                      msg: "Subcategory Added",
-                                      toastLength: Toast.LENGTH_SHORT,
-                                      gravity: ToastGravity.BOTTOM,
-                                      timeInSecForIosWeb: 1,
-                                      backgroundColor:
-                                          Color.fromARGB(255, 10, 169, 159),
-                                      textColor: Colors.white,
-                                      fontSize: 16.0);
+                                    msg: "Subcategory Added",
+                                    // toastLength: Toast.LENGTH_SHORT,
+                                    // gravity: ToastGravity.BOTTOM,
+                                    // timeInSecForIosWeb: 1,
+                                    // backgroundColor:
+                                    //     Color.fromARGB(255, 10, 169, 159),
+                                    // textColor: Colors.white,
+                                    // fontSize: 16.0
+                                  );
                                   setCateg(categList);
                                   // pp.colorController.clear();
                                 });
@@ -177,8 +178,9 @@ class _AddCategPageState extends State<AddCategPage> {
                                               .then((value) {
                                             categList.clear();
                                             Fluttertoast.showToast(
-                                                msg: "Category addedd...",
-                                                backgroundColor: mintColors);
+                                              msg: "Category addedd...",
+                                              //backgroundColor: mintColors
+                                            );
                                             Navigator.pop(context);
                                           });
                                         }

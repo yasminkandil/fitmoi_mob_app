@@ -234,11 +234,15 @@ class _QuantityDropDownState extends State<QuantityDropDown> {
                             ),
                           ),
                           alignment: Alignment.center,
-                          child: Text(
-                            "XXL",
-                            style: TextStyle(
-                              color:
-                                  size == "XXL" ? Colors.white : Colors.black,
+                          child: FittedBox(
+                            fit: BoxFit
+                                .scaleDown, // Use scaleDown to fit the text within the container
+                            child: Text(
+                              "XXL",
+                              style: TextStyle(
+                                color:
+                                    size == "XXL" ? Colors.white : Colors.black,
+                              ),
                             ),
                           ),
                         ),
@@ -253,11 +257,14 @@ class _QuantityDropDownState extends State<QuantityDropDown> {
                         ),
                       ),
                       alignment: Alignment.center,
-                      child: const Text(
-                        "XXL",
-                        style: TextStyle(
-                          color: Colors.white,
-                          decoration: TextDecoration.lineThrough,
+                      child: const FittedBox(
+                        fit: BoxFit.scaleDown,
+                        child: Text(
+                          "XXL",
+                          style: TextStyle(
+                            color: Colors.white,
+                            decoration: TextDecoration.lineThrough,
+                          ),
                         ),
                       ),
                     )

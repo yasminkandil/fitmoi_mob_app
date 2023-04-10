@@ -144,13 +144,14 @@ class ViewProductPage extends ConsumerWidget {
                                     builder: (context) =>
                                         EditProd(prodd: product.id)));
                                 Fluttertoast.showToast(
-                                    msg: product.id,
-                                    toastLength: Toast.LENGTH_SHORT,
-                                    gravity: ToastGravity.BOTTOM,
-                                    timeInSecForIosWeb: 1,
-                                    backgroundColor: Colors.grey,
-                                    textColor: Colors.white,
-                                    fontSize: 16.0);
+                                  msg: product.id,
+                                  // toastLength: Toast.LENGTH_SHORT,
+                                  // gravity: ToastGravity.BOTTOM,
+                                  // timeInSecForIosWeb: 1,
+                                  // backgroundColor: Colors.grey,
+                                  // textColor: Colors.white,
+                                  // fontSize: 16.0
+                                );
                               },
                             ),
                           ),
