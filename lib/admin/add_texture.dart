@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:fitmoi_mob_app/admin/testTex.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:fitmoi_mob_app/widgets/app_bar.dart';
@@ -148,6 +149,7 @@ class _AddTexturePageState extends State<AddTexturePage> {
             ButtonWidget(
                 btnText: "Add Textures",
                 onClick: () {
+                  sendImageToAPI(greyimage);
                   final update = FirebaseFirestore.instance
                       .collection('product')
                       .doc(widget.prodid)

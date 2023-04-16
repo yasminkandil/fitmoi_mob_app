@@ -1,4 +1,4 @@
-package com.SYKR.fitmoi_mob_app
+package com.fitmoi.fitmoi_mob_app
 
 import io.flutter.embedding.android.FlutterActivity
 
