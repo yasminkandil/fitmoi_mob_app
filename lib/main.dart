@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:fitmoi_mob_app/models/webview.dart';
 import 'package:fitmoi_mob_app/pages/cart.dart';
 import 'package:fitmoi_mob_app/pages/contact_us.dart';
 import 'package:fitmoi_mob_app/pages/fav.dart';
@@ -108,7 +109,7 @@ class _MyAppState extends State<MyApp> {
         'cart': (context) => CartItem(),
         'shop': (context) => Products(
               cat: 'female',
-              subcat: 'shirt',
+              subcat: 't-shirt',
             ),
         'contact_us': (context) => ContactUs(),
         //'refund': (context) => const Refund(),
@@ -129,6 +130,7 @@ class _MyAppState extends State<MyApp> {
         'view_products': (context) => const ViewProductPage(),
         'forgot_pass': (context) => const ForgotPass(),
         'add_homeimage': (context) => const AddGalleryhome(),
+        'rec': (context) => MyWebView(),
       },
     );
   }

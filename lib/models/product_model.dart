@@ -104,16 +104,6 @@ getImage3() {
   return imagee3;
 }
 
-List ListCateg = [
-  'Sweatshirt Female'
-      'T-Shirt Female',
-  'Pants Female',
-  'Skirts Female',
-  'Sweatshirt male'
-      'T-Shirt male',
-  'Pants male',
-];
-
 Future addProduct(
     String name,
     String description,

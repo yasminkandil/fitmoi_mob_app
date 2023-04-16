@@ -15,6 +15,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 
 import '../../../models/cart_model2.dart';
 import '../../../models/product_model2.dart';
+import '../../../services/recApi.dart';
 import '../quantityinfo.dart';
 
 List<String> favprod = [];
@@ -435,7 +436,9 @@ class _BodyState extends State<Body> {
                                                       fontWeight:
                                                           FontWeight.bold),
                                                   "Recommend Outfit"),
-                                              onPressed: () {}),
+                                              onPressed: () {
+                                                makeHttpRequest();
+                                              }),
                                         ),
                                       ],
                                     ),
@@ -506,9 +509,7 @@ class _BodyState extends State<Body> {
                                                 child: Padding(
                                                   padding: EdgeInsets.symmetric(
                                                       horizontal: 4.0),
-                                                  child: Icon(IconData(0xe84d,
-                                                      fontFamily:
-                                                          'MaterialIcons')),
+                                                  child: Icon(Icons.repeat),
                                                 ),
                                               ),
                                               TextSpan(

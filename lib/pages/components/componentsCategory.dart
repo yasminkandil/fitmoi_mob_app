@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fitmoi_mob_app/utils/color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
 import 'package:fitmoi_mob_app/pages/contact_us.dart';
@@ -6,6 +7,8 @@ import 'package:fitmoi_mob_app/pages/products_all.dart';
 //import 'package:fitmoi_mob_app/product_powerbank.dart';
 
 import '../../home/home_page.dart';
+
+String chosenCateg = 't-shirt';
 
 class Categorie extends StatefulWidget {
   String cat;
@@ -20,6 +23,7 @@ class Categorie extends StatefulWidget {
 
 class _CategorieState extends State<Categorie> {
   List<String> prod = [];
+
   Future getDocProdF() async {
     await FirebaseFirestore.instance.collection('subcategoryF').get().then(
           (snapshot) => snapshot.docs.forEach((document) {
@@ -65,14 +69,15 @@ class _CategorieState extends State<Categorie> {
 }
 
 class buildCategory extends StatelessWidget {
+  final String category;
+  final int index;
+  final String cat;
   const buildCategory(
       {super.key,
       required this.category,
       required this.index,
       required this.cat});
-  final String category;
-  final int index;
-  final String cat;
+
   @override
   Widget build(BuildContext context) {
     List arkam = [index];
@@ -91,7 +96,56 @@ class buildCategory extends StatelessWidget {
                     : <String, dynamic>{};
                 return GestureDetector(
                   onTap: () {
-                    if (data['subCategF'] == "shirt") {
+                    if (data['subCategF'] == "t-shirt") {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => Products(
+                            cat: 'female',
+                            subcat: 't-shirt',
+                          ),
+                        ),
+                      );
+
+                      chosenCateg = "t-shirt";
+                      selected = 0;
+                    } else if (data['subCategF'] == 'pant') {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => Products(
+                            cat: 'female',
+                            subcat: 'pant',
+                          ),
+                        ),
+                      );
+                      chosenCateg = "pant";
+                      selected = 1;
+                    } else if (data['subCategF'] == 'short-pant') {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => Products(
+                            cat: 'female',
+                            subcat: 'short-pant',
+                          ),
+                        ),
+                      );
+                      chosenCateg = "short-pant";
+                      selected = 2;
+                    } else if (data['subCategF'] == 'skirt') {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => Products(
+                            cat: 'female',
+                            subcat: 'skirt',
+                          ),
+                        ),
+                      );
+                      chosenCateg = "skirt";
+                      selected = 3;
+                    } else if (data['subCategF'] == 'shirt') {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -101,16 +155,8 @@ class buildCategory extends StatelessWidget {
                           ),
                         ),
                       );
-                    } else if (data['subCategF'] == 'pants') {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => Products(
-                            cat: 'female',
-                            subcat: 'pants',
-                          ),
-                        ),
-                      );
+                      chosenCateg = "shirt";
+                      selected = 4;
                     }
                   },
                   child: Padding(
@@ -121,15 +167,15 @@ class buildCategory extends StatelessWidget {
                         Text("${data['subCategF']}",
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                color: selected == data[index]
-                                    ? Color.fromARGB(72, 0, 0, 0)
-                                    : Color.fromARGB(72, 0, 0, 0))),
+                                color: selected == index
+                                    ? mintColors
+                                    : const Color.fromARGB(72, 0, 0, 0))),
                         Container(
-                          margin: EdgeInsets.only(top: 15 / 4),
+                          margin: const EdgeInsets.only(top: 15 / 4),
                           height: 2,
                           width: 30,
-                          color: selected == data[index]
-                              ? Colors.black
+                          color: selected == index
+                              ? mintColors
                               : Colors.transparent,
                         )
                       ],
@@ -137,7 +183,7 @@ class buildCategory extends StatelessWidget {
                   ),
                 );
               }
-              return Text("Loading...");
+              return const Text("Loading...");
             }))
         : FutureBuilder(
             future: FirebaseFirestore.instance
@@ -151,26 +197,50 @@ class buildCategory extends StatelessWidget {
                     : <String, dynamic>{};
                 return GestureDetector(
                   onTap: () {
-                    if (data['subCategM'] == "shirts") {
+                    if (data['subCategM'] == "shirt") {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
                           builder: (context) => Products(
                             cat: 'male',
-                            subcat: 'shirts',
+                            subcat: 'shirt',
                           ),
                         ),
                       );
-                    } else if (data['subCategM'] == 'pants') {
+                      chosenCateg = "shirt";
+                    } else if (data['subCategM'] == 'pant') {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
                           builder: (context) => Products(
                             cat: 'male',
-                            subcat: 'pants',
+                            subcat: 'pant',
                           ),
                         ),
                       );
+                      chosenCateg = "pant";
+                    } else if (data['subCategM'] == 'short-pant') {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => Products(
+                            cat: 'male',
+                            subcat: 'short-pant',
+                          ),
+                        ),
+                      );
+                      chosenCateg = "short-pant";
+                    } else if (data['subCategM'] == 't-shirt') {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => Products(
+                            cat: 'male',
+                            subcat: 't-shirt',
+                          ),
+                        ),
+                      );
+                      chosenCateg = "t-shirt";
                     }
                   },
                   child: Padding(
@@ -182,10 +252,10 @@ class buildCategory extends StatelessWidget {
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: selected == data[index]
-                                    ? Color.fromARGB(72, 0, 0, 0)
-                                    : Color.fromARGB(72, 0, 0, 0))),
+                                    ? const Color.fromARGB(72, 0, 0, 0)
+                                    : const Color.fromARGB(72, 0, 0, 0))),
                         Container(
-                          margin: EdgeInsets.only(top: 15 / 4),
+                          margin: const EdgeInsets.only(top: 15 / 4),
                           height: 2,
                           width: 30,
                           color: selected == data[index]
@@ -197,7 +267,7 @@ class buildCategory extends StatelessWidget {
                   ),
                 );
               }
-              return Text("Loading...");
+              return const Text("Loading...");
             }));
   }
 }

@@ -35,7 +35,7 @@ class Api_3DService {
         body: jsonEncode(JsonBody),
         headers: {"content-type": "application/json"});
     bool completed = false;
-    var wait = {"waiting": "1", "uniqueId": "1"};
+    var wait = {"waiting": unique, "uniqueId": unique};
     while (!completed) {
       await _sleep(4);
       var response2 = await http.post(

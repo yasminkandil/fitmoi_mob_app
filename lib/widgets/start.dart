@@ -1,7 +1,10 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fitmoi_mob_app/pages/components/componentsCategory.dart' as c;
 import 'package:fitmoi_mob_app/utils/color.dart';
+import 'package:fitmoi_mob_app/widgets/messagetimer.dart';
 import 'package:flutter/material.dart';
 
 import '../pages/humanModelPage.dart';
@@ -20,7 +23,7 @@ class DialogggBuilder {
         return WillPopScope(
             onWillPop: () async => false,
             child: AlertDialog(
-              shape: RoundedRectangleBorder(
+              shape: const RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(8.0))),
               backgroundColor: Colors.white,
               content: show3D(text: text.toString(), gender: gender.toString()),
@@ -63,7 +66,7 @@ class _show3DState extends State<show3D> {
 
     final Map<String, dynamic> requestData = {
       'uniqueId': uniqueId, // Set your uniqueId here
-      'garmentClass': 'short-pant',
+      'garmentClass': garmentClass,
       'gender': gender // Set your garmentClass here
     };
 
@@ -98,7 +101,7 @@ class _show3DState extends State<show3D> {
     var displayedText = widget.text;
 
     return Container(
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         color: Colors.white,
         child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -124,11 +127,11 @@ class _show3DState extends State<show3D> {
             ),
             width: 32,
             height: 32),
-        padding: EdgeInsets.only(bottom: 16));
+        padding: const EdgeInsets.only(bottom: 16));
   }
 
   Widget _getHeading(context) {
-    return Padding(
+    return const Padding(
         child: Text(
           'Your 3D model is ready click view to see it …',
           style: TextStyle(color: Colors.black, fontSize: 16),
@@ -140,25 +143,18 @@ class _show3DState extends State<show3D> {
   Text _getText(String displayedText) {
     return Text(
       displayedText,
-      style: TextStyle(color: Colors.black, fontSize: 14),
+      style: const TextStyle(color: Colors.black, fontSize: 14),
       textAlign: TextAlign.center,
     );
-  }
-
-  Widget _getIcon() {
-    return Padding(
-        child: Icon(
-          Icons.warning_amber_outlined,
-          size: 100,
-          color: Colors.red,
-        ),
-        padding: EdgeInsets.all(5));
   }
 
   Widget _getButton(BuildContext context) {
     return ElevatedButton(
       onPressed: () {
-        _fitModel(widget.gender, userid, 'short-pant').then((value) {
+        _fitModel(widget.gender, userid, c.chosenCateg).then((value) {
+          sleep(
+            const Duration(seconds: 15),
+          );
           Navigator.push(
             context,
             MaterialPageRoute(
@@ -174,7 +170,7 @@ class _show3DState extends State<show3D> {
           borderRadius: BorderRadius.circular(32.0),
         ),
       ),
-      child: Text(
+      child: const Text(
         "View",
         style: TextStyle(
           color: Colors.white,
@@ -197,7 +193,7 @@ Widget _getOKButton(BuildContext context) {
         borderRadius: BorderRadius.circular(32.0),
       ),
     ),
-    child: Text(
+    child: const Text(
       "OK",
       style: TextStyle(
         color: Colors.white,

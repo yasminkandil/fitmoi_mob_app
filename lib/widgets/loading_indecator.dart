@@ -46,7 +46,8 @@ class LoadingIndicator extends StatelessWidget {
             children: [
               _getLoadingIndicator(),
               _getHeading(context),
-              _getText(displayedText)
+              _getText(displayedText),
+              _getOKButton(context)
             ]));
   }
 
@@ -79,4 +80,26 @@ class LoadingIndicator extends StatelessWidget {
       textAlign: TextAlign.center,
     );
   }
+}
+
+Widget _getOKButton(BuildContext context) {
+  return ElevatedButton(
+    onPressed: () {
+      Navigator.of(context).pop();
+    },
+    style: ElevatedButton.styleFrom(
+      primary: mintLightColors,
+      onPrimary: Colors.white,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(32.0),
+      ),
+    ),
+    child: const Text(
+      "OK",
+      style: TextStyle(
+        color: Colors.white,
+        fontSize: 15,
+      ),
+    ),
+  );
 }

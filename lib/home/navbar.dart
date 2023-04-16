@@ -55,7 +55,11 @@ class HomeNavbar extends State<Navigation_bar> {
           ),
           IconButton(
             onPressed: () {
-              // method to show the search bar
+              if (FirebaseAuth.instance.currentUser == null) {
+                Navigator.pushNamed(context, 'must_have_account');
+              } else {
+                Navigator.pushNamed(context, 'cart');
+              }
             },
             icon: const Icon(Icons.shopping_bag),
           )
@@ -92,16 +96,20 @@ class HomeNavbar extends State<Navigation_bar> {
       ),
       child: Column(
         children: [
-          menuItem(7, "Sign Up", Icons.login_rounded,
-              currentPage == Sections.Sign_Up ? true : false),
-          menuItem(10, "Login", Icons.login_rounded,
-              currentPage == Sections.login ? true : false),
+          FirebaseAuth.instance.currentUser == null
+              ? menuItem(7, "Sign Up", Icons.login_rounded,
+                  currentPage == Sections.Sign_Up ? true : false)
+              : Container(),
+          FirebaseAuth.instance.currentUser == null
+              ? menuItem(10, "Login", Icons.login_rounded,
+                  currentPage == Sections.login ? true : false)
+              : Container(),
           menuItem(3, "Shop", Icons.category_rounded,
               currentPage == Sections.Categories ? true : false),
           menuItem(8, "Cart", Icons.shop_two_outlined,
               currentPage == Sections.Cart ? true : false),
-          menuItem(1, "Try-On", Icons.image,
-              currentPage == Sections.Gallery ? true : false),
+          // menuItem(1, "Try-On", Icons.image,
+          //     currentPage == Sections.Gallery ? true : false),
           menuItem(9, "Order History", Icons.history,
               currentPage == Sections.order_history ? true : false),
           menuItem(2, "Contact US", Icons.people_alt_outlined,
@@ -110,8 +118,10 @@ class HomeNavbar extends State<Navigation_bar> {
               currentPage == Sections.Edit_Profile ? true : false),
           menuItem(5, " Favourites", Icons.favorite,
               currentPage == Sections.fav ? true : false),
-          menuItem(6, "Log Out", Icons.logout_rounded,
-              currentPage == Sections.Log_Out ? true : false),
+          FirebaseAuth.instance.currentUser != null
+              ? menuItem(6, "Log Out", Icons.logout_rounded,
+                  currentPage == Sections.Log_Out ? true : false)
+              : Container(),
         ],
       ),
     );
@@ -140,7 +150,7 @@ class HomeNavbar extends State<Navigation_bar> {
             }
             currentPage = Sections.contacts;
           } else if (id == 3) {
-            Navigator.pushNamed(context, 'shop');
+            Navigator.pushNamed(context, 'rec');
             currentPage = Sections.Categories;
           } else if (id == 4) {
             if (FirebaseAuth.instance.currentUser == null) {
