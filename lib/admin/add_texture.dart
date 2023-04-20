@@ -1,8 +1,13 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+<<<<<<< HEAD
 import 'package:fitmoi_mob_app/read data/testTex.dart';
 import 'package:fitmoi_mob_app/read%20data/testTex.dart';
+=======
+import 'package:fitmoi_mob_app/models/user_model.dart';
+import 'package:fitmoi_mob_app/services/testTex.dart';
+>>>>>>> e4fd979d8e8a5f7c0041998dcc258a7d656ba552
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:fitmoi_mob_app/widgets/app_bar.dart';
@@ -39,6 +44,11 @@ late String Cvalue;
 var imageUrl2;
 var downloadUrl2;
 var imagee2;
+var imageUrlT;
+var downloadUrlT;
+var imageeT;
+var greyimageT =
+    'https://media.tarkett-image.com/large/TH_24567080_24594080_24596080_24601080_24563080_24565080_24588080_001.jpg';
 
 setImage(String imagee) {
   imagee = imagee;
@@ -56,72 +66,83 @@ getImage2() {
   return imagee2;
 }
 
+setImageT(String imageeT) {
+  imageeT = imageeT;
+}
+
+getImageT() {
+  return imageeT;
+}
+
 class _AddTexturePageState extends State<AddTexturePage> {
   final _newPController = TextEditingController();
   String mregexp = r'^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]+$';
+  var texture;
 
-  uploadImage() async {
+  File? _frontimage = null;
+  File? _backimage = null;
+  _uploadTexToStorage(texture) async {
     final _storage = FirebaseStorage.instance;
-    final _picker = ImagePicker();
-    PickedFile? image;
+    var snapshot =
+        await _storage.ref().child(p.basename(texture.path)).putFile(texture);
 
-    //Check Permissions
-    await Permission.photos.request();
+    var downloadUrlT = await snapshot.ref.getDownloadURL();
 
-    var permissionStatus = await Permission.photos.status;
-
-    //Select Image
-    image = await _picker.getImage(source: ImageSource.gallery);
-    var file = File(image!.path);
-
-    if (image != null) {
-      //Upload to Firebase
-      var snapshot =
-          await _storage.ref().child(p.basename(image.path)).putFile(file);
-
-      var downloadUrl = await snapshot.ref.getDownloadURL();
-
-      setState(() {
-        imageUrl = downloadUrl;
-        greyimage = imageUrl;
-        setImage(imageUrl);
-        getImage();
-      });
-    } else {
-      Fluttertoast.showToast(msg: 'Grant Permissions and try again');
-      return null;
-    }
+    setState(() {
+      imageUrlT = downloadUrlT;
+      greyimageT = imageUrlT;
+      setImageT(imageUrlT);
+      getImageT();
+    });
   }
 
-  uploadImage2() async {
-    final _storage2 = FirebaseStorage.instance;
-    final _picker2 = ImagePicker();
-    PickedFile? image2;
+  _imgFromGallery(BuildContext context, bool isFront) async {
+    final _storage = FirebaseStorage.instance;
+    final picker = ImagePicker();
+    final pickedFile = await picker.getImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      if (isFront) {
+        setState(() {
+          _frontimage = File(pickedFile.path);
+          Fluttertoast.showToast(
+            msg: "Front Image Uploaded",
+          );
+        });
 
-    //Check Permissions
-    await Permission.photos.request();
+        //Upload to Firebase
 
-    var permissionStatus = await Permission.photos.status;
+        var snapshot = await _storage
+            .ref()
+            .child(p.basename(_frontimage!.path))
+            .putFile(_frontimage!);
 
-    //Select Image
-    image2 = await _picker2.getImage(source: ImageSource.gallery);
-    var file = File(image2!.path);
-
-    if (image2 != null) {
-      //Upload to Firebase
-      var snapshot =
-          await _storage2.ref().child(p.basename(image2.path)).putFile(file);
+        var downloadUrl = await snapshot.ref.getDownloadURL();
+        setState(() {
+          imageUrl = downloadUrl;
+          greyimage = imageUrl;
+          setImage(imageUrl);
+          getImage();
+        });
+      }
+    } else {
+      setState(() {
+        _backimage = File(pickedFile!.path);
+        Fluttertoast.showToast(
+          msg: "Back Image Uploaded",
+        );
+      });
+      var snapshot = await _storage
+          .ref()
+          .child(p.basename(_backimage!.path))
+          .putFile(_backimage!);
 
       var downloadUrl2 = await snapshot.ref.getDownloadURL();
-
       setState(() {
         imageUrl2 = downloadUrl2;
         greyimage2 = imageUrl2;
         setImage2(imageUrl2);
         getImage2();
       });
-    } else {
-      print('No Path Received');
     }
   }
 
@@ -189,6 +210,10 @@ class _AddTexturePageState extends State<AddTexturePage> {
                       textt: "Front image",
                       onPressed: () async {
                         await _imgFromGallery(context, true);
+<<<<<<< HEAD
+=======
+                        //uploadImage();
+>>>>>>> e4fd979d8e8a5f7c0041998dcc258a7d656ba552
                       },
                       imagepath: greyimage),
                   UploadBodyImages(
@@ -204,8 +229,13 @@ class _AddTexturePageState extends State<AddTexturePage> {
                 btnText: "Add Textures",
                 onClick: () async {
                   //sendImageToAPI(greyimage);
+<<<<<<< HEAD
                   var texture = await sendRequest(
                       id: "0",
+=======
+                  texture = await sendRequest(
+                      id: '0',
+>>>>>>> e4fd979d8e8a5f7c0041998dcc258a7d656ba552
                       frontImage: _frontimage!,
                       backImage: _backimage!,
                       clothType: "shirt");
@@ -216,6 +246,7 @@ class _AddTexturePageState extends State<AddTexturePage> {
                     {
                       'front': greyimage,
                       'back': greyimage2,
+                      'texture': greyimageT,
                     },
                   ).then((value) {
                     Fluttertoast.showToast(
@@ -225,6 +256,11 @@ class _AddTexturePageState extends State<AddTexturePage> {
                   });
                   // uploadImagesToDirectory();
                 }),
+            SizedBox(
+              height: 200,
+              width: 200,
+              child: Image.network(greyimageT),
+            )
           ],
         ),
       ),
