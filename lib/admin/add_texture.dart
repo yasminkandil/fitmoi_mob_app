@@ -1,7 +1,8 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:fitmoi_mob_app/admin/testTex.dart';
+import 'package:fitmoi_mob_app/read data/testTex.dart';
+import 'package:fitmoi_mob_app/read%20data/testTex.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:fitmoi_mob_app/widgets/app_bar.dart';
@@ -11,6 +12,12 @@ import "package:path/path.dart" as p;
 import '../utils/color.dart';
 import '../widgets/btn_widget.dart';
 import '../widgets/upload_images.dart';
+import 'dart:io';
+import 'package:image_picker/image_picker.dart';
+import 'dart:io';
+import 'package:http/http.dart' as http;
+import 'package:http_parser/http_parser.dart';
+import 'package:path/path.dart';
 
 class AddTexturePage extends StatefulWidget {
   const AddTexturePage({super.key, required this.prodid});
@@ -118,6 +125,53 @@ class _AddTexturePageState extends State<AddTexturePage> {
     }
   }
 
+  Future<void> uploadImagesToDirectory() async {
+    // Pick first image from gallery
+    final imagePicker = ImagePicker();
+    final pickedFile1 =
+        await imagePicker.pickImage(source: ImageSource.gallery);
+
+    // Pick second image from gallery
+    final pickedFile2 =
+        await imagePicker.pickImage(source: ImageSource.gallery);
+
+    // Move and rename first image
+    String newPath1 = 'D:/pix2surf/test_data/images/shorts/shirt0.jpg';
+    File image1 = File(pickedFile1!.path);
+    await image1.rename(newPath1);
+
+    // Move and rename second image
+    String newPath2 = 'D:/pix2surf/test_data/images/shorts/shirt0_b.jpg';
+    File image2 = File(pickedFile2!.path);
+    await image2.rename(newPath2);
+
+    print('Images uploaded successfully!');
+  }
+
+  File? _frontimage = null;
+  File? _backimage = null;
+  _imgFromGallery(BuildContext context, bool isFront) async {
+    final picker = ImagePicker();
+    final pickedFile = await picker.getImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      if (isFront) {
+        setState(() {
+          _frontimage = File(pickedFile.path);
+          Fluttertoast.showToast(
+            msg: "Front Image Uploaded",
+          );
+        });
+      } else {
+        setState(() {
+          _backimage = File(pickedFile.path);
+          Fluttertoast.showToast(
+            msg: "Back Image Uploaded",
+          );
+        });
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -134,13 +188,13 @@ class _AddTexturePageState extends State<AddTexturePage> {
                   UploadBodyImages(
                       textt: "Front image",
                       onPressed: () async {
-                        uploadImage();
+                        await _imgFromGallery(context, true);
                       },
                       imagepath: greyimage),
                   UploadBodyImages(
                       textt: "Back image",
                       onPressed: () async {
-                        uploadImage2();
+                        await _imgFromGallery(context, false);
                       },
                       imagepath: greyimage2),
                 ],
@@ -148,8 +202,13 @@ class _AddTexturePageState extends State<AddTexturePage> {
             ),
             ButtonWidget(
                 btnText: "Add Textures",
-                onClick: () {
-                  sendImageToAPI(greyimage);
+                onClick: () async {
+                  //sendImageToAPI(greyimage);
+                  var texture = await sendRequest(
+                      id: "0",
+                      frontImage: _frontimage!,
+                      backImage: _backimage!,
+                      clothType: "shirt");
                   final update = FirebaseFirestore.instance
                       .collection('product')
                       .doc(widget.prodid)
@@ -164,6 +223,7 @@ class _AddTexturePageState extends State<AddTexturePage> {
                     );
                     Navigator.pop(context);
                   });
+                  // uploadImagesToDirectory();
                 }),
           ],
         ),
