@@ -52,7 +52,7 @@ class _HumanModelPageState extends State<HumanModelPage> {
         lighting: true);
     tshirt = Object(
         fileName: 'assets/t-shirt_$userid.obj',
-        scale: Vector3(0.18, 0.16, 0.2),
+        scale: Vector3(0.15, 0.15, 0.15),
         position: Vector3(0, 0, 0),
         lighting: true);
     skirt = Object(

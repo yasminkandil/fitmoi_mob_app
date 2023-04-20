@@ -118,6 +118,12 @@ class HomeNavbar extends State<Navigation_bar> {
               currentPage == Sections.Edit_Profile ? true : false),
           menuItem(5, " Favourites", Icons.favorite,
               currentPage == Sections.fav ? true : false),
+          FirebaseAuth.instance.currentUser?.email == 'fitmoi@gmail.com'
+              ? menuItem(11, "Dashboard", Icons.admin_panel_settings,
+                  currentPage == Sections.admin ? true : false)
+              : Container(),
+          menuItem(5, " Favourites", Icons.favorite,
+              currentPage == Sections.fav ? true : false),
           FirebaseAuth.instance.currentUser != null
               ? menuItem(6, "Log Out", Icons.logout_rounded,
                   currentPage == Sections.Log_Out ? true : false)
@@ -150,7 +156,7 @@ class HomeNavbar extends State<Navigation_bar> {
             }
             currentPage = Sections.contacts;
           } else if (id == 3) {
-            Navigator.pushNamed(context, 'rec');
+            Navigator.pushNamed(context, '3d');
             currentPage = Sections.Categories;
           } else if (id == 4) {
             if (FirebaseAuth.instance.currentUser == null) {
@@ -185,6 +191,9 @@ class HomeNavbar extends State<Navigation_bar> {
           } else if (id == 10) {
             Navigator.pushNamed(context, 'login');
             currentPage = Sections.login;
+          } else if (id == 11) {
+            Navigator.pushNamed(context, 'dashboard');
+            currentPage = Sections.admin;
           }
         },
         child: Padding(
@@ -226,5 +235,6 @@ enum Sections {
   login,
   Gallery,
   order_history,
-  fav
+  fav,
+  admin
 }
