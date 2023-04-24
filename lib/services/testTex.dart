@@ -111,8 +111,7 @@ Future<Map<String, String>> sendRequest({
 
   final data = jsonDecode(response.body);
   return {
-    'uv_front': data['uv_front'],
-    'uv_back': data['uv_back'],
+    'base': data['base'],
     'status': data['Status'],
   };
 }

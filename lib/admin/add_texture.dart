@@ -1,13 +1,8 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-<<<<<<< HEAD
-import 'package:fitmoi_mob_app/read data/testTex.dart';
-import 'package:fitmoi_mob_app/read%20data/testTex.dart';
-=======
 import 'package:fitmoi_mob_app/models/user_model.dart';
 import 'package:fitmoi_mob_app/services/testTex.dart';
->>>>>>> e4fd979d8e8a5f7c0041998dcc258a7d656ba552
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:fitmoi_mob_app/widgets/app_bar.dart';
@@ -123,71 +118,24 @@ class _AddTexturePageState extends State<AddTexturePage> {
           setImage(imageUrl);
           getImage();
         });
-      }
-    } else {
-      setState(() {
-        _backimage = File(pickedFile!.path);
-        Fluttertoast.showToast(
-          msg: "Back Image Uploaded",
-        );
-      });
-      var snapshot = await _storage
-          .ref()
-          .child(p.basename(_backimage!.path))
-          .putFile(_backimage!);
-
-      var downloadUrl2 = await snapshot.ref.getDownloadURL();
-      setState(() {
-        imageUrl2 = downloadUrl2;
-        greyimage2 = imageUrl2;
-        setImage2(imageUrl2);
-        getImage2();
-      });
-    }
-  }
-
-  Future<void> uploadImagesToDirectory() async {
-    // Pick first image from gallery
-    final imagePicker = ImagePicker();
-    final pickedFile1 =
-        await imagePicker.pickImage(source: ImageSource.gallery);
-
-    // Pick second image from gallery
-    final pickedFile2 =
-        await imagePicker.pickImage(source: ImageSource.gallery);
-
-    // Move and rename first image
-    String newPath1 = 'D:/pix2surf/test_data/images/shorts/shirt0.jpg';
-    File image1 = File(pickedFile1!.path);
-    await image1.rename(newPath1);
-
-    // Move and rename second image
-    String newPath2 = 'D:/pix2surf/test_data/images/shorts/shirt0_b.jpg';
-    File image2 = File(pickedFile2!.path);
-    await image2.rename(newPath2);
-
-    print('Images uploaded successfully!');
-  }
-
-  File? _frontimage = null;
-  File? _backimage = null;
-  _imgFromGallery(BuildContext context, bool isFront) async {
-    final picker = ImagePicker();
-    final pickedFile = await picker.getImage(source: ImageSource.gallery);
-    if (pickedFile != null) {
-      if (isFront) {
-        setState(() {
-          _frontimage = File(pickedFile.path);
-          Fluttertoast.showToast(
-            msg: "Front Image Uploaded",
-          );
-        });
       } else {
         setState(() {
           _backimage = File(pickedFile.path);
           Fluttertoast.showToast(
             msg: "Back Image Uploaded",
           );
+        });
+        var snapshot = await _storage
+            .ref()
+            .child(p.basename(_backimage!.path))
+            .putFile(_backimage!);
+
+        var downloadUrl2 = await snapshot.ref.getDownloadURL();
+        setState(() {
+          imageUrl2 = downloadUrl2;
+          greyimage2 = imageUrl2;
+          setImage2(imageUrl2);
+          getImage2();
         });
       }
     }
@@ -210,10 +158,7 @@ class _AddTexturePageState extends State<AddTexturePage> {
                       textt: "Front image",
                       onPressed: () async {
                         await _imgFromGallery(context, true);
-<<<<<<< HEAD
-=======
                         //uploadImage();
->>>>>>> e4fd979d8e8a5f7c0041998dcc258a7d656ba552
                       },
                       imagepath: greyimage),
                   UploadBodyImages(
@@ -229,16 +174,12 @@ class _AddTexturePageState extends State<AddTexturePage> {
                 btnText: "Add Textures",
                 onClick: () async {
                   //sendImageToAPI(greyimage);
-<<<<<<< HEAD
-                  var texture = await sendRequest(
-                      id: "0",
-=======
                   texture = await sendRequest(
                       id: '0',
->>>>>>> e4fd979d8e8a5f7c0041998dcc258a7d656ba552
                       frontImage: _frontimage!,
                       backImage: _backimage!,
                       clothType: "shirt");
+                  _uploadTexToStorage(texture);
                   final update = FirebaseFirestore.instance
                       .collection('product')
                       .doc(widget.prodid)
