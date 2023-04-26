@@ -76,10 +76,11 @@ class _AddTexturePageState extends State<AddTexturePage> {
 
   File? _frontimage = null;
   File? _backimage = null;
-  _uploadTexToStorage(texture) async {
+
+  _uploadTexToStorage(texx) async {
     final _storage = FirebaseStorage.instance;
     var snapshot =
-        await _storage.ref().child(p.basename(texture.path)).putFile(texture);
+        await _storage.ref().child(p.basename(texx.path)).putFile(texx);
 
     var downloadUrlT = await snapshot.ref.getDownloadURL();
 
@@ -178,8 +179,9 @@ class _AddTexturePageState extends State<AddTexturePage> {
                       id: '0',
                       frontImage: _frontimage!,
                       backImage: _backimage!,
-                      clothType: "shirt");
-                  _uploadTexToStorage(texture);
+                      clothType: "shirt",
+                      prodId: widget.prodid);
+
                   final update = FirebaseFirestore.instance
                       .collection('product')
                       .doc(widget.prodid)
@@ -187,7 +189,6 @@ class _AddTexturePageState extends State<AddTexturePage> {
                     {
                       'front': greyimage,
                       'back': greyimage2,
-                      'texture': greyimageT,
                     },
                   ).then((value) {
                     Fluttertoast.showToast(

@@ -2,84 +2,22 @@ import 'dart:convert';
 import 'dart:io' as Io;
 import 'dart:io';
 import 'dart:typed_data';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:fitmoi_mob_app/models/measurments.dart';
-import 'package:http/http.dart' as http;
+import 'package:fitmoi_mob_app/services/fileservices.dart';
 import 'package:http/io_client.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 
-// Function to send image file to Flask API for processing
-// Future<void> sendImageToAPI(String imagePath) async {
-//   // Replace the API endpoint with the correct URL of your Flask API
-//   var url = Uri.parse('http://192.168.100.130:8000/process_image');
 
-//   // Replace 'image' with the key used in the Flask API for the image file
-//   var request = http.MultipartRequest('POST', url)
-//     ..files.add(await http.MultipartFile.fromPath('image', imagePath));
-
-//   var response = await request.send();
-//   if (response.statusCode == 200) {
-//     var responseBody = await response.stream.bytesToString();
-//     var responseJson = jsonDecode(responseBody);
-//     // Process the response from the Flask API as needed
-//     print('Status: ${responseJson['status']}');
-//     print('Message: ${responseJson['message']}');
-//   } else {
-//     print('Error: ${response.statusCode}');
-//   }
-// }
-
-// Future sendTryyRequest(
-//     int id, File frontPath, File backPath, String clothType) async {
-//   List<int> frontImageBytes = await File(frontPath.path).readAsBytes();
-//   String frontBase64Encode = base64.encode(frontImageBytes);
-//   List<int> backimageBytes = await File(backPath.path).readAsBytes();
-//   String backbase64Encode = base64.encode(backimageBytes);
-
-// final url = Uri.parse('http://192.168.100.130:8000/tryy');
-// final headers = {'Content-Type': 'application/json'};
-// final body = jsonEncode({
-//   'id': id,
-//   'frontPath': "${frontBase64Encode}",
-//   'backPath': "${backbase64Encode}",
-//   'clothType': clothType,
-// });
-//   final ioClient = HttpClient()..connectionTimeout = Duration(seconds: 100);
-//   final client = IOClient(ioClient);
-//   var response = await http.post(
-//     Uri.parse("http://192.168.1.3:8050/tryy"),
-//     body: jsonEncode({
-//       'id': id,
-//       'frontPath': "${frontBase64Encode}",
-//       'backPath': "${backbase64Encode}",
-//       'clothType': clothType,
-//     }),
-//     headers: {'Content-Type': 'application/json'},
-//     //timeout: const Duration(seconds: 30),
-//   );
-
-//   //final response = await http.post(url, headers: headers, body: body);
-
-//   if (response.statusCode == 200) {
-//     // The response body contains the texture in base64 format
-//     return response.body;
-//   } else {
-//     // Handle the error case
-//     throw Exception('Failed to send tryy request: ${response.statusCode}');
-//   }
-// }
-
-// Call the function to send image to Flask API
-
-//sendImageToAPI('/path/to/image.jpg') // Replace with the actual image file path
-
-Future<Map<String, String>> sendRequest({
-  required String id,
-  required File frontImage,
-  required File backImage,
-  required String clothType,
-}) async {
-  final url = Uri.parse('http://192.168.1.3:8050/tryy');
+Future<Map<String, String>> sendRequest(
+    {required String id,
+    required File frontImage,
+    required File backImage,
+    required String clothType,
+    required String prodId}) async {
+  final url = Uri.parse('http://192.168.100.130:8080/tryy');
 
   final f_imgdata = await frontImage.readAsBytes();
   final b_imgdata = await backImage.readAsBytes();
@@ -110,8 +48,31 @@ Future<Map<String, String>> sendRequest({
   }
 
   final data = jsonDecode(response.body);
+
+  // Add the output image to Firebase Storage
+  final _storage = FirebaseStorage.instance;
+
+        var image64 = data["base"];
+        Uint8List bytes = base64.decode(image64);
+      FileService fileService3 = FileService( path: 'up$prodId.jpg');
+      File file = await fileService3.writeImage(bytes);
+
+final snapshot = await _storage.ref().child('textures/up$prodId.jpg').putFile(file);
+
+  var downloadUrl = await snapshot.ref.getDownloadURL();
+
+  // Update the 'texture' field in the 'products' table in Firebase Realtime Database
+  await FirebaseFirestore.instance.collection('product').doc(prodId).update({
+    'texture': downloadUrl,
+  });
+
+
+// Update the 'texture' field in the 'products' table in Firebase Realtime Database
+await FirebaseFirestore.instance.collection('product').doc(prodId).update({
+  'texture': downloadUrl,
+});
   return {
-    'base': data['base'],
-    'status': data['Status'],
+    'base': jsonDecode(response.body)['base'],
+    'Status': jsonDecode(response.body)['Status'],
   };
 }
