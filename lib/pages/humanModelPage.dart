@@ -5,6 +5,8 @@ import 'package:fitmoi_mob_app/utils/color.dart';
 import 'package:fitmoi_mob_app/widgets/app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cube/flutter_cube.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/src/material/material.dart';
 
 class HumanModelPage extends StatefulWidget {
   final String humanModelPath;
@@ -36,10 +38,11 @@ class _HumanModelPageState extends State<HumanModelPage> {
         position: Vector3(0, 0, 0),
         lighting: true);
     shirt = Object(
-        fileName: 'assets/shirt_$userid.obj',
-        scale: Vector3(0.09, 0.09, 0.09),
-        position: Vector3(0, 0, 0),
-        lighting: true);
+      fileName: 'assets/shirt_$userid.obj',
+      scale: Vector3(0.09, 0.09, 0.09),
+      position: Vector3(0, 0, 0),
+      lighting: true,
+    );
     garmentShortPant = Object(
         fileName: 'assets/short-pant_$userid.obj',
         scale: Vector3(0.09, 0.09, 0.09),
@@ -51,7 +54,7 @@ class _HumanModelPageState extends State<HumanModelPage> {
         position: Vector3(0, 0, 0),
         lighting: true);
     tshirt = Object(
-        fileName: 'assets/t-shirt_$userid.obj',
+        fileName: 'assets/lol/t-shirt_$userid.obj',
         scale: Vector3(0.15, 0.15, 0.15),
         position: Vector3(0, 0, 0),
         lighting: true);
