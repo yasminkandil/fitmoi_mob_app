@@ -169,13 +169,13 @@ class _RefundState extends State<Refund> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    UploadBodyImages(
+                    UploadImages(
                         textt: "Front image",
                         onPressed: () async {
                           uploadImage();
                         },
                         imagepath: _greyimage),
-                    UploadBodyImages(
+                    UploadImages(
                         textt: "Back image",
                         onPressed: () async {
                           uploadImage2();

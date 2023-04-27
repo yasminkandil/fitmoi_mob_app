@@ -76,10 +76,11 @@ class _AddTexturePageState extends State<AddTexturePage> {
 
   File? _frontimage = null;
   File? _backimage = null;
-  _uploadTexToStorage(texture) async {
+
+  _uploadTexToStorage(texx) async {
     final _storage = FirebaseStorage.instance;
     var snapshot =
-        await _storage.ref().child(p.basename(texture.path)).putFile(texture);
+        await _storage.ref().child(p.basename(texx.path)).putFile(texx);
 
     var downloadUrlT = await snapshot.ref.getDownloadURL();
 
@@ -118,26 +119,26 @@ class _AddTexturePageState extends State<AddTexturePage> {
           setImage(imageUrl);
           getImage();
         });
-      }
-    } else {
-      setState(() {
-        _backimage = File(pickedFile!.path);
-        Fluttertoast.showToast(
-          msg: "Back Image Uploaded",
-        );
-      });
-      var snapshot = await _storage
-          .ref()
-          .child(p.basename(_backimage!.path))
-          .putFile(_backimage!);
+      } else {
+        setState(() {
+          _backimage = File(pickedFile.path);
+          Fluttertoast.showToast(
+            msg: "Back Image Uploaded",
+          );
+        });
+        var snapshot = await _storage
+            .ref()
+            .child(p.basename(_backimage!.path))
+            .putFile(_backimage!);
 
-      var downloadUrl2 = await snapshot.ref.getDownloadURL();
-      setState(() {
-        imageUrl2 = downloadUrl2;
-        greyimage2 = imageUrl2;
-        setImage2(imageUrl2);
-        getImage2();
-      });
+        var downloadUrl2 = await snapshot.ref.getDownloadURL();
+        setState(() {
+          imageUrl2 = downloadUrl2;
+          greyimage2 = imageUrl2;
+          setImage2(imageUrl2);
+          getImage2();
+        });
+      }
     }
   }
 
@@ -154,14 +155,14 @@ class _AddTexturePageState extends State<AddTexturePage> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  UploadBodyImages(
+                  UploadImages(
                       textt: "Front image",
                       onPressed: () async {
                         await _imgFromGallery(context, true);
                         //uploadImage();
                       },
                       imagepath: greyimage),
-                  UploadBodyImages(
+                  UploadImages(
                       textt: "Back image",
                       onPressed: () async {
                         await _imgFromGallery(context, false);
@@ -178,7 +179,9 @@ class _AddTexturePageState extends State<AddTexturePage> {
                       id: '0',
                       frontImage: _frontimage!,
                       backImage: _backimage!,
-                      clothType: "shirt");
+                      clothType: "shirt",
+                      prodId: widget.prodid);
+
                   final update = FirebaseFirestore.instance
                       .collection('product')
                       .doc(widget.prodid)
@@ -186,7 +189,6 @@ class _AddTexturePageState extends State<AddTexturePage> {
                     {
                       'front': greyimage,
                       'back': greyimage2,
-                      'texture': greyimageT,
                     },
                   ).then((value) {
                     Fluttertoast.showToast(

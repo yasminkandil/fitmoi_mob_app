@@ -215,19 +215,19 @@ class _AddProductPageState extends State<AddProductPage> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  UploadBodyImages(
+                  UploadImages(
                       textt: "Main image",
                       onPressed: () async {
                         uploadImage();
                       },
                       imagepath: greyimage),
-                  UploadBodyImages(
+                  UploadImages(
                       textt: "Second image",
                       onPressed: () async {
                         uploadImage2();
                       },
                       imagepath: greyimage2),
-                  UploadBodyImages(
+                  UploadImages(
                       textt: "Third image",
                       onPressed: () async {
                         uploadImage3();
