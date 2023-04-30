@@ -10,7 +10,6 @@ import 'package:http/io_client.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 
-
 Future<Map<String, String>> sendRequest(
     {required String id,
     required File frontImage,
@@ -52,12 +51,13 @@ Future<Map<String, String>> sendRequest(
   // Add the output image to Firebase Storage
   final _storage = FirebaseStorage.instance;
 
-        var image64 = data["base"];
-        Uint8List bytes = base64.decode(image64);
-      FileService fileService3 = FileService( path: 'up$prodId.jpg');
-      File file = await fileService3.writeImage(bytes);
+  var image64 = data["base"];
+  Uint8List bytes = base64.decode(image64);
+  FileService fileService3 = FileService(path: 'up$prodId.jpg');
+  File file = await fileService3.writeImage(bytes);
 
-final snapshot = await _storage.ref().child('textures/up$prodId.jpg').putFile(file);
+  final snapshot =
+      await _storage.ref().child('textures/up$prodId.jpg').putFile(file);
 
   var downloadUrl = await snapshot.ref.getDownloadURL();
 
@@ -66,11 +66,10 @@ final snapshot = await _storage.ref().child('textures/up$prodId.jpg').putFile(fi
     'texture': downloadUrl,
   });
 
-
 // Update the 'texture' field in the 'products' table in Firebase Realtime Database
-await FirebaseFirestore.instance.collection('product').doc(prodId).update({
-  'texture': downloadUrl,
-});
+  await FirebaseFirestore.instance.collection('product').doc(prodId).update({
+    'texture': downloadUrl,
+  });
   return {
     'base': jsonDecode(response.body)['base'],
     'Status': jsonDecode(response.body)['Status'],

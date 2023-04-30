@@ -122,7 +122,7 @@ class _RegisterPageState extends State<RegisterPage> {
                               SizedBox(
                                 height: 10,
                               ),
-                              UploadImages(
+                              UploadPP(
                                   textt: "Upload Profile Image",
                                   function: () async {
                                     //sideee =

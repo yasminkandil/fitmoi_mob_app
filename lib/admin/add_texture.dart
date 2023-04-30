@@ -155,14 +155,14 @@ class _AddTexturePageState extends State<AddTexturePage> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  UploadBodyImages(
+                  UploadImages(
                       textt: "Front image",
                       onPressed: () async {
                         await _imgFromGallery(context, true);
                         //uploadImage();
                       },
                       imagepath: greyimage),
-                  UploadBodyImages(
+                  UploadImages(
                       textt: "Back image",
                       onPressed: () async {
                         await _imgFromGallery(context, false);

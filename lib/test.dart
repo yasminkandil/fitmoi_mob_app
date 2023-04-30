@@ -423,3 +423,84 @@ uploadImage() async {
     return null;
   }
 }
+
+
+// import 'package:flutter/material.dart';
+// import 'package:arkit_plugin/arkit_plugin.dart';
+
+// class ARScene extends StatefulWidget {
+//   final String userId;
+//   final String chosenCateg;
+
+//   ARScene({this.userId, this.chosenCateg});
+
+//   @override
+//   _ARSceneState createState() => _ARSceneState();
+// }
+
+// class _ARSceneState extends State<ARScene> {
+//   ARKitController arkitController;
+//   Object human;
+//   Object shirt;
+//   Texture tshirtTexture;
+
+//   @override
+//   void initState() {
+//     super.initState();
+
+//     human = Object(
+//       fileName: 'assets/human.obj',
+//       position: Vector3(0, 0, 0),
+//       scale: Vector3(0.1, 0.1, 0.1),
+//     );
+
+//     shirt = Object(
+//       fileName: 'assets/t-shirt_${widget.userId}.obj',
+//       position: Vector3(0, 0, 0),
+//       scale: Vector3(0.15, 0.15, 0.15),
+//       lighting: true,
+//     );
+
+//     // Load the texture image
+//     loadTexture();
+//   }
+
+//   Future<void> loadTexture() async {
+//     final ByteData textureData = await rootBundle.load('assets/t-shirt-texture.png');
+//     tshirtTexture = Texture.fromImageData(
+//       textureData.buffer.asUint8List(),
+//       name: 'tshirtTexture',
+//     );
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return ARKitSceneView(
+//       onARKitViewCreated: onARKitViewCreated,
+//       enableTapRecognizer: true,
+//     );
+//   }
+
+//   void onARKitViewCreated(ARKitController arkitController) {
+//     this.arkitController = arkitController;
+
+//     final scene = arkitController.scene;
+
+//     scene.lightNodes.clear();
+
+//     scene.world.add(human);
+
+//     if (widget.chosenCateg == 'shirt') {
+//       // Apply the texture to the shirt object
+//       shirt.texture = tshirtTexture;
+
+//       scene.world.add(shirt);
+//     }
+//   }
+
+//   @override
+//   void dispose() {
+//     arkitController?.dispose();
+//     super.dispose();
+//   }
+// }
