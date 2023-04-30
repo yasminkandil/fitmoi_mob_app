@@ -22,7 +22,7 @@ class ProductTitleWithImage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                TryyOn(),
+                TryyOn(prodId: productModel2.id.toString()),
                 SizedBox(
                   width: 10,
                 ),
