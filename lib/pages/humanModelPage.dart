@@ -37,18 +37,8 @@ class _HumanModelPageState extends State<HumanModelPage> {
 
   @override
   void initState() {
-    super.initState();
-    human = Object(
-        fileName:
-            // 'E:/grad python/meshes/pqmW98wYWMelFQa7OXSmzj3ZgJJ2/body_$userid.obj'
-            // 'E:/grad python/meshes/1/body_1.obj'
-            // widget.humanModelPath
-            'assets/body_$userid.obj',
-        scale: Vector3.all(0.3),
-        position: Vector3(0, 0, 0),
-        lighting: true,
-        // isAsset: false,
-        backfaceCulling: false);
+    //super.initState();
+    // human =
     shirt = Object(
         fileName: 'assets/shirt_$userid.obj',
         scale: Vector3(0.09, 0.09, 0.09),
@@ -60,8 +50,8 @@ class _HumanModelPageState extends State<HumanModelPage> {
         position: Vector3(0, 0, 0),
         lighting: true);
     pant = Object(
-        fileName: 'assets/pant_$userid.obj',
-        scale: Vector3(0.09, 0.09, 0.09),
+        fileName: 'assets/short-pant_$userid.obj',
+        scale: Vector3(0.09, 0.10, 0.09),
         position: Vector3(0, 0, 0),
         lighting: true);
     tshirt = Object(
@@ -79,7 +69,7 @@ class _HumanModelPageState extends State<HumanModelPage> {
         lighting: true);
     // loadTexture();
 
-    human.updateTransform();
+    //human.updateTransform();
   }
 
   @override
@@ -102,22 +92,42 @@ class _HumanModelPageState extends State<HumanModelPage> {
             child: Center(
               child: Cube(
                 onSceneCreated: (Scene scene) {
-                  scene.world.add(human);
-                  //chosenCateg = 't-shirt';
+                  scene.world.add(Object(
+                      fileName:
+                          // 'E:/grad python/meshes/pqmW98wYWMelFQa7OXSmzj3ZgJJ2/body_$userid.obj'
+                          // 'E:/grad python/meshes/1/body_1.obj'
+                          // widget.humanModelPath
+                          'assets/body_$userid.obj',
+                      scale: Vector3.all(0.3),
+                      position: Vector3(0, 0, 0),
+                      lighting: true,
+                      // isAsset: false,
+                      backfaceCulling: false));
+                  chosenCateg = 'short-pant';
                   if (remove == false) {
                     if (chosenCateg == 'shirt') {
                       scene.world.add(shirt);
                     } else if (chosenCateg == 'short-pant') {
                       scene.world.add(garmentShortPant);
+                      loadImageFromAsset('assets/short-pant_$userid.jpg')
+                          .then((value) {
+                        garmentShortPant.mesh.texture = value;
+                        scene.updateTexture();
+                      });
                     } else if (chosenCateg == 'pant') {
                       scene.world.add(pant);
+                      loadImageFromAsset('assets/short-pant_$userid.jpg')
+                          .then((value) {
+                        pant.mesh.texture = value;
+                        scene.updateTexture();
+                      });
                     } else if (chosenCateg == 't-shirt') {
 //                       String filePath = '/storage/emulated/0/Download/my_texture.png';
 
 // // Create a CubeAssetBundle with the FileAssetProvider
 // CubeAssetBundle assetBundle = CubeAssetBundle(FileAssetProvider(filePath));
                       scene.world.add(tshirt);
-                      loadImageFromAsset('assets/t-shirt_$userid.jpg')
+                      loadImageFromAsset('assets/short-pant_$userid.jpg')
                           .then((value) {
                         tshirt.mesh.texture = value;
                         scene.updateTexture();

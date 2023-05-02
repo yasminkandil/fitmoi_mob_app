@@ -139,8 +139,8 @@ class _show3DState extends State<show3D> {
         _status = responseBody['completed'];
         _humanModel = responseBody['humanModel'];
         _garmentModel = responseBody['garmentModel'];
-        _humanMtl = responseBody['human-mtl'];
-        _garmentMtl = responseBody['garment-mtl'];
+        // _humanMtl = responseBody['human-mtl'];
+        // _garmentMtl = responseBody['garment-mtl'];
         //_humanImage = responseBody['human-image'];
         //_garmentImage = responseBody['garment-image'];
       });
