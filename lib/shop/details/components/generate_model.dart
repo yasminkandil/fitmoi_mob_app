@@ -30,7 +30,9 @@ File? sideimagee = null;
 File? backimagee = null;
 
 class TryyOn extends StatefulWidget {
-  const TryyOn({super.key});
+  String prodId;
+
+  TryyOn({super.key, required this.prodId});
 
   @override
   State<TryyOn> createState() => _TryyOnState();
@@ -190,7 +192,8 @@ class _TryyOnState extends State<TryyOn> {
               Fluttertoast.showToast(
                 msg: "Model Already Exists",
               );
-              DialogggBuilder(context).showAlert("Start", _g.name);
+              DialogggBuilder(context)
+                  .showAlert("Start", _g.name, widget.prodId);
             } else {
               setState(() {
                 showModalBottomSheet(
@@ -349,6 +352,7 @@ class _TryyOnState extends State<TryyOn> {
                                                               _heightController
                                                                   .text,
                                                           gender: _g.name,
+                                                          prodId: widget.prodId,
                                                         )));
                                             final addHandW = FirebaseFirestore
                                                 .instance

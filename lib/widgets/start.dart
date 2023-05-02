@@ -1,8 +1,13 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:fitmoi_mob_app/pages/components/componentsCategory.dart' as c;
+
 import 'package:fitmoi_mob_app/utils/color.dart';
 import 'package:fitmoi_mob_app/widgets/messagetimer.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +20,7 @@ class DialogggBuilder {
 
   final BuildContext context;
 
-  void showAlert([String? text, String? gender]) {
+  void showAlert([String? text, String? gender, String? productId]) {
     showDialog(
       context: context,
       barrierDismissible: false,
@@ -26,7 +31,11 @@ class DialogggBuilder {
               shape: const RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(8.0))),
               backgroundColor: Colors.white,
-              content: show3D(text: text.toString(), gender: gender.toString()),
+              content: show3D(
+                text: text.toString(),
+                gender: gender.toString(),
+                productId: productId.toString(),
+              ),
             ));
       },
     );
@@ -46,10 +55,11 @@ String _humanImage = '';
 String _garmentImage = '';
 
 class show3D extends StatefulWidget {
-  show3D({this.text = '', required this.gender});
+  show3D({this.text = '', required this.gender, required this.productId});
 
   final String text;
   final String gender;
+  final String productId;
   @override
   State<show3D> createState() => _show3DState();
 }
@@ -58,16 +68,61 @@ String userid = FirebaseAuth.instance.currentUser!.uid;
 
 class _show3DState extends State<show3D> {
   //final String humanModel;
-  Future<void> _fitModel(
-      String gender, String uniqueId, String garmentClass) async {
+  Future<void> _fitModel(String gender, String uniqueId, String garmentClass,
+      String productId) async {
     setState(() {
       _status = 'Processing...';
     });
+    String productId = widget.productId;
+
+    // FirebaseFirestore.instance
+    //     .collection('product')
+    //     .doc(productId)
+    //     .get()
+    //     .then((DocumentSnapshot? documentSnapshot) {
+    //   if (documentSnapshot != null && documentSnapshot.exists) {
+    //     Map<String, dynamic>? data =
+    //         documentSnapshot.data() as Map<String, dynamic>?;
+    //     String? texture = data?['texture'] as String?;
+    //final storageReference = FirebaseStorage.instance.ref();
+    // String texturebase64Encode;
+    // List<int> textureBytes;
+// Assuming the ID of the user is stored in a variable called 'userId'
+    String userId = FirebaseAuth.instance.currentUser!.uid;
+    // File data = (await storageReference
+    //     .child('textures/up0fa301d0-b522-11ed-b6b2-c952595972f0.jpg').getData()) as File;
+
+    // textureBytes = data.readAsBytes() as List<int>;
+    // texturebase64Encode = base64.encode(textureBytes);
+    final storageReference = FirebaseStorage.instance
+        .ref()
+        .child('textures/up0fa301d0-b522-11ed-b6b2-c952595972f0.jpg');
+    final imageFile = await storageReference.getData();
+    final imageBytes = imageFile!.buffer.asUint8List();
+    final base64Image = base64.encode(imageBytes);
+    //   File file = File(
+    //       'E:/grad python/meshes/pqmW98wYWMelFQa7OXSmzj3ZgJJ2/${garmentClass}_$userId.jpg'); // or any other file format you want to use
+    //   file.writeAsBytes(data!).then((value) {
+    //     print('Texture saved to assets folder');
+    //   });
+    // }).catchError((error) {
+    //   print('Error: $error');
+    // or do whatever you want with the texture value here
+    // } else {
+    //   print('Texture field is null');
+    // }
+    //   } else {
+    //     print('Document does not exist');
+    //   }
+    // }).catchError((error) {
+    //   print('Error: $error');
+    // });
 
     final Map<String, dynamic> requestData = {
       'uniqueId': uniqueId, // Set your uniqueId here
       'garmentClass': garmentClass,
-      'gender': gender // Set your garmentClass here
+      'gender': gender,
+      'texture': base64Image // Set your garmentClass here
     };
 
     final response = await http.post(
@@ -151,7 +206,8 @@ class _show3DState extends State<show3D> {
   Widget _getButton(BuildContext context) {
     return ElevatedButton(
       onPressed: () {
-        _fitModel(widget.gender, userid, c.chosenCateg).then((value) {
+        _fitModel(widget.gender, userid, c.chosenCateg, widget.productId)
+            .then((value) {
           sleep(
             const Duration(seconds: 15),
           );

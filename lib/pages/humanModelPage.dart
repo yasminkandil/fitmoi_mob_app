@@ -12,6 +12,8 @@ import 'package:flutter_cube/flutter_cube.dart';
 
 import 'dart:ui' as ui;
 
+import 'package:get/get_connect/http/src/utils/utils.dart';
+
 class HumanModelPage extends StatefulWidget {
   final String humanModelPath;
 
@@ -37,13 +39,15 @@ class _HumanModelPageState extends State<HumanModelPage> {
   void initState() {
     super.initState();
     human = Object(
-        fileName: 'assets/body_$userid.obj'
-        // 'E:/grad python/meshes/1/body_1.obj'
-        // widget.humanModelPath
-        ,
+        fileName:
+            // 'E:/grad python/meshes/pqmW98wYWMelFQa7OXSmzj3ZgJJ2/body_$userid.obj'
+            // 'E:/grad python/meshes/1/body_1.obj'
+            // widget.humanModelPath
+            'assets/body_$userid.obj',
         scale: Vector3.all(0.3),
         position: Vector3(0, 0, 0),
         lighting: true,
+        // isAsset: false,
         backfaceCulling: false);
     shirt = Object(
         fileName: 'assets/shirt_$userid.obj',
@@ -61,11 +65,12 @@ class _HumanModelPageState extends State<HumanModelPage> {
         position: Vector3(0, 0, 0),
         lighting: true);
     tshirt = Object(
-      fileName: 'assets/t-shirt_31.obj',
-      // scale: Vector3(0.15, 0.15, 0.15),
-      // position: Vector3(0, 0, 0),
+      fileName: 'assets/t-shirt_$userid.obj',
+      scale: Vector3(0.15, 0.15, 0.15),
+      position: Vector3(0, 0, 0),
       lighting: true,
-      // backfaceCulling: false
+      backfaceCulling: false,
+      // isAsset: false
     );
     skirt = Object(
         fileName: 'assets/skirt_$userid.obj',
@@ -97,31 +102,35 @@ class _HumanModelPageState extends State<HumanModelPage> {
             child: Center(
               child: Cube(
                 onSceneCreated: (Scene scene) {
-                  // scene.world.add(human);
+                  scene.world.add(human);
                   //chosenCateg = 't-shirt';
                   if (remove == false) {
                     if (chosenCateg == 'shirt') {
-                      //scene.world.add(shirt);
+                      scene.world.add(shirt);
                     } else if (chosenCateg == 'short-pant') {
-                      // scene.world.add(garmentShortPant);
+                      scene.world.add(garmentShortPant);
                     } else if (chosenCateg == 'pant') {
-                      // scene.world.add(pant);
+                      scene.world.add(pant);
                     } else if (chosenCateg == 't-shirt') {
-                      // scene.world.add(tshirt);
-                      // loadImageFromAsset('assets/t-shirt_31.png').then((value) {
-                      //   tshirt.mesh.texture = value;
-                      //   scene.updateTexture();
-                      // }
-                      //);
+//                       String filePath = '/storage/emulated/0/Download/my_texture.png';
+
+// // Create a CubeAssetBundle with the FileAssetProvider
+// CubeAssetBundle assetBundle = CubeAssetBundle(FileAssetProvider(filePath));
+                      scene.world.add(tshirt);
+                      loadImageFromAsset('assets/t-shirt_$userid.jpg')
+                          .then((value) {
+                        tshirt.mesh.texture = value;
+                        scene.updateTexture();
+                      });
                     } else if (chosenCateg == 'skirt') {
-                      // scene.world.add(skirt);
+                      scene.world.add(skirt);
                     }
                   } else {
                     scene.world.remove(tshirt);
                   }
                   scene.camera.zoom = 15;
                   scene.updateTexture();
-                  scene.world.add(Object(fileName: 'assets/turtle.obj'));
+                  // scene.world.add(Object(fileName: 'assets/turtle.obj'));
                   // scene.camera.position.setFrom(Vector3(0, 0, 0.1));
                   // scene.light.position.setFrom(Vector3(0, 0.2, 0.2));
                   //scene.light.ambient.rgb = Vector3(0.5, 0.5, 0.5);

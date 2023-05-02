@@ -19,11 +19,13 @@ class bodyMeasurments extends StatefulWidget {
   Measurements measurements;
   String height;
   String gender;
+  String prodId;
   bodyMeasurments(
       {super.key,
       required this.measurements,
       required this.height,
-      required this.gender});
+      required this.gender,
+      required this.prodId});
 
   @override
   State<bodyMeasurments> createState() => _bodyMeasurmentsState();
@@ -228,7 +230,7 @@ class _bodyMeasurmentsState extends State<bodyMeasurments> {
                           FirebaseAuth.instance.currentUser!.uid,
                         );
                         DialogggBuilder(context)
-                            .showAlert("Start", widget.gender);
+                            .showAlert("Start", widget.gender, widget.prodId);
 
                         final editMeas = FirebaseFirestore.instance
                             .collection('users')
