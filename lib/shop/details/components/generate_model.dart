@@ -19,7 +19,6 @@ import '../../../utils/color.dart';
 import '../../../widgets/btn_widget.dart';
 import '../../../widgets/image_text_inp.dart';
 import 'dart:io';
-import 'package:image_cropper/image_cropper.dart';
 
 import '../../../widgets/start.dart';
 import '../../../widgets/uploadbody.dart';
