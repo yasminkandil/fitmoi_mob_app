@@ -23,54 +23,46 @@ class HumanModelPage extends StatefulWidget {
   _HumanModelPageState createState() => _HumanModelPageState();
 }
 
+String userid = FirebaseAuth.instance.currentUser!.uid;
+
 class _HumanModelPageState extends State<HumanModelPage> {
-  late Object human;
-  late Object garmentShortPant;
-  late Object shirt;
-  late Object pant;
-  late Object skirt;
-  late Object tshirt;
+  // late Object human;
+
+  // late Object shirt;
+  // late Object pant;
+  // late Object skirt;
+  // late Object tshirt;
   bool remove = false;
   late Texture tshirtTexture;
-
-  String userid = FirebaseAuth.instance.currentUser!.uid;
-
-  @override
-  void initState() {
-    //super.initState();
-    // human =
-    shirt = Object(
-        fileName: 'assets/shirt_$userid.obj',
-        scale: Vector3(0.09, 0.09, 0.09),
-        position: Vector3(0, 0, 0),
-        lighting: true);
-    garmentShortPant = Object(
-        fileName: 'assets/short-pant_$userid.obj',
-        scale: Vector3(0.09, 0.09, 0.09),
-        position: Vector3(0, 0, 0),
-        lighting: true);
-    pant = Object(
-        fileName: 'assets/short-pant_$userid.obj',
-        scale: Vector3(0.09, 0.10, 0.09),
-        position: Vector3(0, 0, 0),
-        lighting: true);
-    tshirt = Object(
-      fileName: 'assets/t-shirt_$userid.obj',
-      scale: Vector3(0.15, 0.15, 0.15),
+  Object garmentShortPant = Object(
+      fileName: 'assets/short-pant_$userid.obj',
+      scale: Vector3(0.09, 0.09, 0.09),
       position: Vector3(0, 0, 0),
-      lighting: true,
-      backfaceCulling: false,
-      // isAsset: false
-    );
-    skirt = Object(
-        fileName: 'assets/skirt_$userid.obj',
-        scale: Vector3(0.09, 0.09, 0.09),
-        position: Vector3(0, 0, 0),
-        lighting: true);
-    // loadTexture();
+      lighting: true);
+  Object shirt = Object(
+      fileName: 'assets/shirt_$userid.obj',
+      scale: Vector3(0.09, 0.09, 0.09),
+      position: Vector3(0, 0, 0),
+      lighting: true);
 
-    //human.updateTransform();
-  }
+  Object pant = Object(
+      fileName: 'assets/pant_$userid.obj',
+      scale: Vector3(0.09, 0.09, 0.09),
+      position: Vector3(0, 0, 0),
+      lighting: true);
+  Object tshirt = Object(
+    fileName: 'assets/t-shirt_$userid.obj',
+    scale: Vector3(0.16, 0.17, 0.18),
+    position: Vector3(0, 0, 0),
+    lighting: true,
+    backfaceCulling: false,
+    // isAsset: false
+  );
+  Object skirt = Object(
+      fileName: 'assets/skirt_$userid.obj',
+      scale: Vector3(0.09, 0.09, 0.09),
+      position: Vector3(0, 0, 0),
+      lighting: true);
 
   @override
   Widget build(BuildContext context) {
@@ -93,41 +85,34 @@ class _HumanModelPageState extends State<HumanModelPage> {
               child: Cube(
                 onSceneCreated: (Scene scene) {
                   scene.world.add(Object(
-                      fileName:
-                          // 'E:/grad python/meshes/pqmW98wYWMelFQa7OXSmzj3ZgJJ2/body_$userid.obj'
-                          // 'E:/grad python/meshes/1/body_1.obj'
-                          // widget.humanModelPath
-                          'assets/body_$userid.obj',
+                      fileName: 'assets/body_$userid.obj',
                       scale: Vector3.all(0.3),
                       position: Vector3(0, 0, 0),
                       lighting: true,
-                      // isAsset: false,
                       backfaceCulling: false));
-                  chosenCateg = 'short-pant';
+                  //chosenCateg = 'short-pant';
                   if (remove == false) {
                     if (chosenCateg == 'shirt') {
                       scene.world.add(shirt);
                     } else if (chosenCateg == 'short-pant') {
                       scene.world.add(garmentShortPant);
-                      loadImageFromAsset('assets/short-pant_$userid.jpg')
-                          .then((value) {
-                        garmentShortPant.mesh.texture = value;
-                        scene.updateTexture();
+                      setState(() {
+                        loadImageFromAsset('assets/short-pant_$userid.jpg')
+                            .then((value) {
+                          garmentShortPant.mesh.texture = value;
+                          scene.updateTexture();
+                        });
                       });
                     } else if (chosenCateg == 'pant') {
                       scene.world.add(pant);
-                      loadImageFromAsset('assets/short-pant_$userid.jpg')
+                      loadImageFromAsset('assets/pant_$userid.jpg')
                           .then((value) {
                         pant.mesh.texture = value;
                         scene.updateTexture();
                       });
                     } else if (chosenCateg == 't-shirt') {
-//                       String filePath = '/storage/emulated/0/Download/my_texture.png';
-
-// // Create a CubeAssetBundle with the FileAssetProvider
-// CubeAssetBundle assetBundle = CubeAssetBundle(FileAssetProvider(filePath));
                       scene.world.add(tshirt);
-                      loadImageFromAsset('assets/short-pant_$userid.jpg')
+                      loadImageFromAsset('assets/t-shirt_$userid.jpg')
                           .then((value) {
                         tshirt.mesh.texture = value;
                         scene.updateTexture();
@@ -135,8 +120,12 @@ class _HumanModelPageState extends State<HumanModelPage> {
                     } else if (chosenCateg == 'skirt') {
                       scene.world.add(skirt);
                     }
-                  } else {
-                    scene.world.remove(tshirt);
+                  } else if (remove == true) {
+                    print('yasso');
+                    setState(() {
+                      tshirt.position.setValues(1500, 1500, 1500);
+                      tshirt.updateTransform();
+                    });
                   }
                   scene.camera.zoom = 15;
                   scene.updateTexture();
@@ -156,7 +145,24 @@ class _HumanModelPageState extends State<HumanModelPage> {
                 btnText: "Remove Garment",
                 onClick: () {
                   setState(() {
-                    remove = true;
+                    if (chosenCateg == 't-shirt') {
+                      tshirt.position.setValues(1500, 1500, 1500);
+                      tshirt.updateTransform();
+                    } else if (chosenCateg == 'shirt') {
+                      shirt.position.setValues(1500, 1500, 1500);
+                      shirt.updateTransform();
+                    } else if (chosenCateg == 'pant') {
+                      pant.position.setValues(1500, 1500, 1500);
+                      pant.updateTransform();
+                    } else if (chosenCateg == 'skirt') {
+                      skirt.position.setValues(1500, 1500, 1500);
+                      skirt.updateTransform();
+                    } else if (chosenCateg == 'short-pant') {
+                      garmentShortPant.position.setValues(1500, 1500, 1500);
+                      garmentShortPant.updateTransform();
+                    }
+
+                    print('object');
                   });
                 },
               ),

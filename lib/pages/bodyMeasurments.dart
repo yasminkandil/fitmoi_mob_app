@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fitmoi_mob_app/models/measurments.dart';
@@ -94,10 +96,11 @@ class _bodyMeasurmentsState extends State<bodyMeasurments> {
       // Check response from server
       Map<String, dynamic> jsonResponse = json.decode(response.body);
       String completed = jsonResponse['completed'];
-
       if (completed == 'True') {
+        sleep(const Duration(seconds: 10));
+
         setState(() {
-          status = 'Completed';
+          status = 'completed';
         });
       } else {
         setState(() {
@@ -221,6 +224,7 @@ class _bodyMeasurmentsState extends State<bodyMeasurments> {
                         //   ];
                         //   uniqueId = '1';
                         // });
+
                         _startProcessing(
                           double.parse(controllers[0].text),
                           double.parse(controllers[1].text),
@@ -228,9 +232,12 @@ class _bodyMeasurmentsState extends State<bodyMeasurments> {
                           double.parse(controllers[3].text),
                           double.parse(controllers[4].text),
                           FirebaseAuth.instance.currentUser!.uid,
+                        ).then(
+                          (value) {
+                            DialogggBuilder(context).showAlert(
+                                "Start", widget.gender, widget.prodId);
+                          },
                         );
-                        DialogggBuilder(context)
-                            .showAlert("Start", widget.gender, widget.prodId);
 
                         final editMeas = FirebaseFirestore.instance
                             .collection('users')

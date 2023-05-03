@@ -137,13 +137,21 @@ class _show3DState extends State<show3D> {
 
       setState(() {
         _status = responseBody['completed'];
-        _humanModel = responseBody['humanModel'];
-        _garmentModel = responseBody['garmentModel'];
+        // _humanModel = responseBody['humanModel'];
+        // _garmentModel = responseBody['garmentModel'];
         // _humanMtl = responseBody['human-mtl'];
         // _garmentMtl = responseBody['garment-mtl'];
         //_humanImage = responseBody['human-image'];
         //_garmentImage = responseBody['garment-image'];
       });
+      if (_status == 'True') {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => HumanModelPage(humanModelPath: ""),
+          ),
+        );
+      }
     } else {
       setState(() {
         _status = 'Error: ${response.statusCode}';
@@ -209,13 +217,7 @@ class _show3DState extends State<show3D> {
         _fitModel(widget.gender, userid, c.chosenCateg, widget.productId)
             .then((value) {
           sleep(
-            const Duration(seconds: 15),
-          );
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => HumanModelPage(humanModelPath: ""),
-            ),
+            const Duration(seconds: 10),
           );
         });
       },

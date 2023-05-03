@@ -268,25 +268,6 @@ class _TryyOnState extends State<TryyOn> {
                                       SizedBox(
                                         height: 20,
                                       ),
-                                      Text(
-                                        "Height",
-                                        style: TextStyle(
-                                            color: mintColors,
-                                            fontSize: 15,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                      ImageTextInp(
-                                          controller: _heightController,
-                                          icon: 'assets/heightt.jpg',
-                                          hint: "height in cm",
-                                          torf: false,
-                                          errormssg: herrormessage,
-                                          regexp: mregexp,
-                                          enable: true),
-                                      const SizedBox(
-                                        height: 20,
-                                        width: 20,
-                                      ),
                                       Column(
                                         children: <Widget>[
                                           ListTile(
@@ -314,6 +295,25 @@ class _TryyOnState extends State<TryyOn> {
                                             ),
                                           ),
                                         ],
+                                      ),
+                                      Text(
+                                        "Height",
+                                        style: TextStyle(
+                                            color: mintColors,
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      ImageTextInp(
+                                          controller: _heightController,
+                                          icon: 'assets/heightt.jpg',
+                                          hint: "height in cm",
+                                          torf: false,
+                                          errormssg: herrormessage,
+                                          regexp: mregexp,
+                                          enable: true),
+                                      const SizedBox(
+                                        height: 20,
+                                        width: 20,
                                       ),
                                       ButtonWidget(
                                         btnText: "Generate Model",
