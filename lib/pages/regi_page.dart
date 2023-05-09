@@ -231,7 +231,6 @@ class _RegisterPageState extends State<RegisterPage> {
                                         addrController.text,
                                         mobileController.text,
                                         greyimage,
-                                        "_g.name",
                                         userId,
                                       ).then((value) {
                                         print("Created new account");

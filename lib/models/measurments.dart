@@ -3,13 +3,13 @@ class Measurements {
   var hip;
   var chest;
   var height;
-  //var weight;
+  var waist;
 
   Measurements({
     this.chest,
     this.hip,
     this.back,
     this.height,
-    //this.weight,
+    this.waist,
   });
 }

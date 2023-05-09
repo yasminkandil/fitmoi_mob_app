@@ -357,12 +357,11 @@ class _TryyOnState extends State<TryyOn> {
                                             final addHandW = FirebaseFirestore
                                                 .instance
                                                 .collection('users')
-                                                .doc()
+                                                .doc(userid)
                                                 .update({
                                               'height': double.parse(
                                                   _heightController.text),
-                                              'weight': double.parse(
-                                                  _weightController.text),
+                                              'gender': _g.name,
                                             }).then((value) => null);
                                             print(measurements);
                                           } else if (frontimagee == null) {
