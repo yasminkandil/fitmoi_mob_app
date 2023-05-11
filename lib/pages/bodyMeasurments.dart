@@ -13,6 +13,7 @@ import 'package:fitmoi_mob_app/widgets/start.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import '../utils/color.dart';
@@ -93,9 +94,9 @@ class _bodyMeasurmentsState extends State<bodyMeasurments> {
 
     // Send POST request to create-model endpoint
     final response = await http.post(
-      Uri.parse('http://192.168.100.74:8000/create-model'),
+      //Uri.parse('http://192.168.100.74:8000/create-model'),
 
-      // Uri.parse('http://192.168.1.108:8000/create-model'),
+      Uri.parse('http://192.168.1.108:8000/create-model'),
       headers: {'Content-Type': 'application/json'},
       body: json.encode(jsonPayload),
     );
@@ -224,9 +225,9 @@ class _bodyMeasurmentsState extends State<bodyMeasurments> {
                           fontWeight: FontWeight.bold),
                     ),
                     ImageTextInp(
-                        controller: controllers[4],
+                        controller: controllers[5],
                         icon: 'assets/waistt.jpg',
-                        hint: controllers[4].text,
+                        hint: controllers[5].text,
                         torf: false,
                         errormssg: hiperrormessage,
                         regexp: mregexp,
@@ -247,7 +248,9 @@ class _bodyMeasurmentsState extends State<bodyMeasurments> {
                         //   ];
                         //   uniqueId = '1';
                         // });
-
+                        Fluttertoast.showToast(
+                          msg: "Please wait....",
+                        );
                         _startProcessing(
                                 double.parse(controllers[0].text),
                                 double.parse(controllers[1].text),
@@ -275,7 +278,7 @@ class _bodyMeasurmentsState extends State<bodyMeasurments> {
                           "chest": double.parse(controllers[2].text),
                           "back": double.parse(controllers[4].text),
                           "hip": double.parse(controllers[3].text),
-                          'waist': double.parse(controllers[4].text)
+                          'waist': double.parse(controllers[5].text)
                         });
                         //Navigator.pop(context);
                       },
