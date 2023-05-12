@@ -95,7 +95,7 @@ Widget _getOKButton(BuildContext context) {
       ),
     ),
     child: const Text(
-      "OK",
+      "go back",
       style: TextStyle(
         color: Colors.white,
         fontSize: 15,

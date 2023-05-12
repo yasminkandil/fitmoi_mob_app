@@ -196,14 +196,6 @@ class _RegisterPageState extends State<RegisterPage> {
                           SizedBox(
                             height: 10,
                           ),
-                          Text(
-                            "Gender:",
-                            textAlign: TextAlign.left,
-                            style: TextStyle(
-                                color: mintColors,
-                                fontSize: 15,
-                                fontWeight: FontWeight.bold),
-                          ),
                           SizedBox(
                             height: 10,
                           ),

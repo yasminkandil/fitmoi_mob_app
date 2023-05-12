@@ -11,6 +11,8 @@ import 'package:fitmoi_mob_app/pages/components/componentsCategory.dart' as c;
 import 'package:fitmoi_mob_app/utils/color.dart';
 import 'package:fitmoi_mob_app/widgets/messagetimer.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:restart_app/restart_app.dart';
 
 import '../pages/humanModelPage.dart';
 import 'package:http/http.dart' as http;
@@ -126,9 +128,9 @@ class _show3DState extends State<show3D> {
     };
 
     final response = await http.post(
-      Uri.parse('http://192.168.100.74:8000/fit-model'),
-      // Uri.parse(
-      //     'http://192.168.1.108:8000/fit-model'), // Replace with your backend URL
+      //Uri.parse('http://192.168.100.74:8000/fit-model'),
+      Uri.parse(
+          'http://192.168.1.108:8000/fit-model'), // Replace with your backend URL
       headers: {'Content-Type': 'application/json'},
       body: jsonEncode(requestData),
     );
@@ -147,6 +149,7 @@ class _show3DState extends State<show3D> {
       });
       if (_status == 'True') {
         sleep(Duration(seconds: 15));
+        //Restart.restartApp();
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -216,6 +219,7 @@ class _show3DState extends State<show3D> {
   Widget _getButton(BuildContext context) {
     return ElevatedButton(
       onPressed: () {
+        Fluttertoast.showToast(msg: "Please wait....");
         _fitModel(widget.gender, userid, c.chosenCateg, widget.productId)
             .then((value) {
           sleep(
@@ -254,7 +258,7 @@ Widget _getOKButton(BuildContext context) {
       ),
     ),
     child: const Text(
-      "OK",
+      "go back",
       style: TextStyle(
         color: Colors.white,
         fontSize: 15,

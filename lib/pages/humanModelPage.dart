@@ -11,7 +11,7 @@ import 'package:fitmoi_mob_app/widgets/start.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_cube/flutter_cube.dart';
-
+import 'package:restart_app/restart_app.dart';
 import 'dart:ui' as ui;
 
 import 'package:get/get_connect/http/src/utils/utils.dart';
@@ -25,9 +25,9 @@ class HumanModelPage extends StatefulWidget {
   _HumanModelPageState createState() => _HumanModelPageState();
 }
 
-String userid = FirebaseAuth.instance.currentUser!.uid;
+String _userid = FirebaseAuth.instance.currentUser!.uid;
 CollectionReference users = FirebaseFirestore.instance.collection('users');
-DocumentReference userRef = users.doc(userid);
+DocumentReference userRef = users.doc(_userid);
 Future<String> getChestData() async {
   DocumentSnapshot userSnapshot = await userRef.get();
   if (userSnapshot.exists) {
@@ -70,23 +70,23 @@ class _HumanModelPageState extends State<HumanModelPage> {
   bool remove = false;
   late Texture tshirtTexture;
   Object garmentShortPant = Object(
-      fileName: 'assets/short-pant_$userid.obj',
+      fileName: 'assets/short-pant_$_userid.obj',
       scale: Vector3(0.09, 0.09, 0.09),
       position: Vector3(0, 0, 0),
       lighting: true);
   Object shirt = Object(
-      fileName: 'assets/shirt_$userid.obj',
+      fileName: 'assets/shirt_$_userid.obj',
       scale: Vector3(0.09, 0.09, 0.09),
       position: Vector3(0, 0, 0),
       lighting: true);
 
   Object pant = Object(
-      fileName: 'assets/pant_$userid.obj',
-      scale: Vector3(0.09, 0.09, 0.09),
+      fileName: 'assets/pant_1.obj',
+      scale: Vector3(0.08, 0.09, 0.09),
       position: Vector3(0, 0, 0),
       lighting: true);
   Object tshirt = Object(
-    fileName: 'assets/t-shirt_$userid.obj',
+    fileName: 'assets/t-shirt_$_userid.obj',
     scale: Vector3(0.16, 0.17, 0.18),
     position: Vector3(0, 0, 0),
     lighting: true,
@@ -94,7 +94,7 @@ class _HumanModelPageState extends State<HumanModelPage> {
     // isAsset: false
   );
   Object skirt = Object(
-      fileName: 'assets/skirt_$userid.obj',
+      fileName: 'assets/skirt_$_userid.obj',
       scale: Vector3(0.09, 0.09, 0.09),
       position: Vector3(0, 0, 0),
       lighting: true);
@@ -119,65 +119,54 @@ class _HumanModelPageState extends State<HumanModelPage> {
             child: Center(
               child: Cube(
                 onSceneCreated: (Scene scene) {
-                  loadAsset('assets/body_$userid.obj');
+                  loadAsset('assets/body_$_userid.obj');
                   scene.world.add(Object(
-                      fileName: 'assets/body_$userid.obj',
-                      scale: Vector3.all(0.3),
-                      position: Vector3(0, 0, 0),
-                      lighting: true,
-                      backfaceCulling: false));
-                  chosenCateg = 't-shirt';
-                  if (remove == false) {
-                    if (chosenCateg == 'shirt') {
-                      loadAsset('assets/shirt_$userid.obj');
-                      scene.world.add(shirt);
-                    } else if (chosenCateg == 'short-pant') {
-                      loadAsset('assets/short-pant_$userid.obj');
-                      scene.world.add(garmentShortPant);
-                      setState(() {
-                        loadImageFromAsset('assets/short-pant_$userid.jpg')
-                            .then((value) {
-                          garmentShortPant.mesh.texture = value;
-                          scene.updateTexture();
-                        });
-                      });
-                    } else if (chosenCateg == 'pant') {
-                      loadAsset('assets/pant_$userid.obj');
-                      scene.world.add(pant);
-                      loadImageFromAsset('assets/pant_$userid.jpg')
+                    fileName: 'assets/body_$_userid.obj',
+                    scale: Vector3.all(0.3),
+                    position: Vector3(0, 0, 0),
+                    lighting: true,
+                  ));
+                  // chosenCateg = 'pant';
+                  if (chosenCateg == 'shirt') {
+                    loadAsset('assets/shirt_$_userid.obj');
+                    scene.world.add(shirt);
+                  } else if (chosenCateg == 'short-pant') {
+                    loadAsset('assets/short-pant_$_userid.obj');
+                    scene.world.add(garmentShortPant);
+                    setState(() {
+                      loadImageFromAsset('assets/short-pant_$_userid.jpg')
                           .then((value) {
-                        pant.mesh.texture = value;
+                        garmentShortPant.mesh.texture = value;
                         scene.updateTexture();
                       });
-                    } else if (chosenCateg == 't-shirt') {
-                      loadAsset('assets/t-shirt_$userid.obj');
-                      loadAsset('assets/t-shirt_$userid.mtl');
-                      loadAsset('assets/t-shirt_$userid.jpg');
-                      scene.world.add(tshirt);
-                      setState(() {
-                        loadImageFromAsset('assets/t-shirt_$userid.jpg')
-                            .then((value) {
-                          tshirt.mesh.texture = value;
-                          scene.updateTexture();
-                        });
-                      });
-                    } else if (chosenCateg == 'skirt') {
-                      loadAsset('assets/skirt_$userid.obj');
-                      scene.world.add(skirt);
-                    }
-                  } else if (remove == true) {
-                    print('yasso');
-                    setState(() {
-                      tshirt.position.setValues(1500, 1500, 1500);
-                      tshirt.updateTransform();
                     });
+                  } else if (chosenCateg == 'pant') {
+                    loadAsset('assets/pant_1.obj');
+                    scene.world.add(pant);
+                    loadImageFromAsset('assets/pant_1.jpg').then((value) {
+                      pant.mesh.texture = value;
+                      scene.updateTexture();
+                    });
+                  } else if (chosenCateg == 't-shirt') {
+                    scene.world.add(tshirt);
+                    setState(() {
+                      loadImageFromAsset('assets/t-shirt_$_userid.jpg')
+                          .then((value) {
+                        tshirt.mesh.texture = value;
+                        //scene.updateTexture();
+                      });
+                    });
+                  } else if (chosenCateg == 'skirt') {
+                    loadAsset('assets/skirt_$_userid.obj');
+                    scene.world.add(skirt);
                   }
+
                   scene.camera.zoom = 15;
                   scene.updateTexture();
                   // scene.world.add(Object(fileName: 'assets/turtle.obj'));
                   // scene.camera.position.setFrom(Vector3(0, 0, 0.1));
                   // scene.light.position.setFrom(Vector3(0, 0.2, 0.2));
-                  //scene.light.ambient.rgb = Vector3(0.5, 0.5, 0.5);
+                  // scene.light.ambient.rgb = Vector3(0.5, 0.5, 0.5);
                   // scene.light.position == scene.camera.position;
                   // scene.textureBlendMode = BlendMode.hardLight;
                 },
