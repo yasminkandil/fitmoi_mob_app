@@ -35,6 +35,8 @@ Future<String> getChestData() async {
         userSnapshot.data() as Map<String, dynamic>?;
     dynamic chestData = userData!['chest'];
     dynamic backData = userData['back'];
+    dynamic waistData = userData['waist'];
+    dynamic hipData = userData['hip'];
 
     return userData.toString();
   } else {
@@ -189,9 +191,10 @@ class _HumanModelPageState extends State<HumanModelPage> {
               if (snapshot.hasData && snapshot.data!.isNotEmpty) {
                 Map<String, dynamic> userData = snapshot.data!;
                 double chestMeasurement = userData['chest'] ?? 0;
+                double waistMeasurement = userData['waist'] ?? 0;
                 double height = userData['height'] ?? 0;
                 double weight = userData['weight'] ?? 0;
-                double hip = userData['hip'] ?? 0;
+                double hipMeasurement = userData['hip'] ?? 0;
                 String gender = userData['gender'] ?? 0;
                 String suggestedSize = 'Sorry, your size is not available';
                 if (chosenCateg == 't-shirt' && gender == 'male') {
@@ -233,6 +236,82 @@ class _HumanModelPageState extends State<HumanModelPage> {
                   } else if (chestMeasurement >= 116 &&
                       chestMeasurement < 123) {
                     suggestedSize = 'XXXL';
+                  }
+                }
+                if (chosenCateg == 'pant' && gender == 'female') {
+                  if (waistMeasurement >= 63 &&
+                      waistMeasurement <= 66 &&
+                      hipMeasurement >= 86.5 &&
+                      hipMeasurement < 90) {
+                    suggestedSize = 'XS - 34';
+                  } else if (waistMeasurement > 66 &&
+                      waistMeasurement <= 70 &&
+                      hipMeasurement >= 90 &&
+                      hipMeasurement < 95) {
+                    suggestedSize = 'S - 36';
+                  } else if (waistMeasurement > 70 &&
+                      waistMeasurement < 76 &&
+                      hipMeasurement >= 95 &&
+                      hipMeasurement < 98.5) {
+                    suggestedSize = 'M - 38';
+                  } else if (waistMeasurement >= 76 &&
+                      waistMeasurement < 81 &&
+                      hipMeasurement >= 98.5 &&
+                      hipMeasurement < 106) {
+                    suggestedSize = 'L - 40';
+                  } else if (waistMeasurement >= 83 &&
+                      waistMeasurement < 90 &&
+                      hipMeasurement >= 106 &&
+                      hipMeasurement < 110) {
+                    suggestedSize = 'XL - 42';
+                  } else if (waistMeasurement >= 90 &&
+                      waistMeasurement < 100 &&
+                      hipMeasurement >= 110 &&
+                      hipMeasurement < 118) {
+                    suggestedSize = 'XXL - 44';
+                  } else if (waistMeasurement >= 100 &&
+                      waistMeasurement < 109 &&
+                      hipMeasurement >= 118 &&
+                      hipMeasurement < 130) {
+                    suggestedSize = 'XXXL - 46';
+                  }
+                }
+                if (chosenCateg == 'pant' && gender == 'male') {
+                  if (waistMeasurement >= 65 &&
+                      waistMeasurement <= 78 &&
+                      hipMeasurement >= 88 &&
+                      hipMeasurement < 91) {
+                    suggestedSize = 'XS - 28';
+                  } else if (waistMeasurement > 78 &&
+                      waistMeasurement <= 85 &&
+                      hipMeasurement >= 91 &&
+                      hipMeasurement < 94) {
+                    suggestedSize = 'S - 30';
+                  } else if (waistMeasurement > 85 &&
+                      waistMeasurement < 91 &&
+                      hipMeasurement >= 94 &&
+                      hipMeasurement < 98.5) {
+                    suggestedSize = 'M - 32';
+                  } else if (waistMeasurement >= 91 &&
+                      waistMeasurement < 94 &&
+                      hipMeasurement >= 98.5 &&
+                      hipMeasurement < 104) {
+                    suggestedSize = 'L - 34';
+                  } else if (waistMeasurement >= 94 &&
+                      waistMeasurement < 96 &&
+                      hipMeasurement >= 104 &&
+                      hipMeasurement < 109) {
+                    suggestedSize = 'XL - 36';
+                  } else if (waistMeasurement >= 96 &&
+                      waistMeasurement < 100 &&
+                      hipMeasurement >= 109 &&
+                      hipMeasurement < 113) {
+                    suggestedSize = 'XXL - 38';
+                  } else if (waistMeasurement >= 100 &&
+                      waistMeasurement < 108 &&
+                      hipMeasurement >= 113 &&
+                      hipMeasurement < 120) {
+                    suggestedSize = 'XXXL - 40';
                   }
                 }
                 return ListTile(
