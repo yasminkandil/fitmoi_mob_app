@@ -81,15 +81,15 @@ class _EditProdState extends State<EditProd> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        UploadBodyImages(
+                        UploadImages(
                             textt: "Main image",
                             onPressed: () {},
                             imagepath: data['image']),
-                        UploadBodyImages(
+                        UploadImages(
                             textt: "Second image",
                             onPressed: () {},
                             imagepath: data['image2']),
-                        UploadBodyImages(
+                        UploadImages(
                             textt: "Third image",
                             onPressed: () {},
                             imagepath: data['image3']),

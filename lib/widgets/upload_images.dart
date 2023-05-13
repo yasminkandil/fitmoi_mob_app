@@ -3,11 +3,11 @@ import 'package:fitmoi_mob_app/utils/color.dart';
 
 typedef OnIconPressed = void Function();
 
-class UploadBodyImages extends StatefulWidget {
+class UploadImages extends StatefulWidget {
   String textt;
   final OnIconPressed onPressed;
   String imagepath;
-  UploadBodyImages(
+  UploadImages(
       {Key? key,
       required this.textt,
       required this.onPressed,
@@ -15,10 +15,10 @@ class UploadBodyImages extends StatefulWidget {
       : super(key: key);
 
   @override
-  State<UploadBodyImages> createState() => _UploadBodyImagesState();
+  State<UploadImages> createState() => _UploadImagesState();
 }
 
-class _UploadBodyImagesState extends State<UploadBodyImages> {
+class _UploadImagesState extends State<UploadImages> {
   @override
   Widget build(BuildContext context) {
     return Column(
