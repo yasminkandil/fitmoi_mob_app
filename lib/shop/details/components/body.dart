@@ -15,6 +15,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 
 import '../../../models/cart_model2.dart';
 import '../../../models/product_model2.dart';
+import '../../../pages/recommendation.dart';
 import '../../../services/recApi.dart';
 import '../quantityinfo.dart';
 
@@ -437,7 +438,12 @@ class _BodyState extends State<Body> {
                                                           FontWeight.bold),
                                                   "Recommend Outfit"),
                                               onPressed: () {
-                                                makeHttpRequest();
+                                                Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            RecommPage()));
+                                                // makeHttpRequest();
                                               }),
                                         ),
                                       ],

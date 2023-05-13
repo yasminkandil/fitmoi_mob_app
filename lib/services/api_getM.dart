@@ -31,26 +31,30 @@ class Api_3DService {
     };
     var JsonBody = measurments;
     var response = await http.post(
-        Uri.parse("http://192.168.1.4:8050/get_measurement"),
+        //Uri.parse("http://192.168.100.74:8000/get_measurement"),
+
+        Uri.parse("http://192.168.1.108:8000/get_measurement"),
         body: jsonEncode(JsonBody),
         headers: {"content-type": "application/json"});
     bool completed = false;
     var wait = {"waiting": unique, "uniqueId": unique};
     while (!completed) {
       await _sleep(4);
-      var response2 = await http.post(
-          Uri.parse("http://192.168.1.4:8050/get_measurement"),
-          body: jsonEncode(wait),
-          headers: {"content-type": "application/json"});
+      var response2 =
+          await http.post(Uri.parse("http://192.168.1.4:8050/get_measurement"),
 
-      var jsonResponse2 = jsonDecode(response2.body);
+              //Uri.parse("http://192.168.100.74:8000/get_measurement"),
+              body: jsonEncode(wait),
+              headers: {"content-type": "application/json"});
+
       var status = jsonResponse2['Status'];
       if (status == 'Done') {
         completed = true;
         var measurements = Measurements(
             chest: jsonResponse2["measurements"]['chest'],
             hip: jsonResponse2['measurements']["hip"],
-            back: jsonResponse2['measurements']["back"]);
+            back: jsonResponse2['measurements']["back"],
+            waist: jsonResponse2['measurements']['waist']);
         return measurements;
       }
     }

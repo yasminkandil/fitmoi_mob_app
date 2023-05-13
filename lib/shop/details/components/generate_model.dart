@@ -19,7 +19,6 @@ import '../../../utils/color.dart';
 import '../../../widgets/btn_widget.dart';
 import '../../../widgets/image_text_inp.dart';
 import 'dart:io';
-import 'package:image_cropper/image_cropper.dart';
 
 import '../../../widgets/start.dart';
 import '../../../widgets/uploadbody.dart';
@@ -31,7 +30,9 @@ File? sideimagee = null;
 File? backimagee = null;
 
 class TryyOn extends StatefulWidget {
-  const TryyOn({super.key});
+  String prodId;
+
+  TryyOn({super.key, required this.prodId});
 
   @override
   State<TryyOn> createState() => _TryyOnState();
@@ -191,7 +192,8 @@ class _TryyOnState extends State<TryyOn> {
               Fluttertoast.showToast(
                 msg: "Model Already Exists",
               );
-              DialogggBuilder(context).showAlert("Start", _g.name);
+              DialogggBuilder(context)
+                  .showAlert("Start", _g.name, widget.prodId);
             } else {
               setState(() {
                 showModalBottomSheet(
@@ -265,25 +267,6 @@ class _TryyOnState extends State<TryyOn> {
                                       SizedBox(
                                         height: 20,
                                       ),
-                                      Text(
-                                        "Height",
-                                        style: TextStyle(
-                                            color: mintColors,
-                                            fontSize: 15,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                      ImageTextInp(
-                                          controller: _heightController,
-                                          icon: 'assets/heightt.jpg',
-                                          hint: "height in cm",
-                                          torf: false,
-                                          errormssg: herrormessage,
-                                          regexp: mregexp,
-                                          enable: true),
-                                      const SizedBox(
-                                        height: 20,
-                                        width: 20,
-                                      ),
                                       Column(
                                         children: <Widget>[
                                           ListTile(
@@ -311,6 +294,25 @@ class _TryyOnState extends State<TryyOn> {
                                             ),
                                           ),
                                         ],
+                                      ),
+                                      Text(
+                                        "Height",
+                                        style: TextStyle(
+                                            color: mintColors,
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      ImageTextInp(
+                                          controller: _heightController,
+                                          icon: 'assets/heightt.jpg',
+                                          hint: "height in cm",
+                                          torf: false,
+                                          errormssg: herrormessage,
+                                          regexp: mregexp,
+                                          enable: true),
+                                      const SizedBox(
+                                        height: 20,
+                                        width: 20,
                                       ),
                                       ButtonWidget(
                                         btnText: "Generate Model",
@@ -350,16 +352,16 @@ class _TryyOnState extends State<TryyOn> {
                                                               _heightController
                                                                   .text,
                                                           gender: _g.name,
+                                                          prodId: widget.prodId,
                                                         )));
                                             final addHandW = FirebaseFirestore
                                                 .instance
                                                 .collection('users')
-                                                .doc()
+                                                .doc(userid)
                                                 .update({
                                               'height': double.parse(
                                                   _heightController.text),
-                                              'weight': double.parse(
-                                                  _weightController.text),
+                                              'gender': _g.name,
                                             }).then((value) => null);
                                             print(measurements);
                                           } else if (frontimagee == null) {

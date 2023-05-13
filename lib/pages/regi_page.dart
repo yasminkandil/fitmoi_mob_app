@@ -196,14 +196,6 @@ class _RegisterPageState extends State<RegisterPage> {
                           SizedBox(
                             height: 10,
                           ),
-                          Text(
-                            "Gender:",
-                            textAlign: TextAlign.left,
-                            style: TextStyle(
-                                color: mintColors,
-                                fontSize: 15,
-                                fontWeight: FontWeight.bold),
-                          ),
                           SizedBox(
                             height: 10,
                           ),
@@ -231,7 +223,6 @@ class _RegisterPageState extends State<RegisterPage> {
                                         addrController.text,
                                         mobileController.text,
                                         greyimage,
-                                        "_g.name",
                                         userId,
                                       ).then((value) {
                                         print("Created new account");

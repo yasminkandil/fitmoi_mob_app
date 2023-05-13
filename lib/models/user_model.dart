@@ -34,7 +34,6 @@ Future addUserDetails(
     String useraddress,
     String userPhoneNumber,
     String userImage,
-    String gender,
     String id) async {
   await FirebaseFirestore.instance.collection('users').doc(id).set(
     {
@@ -49,7 +48,6 @@ Future addUserDetails(
       'imageB': "",
       'height': 0.0,
       'weight': 0.0,
-      'gender': gender,
       'back': 0.0,
       'chest': 0.0,
       'hip': 0.0,

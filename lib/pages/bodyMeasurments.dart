@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fitmoi_mob_app/models/measurments.dart';
@@ -11,6 +13,7 @@ import 'package:fitmoi_mob_app/widgets/start.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import '../utils/color.dart';
@@ -19,11 +22,13 @@ class bodyMeasurments extends StatefulWidget {
   Measurements measurements;
   String height;
   String gender;
+  String prodId;
   bodyMeasurments(
       {super.key,
       required this.measurements,
       required this.height,
-      required this.gender});
+      required this.gender,
+      required this.prodId});
 
   @override
   State<bodyMeasurments> createState() => _bodyMeasurmentsState();
@@ -46,17 +51,22 @@ class _bodyMeasurmentsState extends State<bodyMeasurments> {
     String back = widget.measurements.back == null
         ? ''
         : widget.measurements.back.toDouble().toString();
+    String waist = widget.measurements.waist == null
+        ? ''
+        : widget.measurements.waist.toDouble().toString();
     TextEditingController heighttController =
         TextEditingController(text: height);
     TextEditingController weighttController = TextEditingController();
     TextEditingController chesttController = TextEditingController(text: chest);
     TextEditingController backkController = TextEditingController(text: back);
     TextEditingController hippController = TextEditingController(text: hip);
+    TextEditingController waisttController = TextEditingController(text: waist);
     controllers.add(weighttController);
     controllers.add(heighttController);
     controllers.add(chesttController);
     controllers.add(hippController);
     controllers.add(backkController);
+    controllers.add(waisttController);
   }
 
   String status = '';
@@ -64,7 +74,7 @@ class _bodyMeasurmentsState extends State<bodyMeasurments> {
   List<double> measurements = [];
 
   Future<void> _startProcessing(
-      weight, height, chest, hip, back, userid) async {
+      weight, height, chest, hip, back, userid, gender) async {
     setState(() {
       status = 'Processing';
     });
@@ -76,14 +86,21 @@ class _bodyMeasurmentsState extends State<bodyMeasurments> {
         "height": "${height}",
         "chest": "${chest}",
         "hip": "${hip}",
-        "back": "${back}"
+        "back": "${back}",
       },
       'uniqueId': "${userid}",
+      'gender': "${gender}"
     };
 
     // Send POST request to create-model endpoint
     final response = await http.post(
+<<<<<<< HEAD
       Uri.parse('http://192.168.1.4:8050/create-model'),
+=======
+      //Uri.parse('http://192.168.100.74:8000/create-model'),
+
+      Uri.parse('http://192.168.1.108:8000/create-model'),
+>>>>>>> 1470e588bd82a1f6be968bf7152d628f63dbc28e
       headers: {'Content-Type': 'application/json'},
       body: json.encode(jsonPayload),
     );
@@ -92,10 +109,11 @@ class _bodyMeasurmentsState extends State<bodyMeasurments> {
       // Check response from server
       Map<String, dynamic> jsonResponse = json.decode(response.body);
       String completed = jsonResponse['completed'];
-
       if (completed == 'True') {
+        sleep(const Duration(seconds: 10));
+
         setState(() {
-          status = 'Completed';
+          status = 'completed';
         });
       } else {
         setState(() {
@@ -203,6 +221,21 @@ class _bodyMeasurmentsState extends State<bodyMeasurments> {
                         errormssg: hiperrormessage,
                         regexp: mregexp,
                         enable: true),
+                    Text(
+                      "Waist",
+                      style: TextStyle(
+                          color: mintColors,
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    ImageTextInp(
+                        controller: controllers[5],
+                        icon: 'assets/waistt.jpg',
+                        hint: controllers[5].text,
+                        torf: false,
+                        errormssg: hiperrormessage,
+                        regexp: mregexp,
+                        enable: true),
                     SizedBox(
                       height: 20,
                     ),
@@ -219,16 +252,26 @@ class _bodyMeasurmentsState extends State<bodyMeasurments> {
                         //   ];
                         //   uniqueId = '1';
                         // });
-                        _startProcessing(
-                          double.parse(controllers[0].text),
-                          double.parse(controllers[1].text),
-                          double.parse(controllers[2].text),
-                          double.parse(controllers[3].text),
-                          double.parse(controllers[4].text),
-                          FirebaseAuth.instance.currentUser!.uid,
+                        Fluttertoast.showToast(
+                          msg: "Please wait....",
                         );
-                        DialogggBuilder(context)
-                            .showAlert("Start", widget.gender);
+                        _startProcessing(
+                                double.parse(controllers[0].text),
+                                double.parse(controllers[1].text),
+                                double.parse(controllers[2].text),
+                                double.parse(controllers[3].text),
+                                double.parse(controllers[4].text),
+                                FirebaseAuth.instance.currentUser!.uid,
+                                widget.gender)
+                            .then(
+                          (value) {
+                            DialogggBuilder(context).showAlert(
+                              "Start",
+                              widget.gender,
+                              widget.prodId,
+                            );
+                          },
+                        );
 
                         final editMeas = FirebaseFirestore.instance
                             .collection('users')
@@ -238,7 +281,8 @@ class _bodyMeasurmentsState extends State<bodyMeasurments> {
                           "weight": double.parse(controllers[0].text),
                           "chest": double.parse(controllers[2].text),
                           "back": double.parse(controllers[4].text),
-                          "hips": double.parse(controllers[3].text),
+                          "hip": double.parse(controllers[3].text),
+                          'waist': double.parse(controllers[5].text)
                         });
                         //Navigator.pop(context);
                       },

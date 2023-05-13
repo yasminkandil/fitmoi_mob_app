@@ -122,8 +122,6 @@ class HomeNavbar extends State<Navigation_bar> {
               ? menuItem(11, "Dashboard", Icons.admin_panel_settings,
                   currentPage == Sections.admin ? true : false)
               : Container(),
-          menuItem(5, " Favourites", Icons.favorite,
-              currentPage == Sections.fav ? true : false),
           FirebaseAuth.instance.currentUser != null
               ? menuItem(6, "Log Out", Icons.logout_rounded,
                   currentPage == Sections.Log_Out ? true : false)

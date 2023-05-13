@@ -5,17 +5,23 @@ import 'dart:typed_data';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:fitmoi_mob_app/models/measurments.dart';
+import 'package:fitmoi_mob_app/pages/view_account.dart';
 import 'package:fitmoi_mob_app/services/fileservices.dart';
 import 'package:http/io_client.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 
-Future<Map<String, String>> sendRequest(
-    {required String id,
-    required File frontImage,
-    required File backImage,
-    required String clothType,
-    required String prodId}) async {
+import 'dart:io';
+import 'package:flutter/services.dart' show rootBundle;
+import 'package:path_provider/path_provider.dart';
+
+Future<Map<String, String>> sendRequest({
+  required String id,
+  required File frontImage,
+  required File backImage,
+  required String clothType,
+  required String prodId,
+}) async {
   final url = Uri.parse('http://192.168.100.130:8080/tryy');
 
   final f_imgdata = await frontImage.readAsBytes();
@@ -74,4 +80,36 @@ Future<Map<String, String>> sendRequest(
     'base': jsonDecode(response.body)['base'],
     'Status': jsonDecode(response.body)['Status'],
   };
+}
+
+Future<void> renameAssetFile(String oldName, String newName) async {
+  // Get the app's document directory
+  Directory appDocDir = await getApplicationDocumentsDirectory();
+  newName = userId;
+  // Construct the paths to the old and new files in the assets directory
+  String oldPath = 'assets/$oldName';
+  String newPath = 'assets/$newName';
+
+  // Load the old file contents into memory
+  ByteData oldData = await rootBundle.load(oldPath);
+  List<int> bytes = oldData.buffer.asUint8List();
+
+  // Write the old file contents to the new location with the new name
+  File newFile = File(newPath);
+  await newFile.writeAsBytes(bytes);
+
+  // Delete the old file
+  await deleteAssetFile(oldName);
+}
+
+Future<void> deleteAssetFile(String name) async {
+  // Get the app's document directory
+  Directory appDocDir = await getApplicationDocumentsDirectory();
+
+  // Construct the path to the file in the assets directory
+  String path = '${appDocDir.path}/$name';
+
+  // Delete the file
+  File file = File(path);
+  await file.delete();
 }

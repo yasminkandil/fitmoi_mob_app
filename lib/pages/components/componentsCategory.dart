@@ -119,7 +119,7 @@ class buildCategory extends StatelessWidget {
                           ),
                         ),
                       );
-                      chosenCateg = "pant";
+                      chosenCateg = "short-pant";
                       selected = 1;
                     } else if (data['subCategF'] == 'short-pant') {
                       Navigator.push(
@@ -214,7 +214,7 @@ class buildCategory extends StatelessWidget {
                         MaterialPageRoute(
                           builder: (context) => Products(
                             cat: 'male',
-                            subcat: 'pant',
+                            subcat: 'pants',
                           ),
                         ),
                       );

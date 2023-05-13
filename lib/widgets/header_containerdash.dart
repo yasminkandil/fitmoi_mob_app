@@ -20,7 +20,7 @@ class HeaderContainerDash extends StatelessWidget {
       child: Stack(
         children: <Widget>[
           Center(
-            child: Image.asset("assets/fit_moi.png"),
+            child: Image.asset("assets/yasmin-011.png"),
           ),
         ],
       ),
