@@ -16,11 +16,7 @@ Future<Map<String, String>> sendRequest(
     required File backImage,
     required String clothType,
     required String prodId}) async {
-<<<<<<< HEAD
-  final url = Uri.parse('http://192.168.1.3:8050/tryy');
-=======
   final url = Uri.parse('http://192.168.100.130:8080/tryy');
->>>>>>> 49d85e7ba3bb1a351fd98307ea646d3cbe02e235
 
   final f_imgdata = await frontImage.readAsBytes();
   final b_imgdata = await backImage.readAsBytes();
@@ -55,15 +51,6 @@ Future<Map<String, String>> sendRequest(
   // Add the output image to Firebase Storage
   final _storage = FirebaseStorage.instance;
 
-<<<<<<< HEAD
-  final storageRef =
-      FirebaseStorage.instance.ref().child('images/${data['base']}');
-  final imageBytes = data['base'];
-  //final uploadTask = storageRef.putData(imageBytes);
-  //await uploadTask.whenComplete(() => null);
-  var snapshot =
-      await _storage.ref().child('images/${data['base']}').putFile(imageBytes);
-=======
   var image64 = data["base"];
   Uint8List bytes = base64.decode(image64);
   FileService fileService3 = FileService(path: 'up$prodId.jpg');
@@ -71,7 +58,6 @@ Future<Map<String, String>> sendRequest(
 
   final snapshot =
       await _storage.ref().child('textures/up$prodId.jpg').putFile(file);
->>>>>>> 49d85e7ba3bb1a351fd98307ea646d3cbe02e235
 
   var downloadUrl = await snapshot.ref.getDownloadURL();
 
@@ -80,13 +66,10 @@ Future<Map<String, String>> sendRequest(
     'texture': downloadUrl,
   });
 
-<<<<<<< HEAD
-=======
 // Update the 'texture' field in the 'products' table in Firebase Realtime Database
   await FirebaseFirestore.instance.collection('product').doc(prodId).update({
     'texture': downloadUrl,
   });
->>>>>>> 49d85e7ba3bb1a351fd98307ea646d3cbe02e235
   return {
     'base': jsonDecode(response.body)['base'],
     'Status': jsonDecode(response.body)['Status'],

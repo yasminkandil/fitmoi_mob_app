@@ -64,19 +64,12 @@ class _HumanModelPageState extends State<HumanModelPage> {
         position: Vector3(0, 0, 0),
         lighting: true);
     tshirt = Object(
-<<<<<<< HEAD
-        fileName: 'assets/lol/t-shirt_$userid.obj',
-        scale: Vector3(0.15, 0.15, 0.15),
-        position: Vector3(0, 0, 0),
-        lighting: true);
-=======
       fileName: 'assets/t-shirt_31.obj',
       // scale: Vector3(0.15, 0.15, 0.15),
       // position: Vector3(0, 0, 0),
       lighting: true,
       // backfaceCulling: false
     );
->>>>>>> 49d85e7ba3bb1a351fd98307ea646d3cbe02e235
     skirt = Object(
         fileName: 'assets/skirt_$userid.obj',
         scale: Vector3(0.09, 0.09, 0.09),
