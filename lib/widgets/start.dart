@@ -128,9 +128,10 @@ class _show3DState extends State<show3D> {
     };
 
     final response = await http.post(
-      //Uri.parse('http://192.168.100.74:8000/fit-model'),
-      Uri.parse(
-          'http://192.168.1.108:8000/fit-model'), // Replace with your backend URL
+      //Uri.parse('http://192.168.1.108:8000/fit-model'),
+      Uri.parse('http://192.168.1.108:8000/fit-model'),
+      // // Replace with your backend URL
+      // Uri.parse('http://172.20.10.3:8000/fit-model'),
       headers: {'Content-Type': 'application/json'},
       body: jsonEncode(requestData),
     );

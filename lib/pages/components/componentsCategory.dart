@@ -119,7 +119,7 @@ class buildCategory extends StatelessWidget {
                           ),
                         ),
                       );
-                      chosenCateg = "short-pant";
+                      chosenCateg = "pant";
                       selected = 1;
                     } else if (data['subCategF'] == 'short-pant') {
                       Navigator.push(
@@ -167,15 +167,15 @@ class buildCategory extends StatelessWidget {
                         Text("${data['subCategF']}",
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                color: selected == index
-                                    ? mintColors
+                                color: selected == data[index]
+                                    ? const Color.fromARGB(72, 0, 0, 0)
                                     : const Color.fromARGB(72, 0, 0, 0))),
                         Container(
                           margin: const EdgeInsets.only(top: 15 / 4),
                           height: 2,
                           width: 30,
-                          color: selected == index
-                              ? mintColors
+                          color: selected == data[index]
+                              ? Colors.black
                               : Colors.transparent,
                         )
                       ],

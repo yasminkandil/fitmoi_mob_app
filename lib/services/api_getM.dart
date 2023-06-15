@@ -31,9 +31,10 @@ class Api_3DService {
     };
     var JsonBody = measurments;
     var response = await http.post(
-        //Uri.parse("http://192.168.100.74:8000/get_measurement"),
+        //Uri.parse("http://192.168.1.108:8000/get_measurement"),
 
         Uri.parse("http://192.168.1.108:8000/get_measurement"),
+        //Uri.parse('http://172.20.10.3:8000/get_measurement'),
         body: jsonEncode(JsonBody),
         headers: {"content-type": "application/json"});
     bool completed = false;
@@ -41,9 +42,10 @@ class Api_3DService {
     while (!completed) {
       await _sleep(4);
       var response2 = await http.post(
-          //Uri.parse("http://192.168.100.74:8000/get_measurement"),
+          //Uri.parse("http://192.168.1.108:8000/get_measurement"),
 
           Uri.parse("http://192.168.1.108:8000/get_measurement"),
+          //Uri.parse('http://172.20.10.3:8000/get_measurement'),
           body: jsonEncode(wait),
           headers: {"content-type": "application/json"});
 
