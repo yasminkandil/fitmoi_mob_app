@@ -94,10 +94,7 @@ class _bodyMeasurmentsState extends State<bodyMeasurments> {
 
     // Send POST request to create-model endpoint
     final response = await http.post(
-      //Uri.parse('http://192.168.1.108:8000/create-model'),
-
       Uri.parse('http://192.168.1.108:8000/create-model'),
-      //Uri.parse('http://172.20.10.3:8000/create-model'),
       headers: {'Content-Type': 'application/json'},
       body: json.encode(jsonPayload),
     );

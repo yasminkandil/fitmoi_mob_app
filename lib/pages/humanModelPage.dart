@@ -11,7 +11,13 @@ import 'package:fitmoi_mob_app/widgets/start.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_cube/flutter_cube.dart';
+<<<<<<< HEAD
+import 'package:flutter/material.dart';
+import 'package:flutter/src/material/material.dart';
+
+=======
 import 'package:restart_app/restart_app.dart';
+>>>>>>> 1470e588bd82a1f6be968bf7152d628f63dbc28e
 import 'dart:ui' as ui;
 
 import 'package:get/get_connect/http/src/utils/utils.dart';
@@ -80,6 +86,54 @@ class _HumanModelPageState extends State<HumanModelPage> {
       position: Vector3(0, 0, 0),
       lighting: true);
 
+<<<<<<< HEAD
+  String userid = FirebaseAuth.instance.currentUser!.uid;
+
+  @override
+  void initState() {
+    super.initState();
+    human = Object(
+        fileName: 'assets/body_$userid.obj'
+        // 'E:/grad python/meshes/1/body_1.obj'
+        // widget.humanModelPath
+        ,
+        scale: Vector3.all(0.3),
+        position: Vector3(0, 0, 0),
+        lighting: true,
+        backfaceCulling: false);
+    shirt = Object(
+      fileName: 'assets/shirt_$userid.obj',
+      scale: Vector3(0.09, 0.09, 0.09),
+      position: Vector3(0, 0, 0),
+      lighting: true,
+    );
+    garmentShortPant = Object(
+        fileName: 'assets/short-pant_$userid.obj',
+        scale: Vector3(0.09, 0.09, 0.09),
+        position: Vector3(0, 0, 0),
+        lighting: true);
+    pant = Object(
+        fileName: 'assets/pant_$userid.obj',
+        scale: Vector3(0.09, 0.09, 0.09),
+        position: Vector3(0, 0, 0),
+        lighting: true);
+    tshirt = Object(
+      fileName: 'assets/t-shirt_31.obj',
+      // scale: Vector3(0.15, 0.15, 0.15),
+      // position: Vector3(0, 0, 0),
+      lighting: true,
+      // backfaceCulling: false
+    );
+    skirt = Object(
+        fileName: 'assets/skirt_$userid.obj',
+        scale: Vector3(0.09, 0.09, 0.09),
+        position: Vector3(0, 0, 0),
+        lighting: true);
+    // loadTexture();
+
+    human.updateTransform();
+  }
+=======
   Object pant = Object(
       fileName: 'assets/pant_19Al4C30oiUxOK6PLqffKBwj2qE2.obj',
       scale: Vector3(0.08, 0.09, 0.09),
@@ -98,6 +152,7 @@ class _HumanModelPageState extends State<HumanModelPage> {
       scale: Vector3(0.09, 0.09, 0.09),
       position: Vector3(0, 0, 0),
       lighting: true);
+>>>>>>> 1470e588bd82a1f6be968bf7152d628f63dbc28e
 
   @override
   Widget build(BuildContext context) {
