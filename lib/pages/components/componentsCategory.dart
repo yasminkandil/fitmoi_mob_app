@@ -119,7 +119,7 @@ class buildCategory extends StatelessWidget {
                           ),
                         ),
                       );
-                      chosenCateg = "pant";
+                      chosenCateg = 'pant';
                       selected = 1;
                     } else if (data['subCategF'] == 'short-pant') {
                       Navigator.push(
@@ -145,18 +145,6 @@ class buildCategory extends StatelessWidget {
                       );
                       chosenCateg = "skirt";
                       selected = 3;
-                    } else if (data['subCategF'] == 'shirt') {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => Products(
-                            cat: 'female',
-                            subcat: 'shirt',
-                          ),
-                        ),
-                      );
-                      chosenCateg = "shirt";
-                      selected = 4;
                     }
                   },
                   child: Padding(
@@ -197,18 +185,7 @@ class buildCategory extends StatelessWidget {
                     : <String, dynamic>{};
                 return GestureDetector(
                   onTap: () {
-                    if (data['subCategM'] == "shirt") {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => Products(
-                            cat: 'male',
-                            subcat: 'shirt',
-                          ),
-                        ),
-                      );
-                      chosenCateg = "shirt";
-                    } else if (data['subCategM'] == 'pant') {
+                    if (data['subCategM'] == 'pant') {
                       Navigator.push(
                         context,
                         MaterialPageRoute(

@@ -11,13 +11,9 @@ import 'package:fitmoi_mob_app/widgets/start.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_cube/flutter_cube.dart';
-<<<<<<< HEAD
 import 'package:flutter/material.dart';
 import 'package:flutter/src/material/material.dart';
 
-=======
-import 'package:restart_app/restart_app.dart';
->>>>>>> 1470e588bd82a1f6be968bf7152d628f63dbc28e
 import 'dart:ui' as ui;
 
 import 'package:get/get_connect/http/src/utils/utils.dart';
@@ -32,6 +28,10 @@ class HumanModelPage extends StatefulWidget {
 }
 
 String userid = FirebaseAuth.instance.currentUser!.uid;
+String chosenCateg = 'short-pant';
+
+//List<dynamic> categoryList = [];
+String prevGar = 't-shirt';
 CollectionReference users = FirebaseFirestore.instance.collection('users');
 DocumentReference userRef = users.doc(userid);
 Future<String> getChestData() async {
@@ -62,6 +62,8 @@ Future<Map<String, dynamic>> getUserData() async {
 }
 
 Future<dynamic> loadAsset(String assetPath) async {
+  print(chosenCateg);
+
   return await rootBundle.load(assetPath);
 }
 
@@ -76,69 +78,16 @@ class _HumanModelPageState extends State<HumanModelPage> {
   bool remove = false;
   late Texture tshirtTexture;
   Object garmentShortPant = Object(
-      fileName: 'assets/short-pant_29.obj',
+      fileName: 'assets/short-pant_$userid.obj',
       scale: Vector3(0.09, 0.09, 0.09),
       position: Vector3(0, 0, 0),
       lighting: true);
-  Object shirt = Object(
-      fileName: 'assets/shirt_$userid.obj',
-      scale: Vector3(0.09, 0.09, 0.09),
-      position: Vector3(0, 0, 0),
-      lighting: true);
-
-<<<<<<< HEAD
-  String userid = FirebaseAuth.instance.currentUser!.uid;
-
-  @override
-  void initState() {
-    super.initState();
-    human = Object(
-        fileName: 'assets/body_$userid.obj'
-        // 'E:/grad python/meshes/1/body_1.obj'
-        // widget.humanModelPath
-        ,
-        scale: Vector3.all(0.3),
-        position: Vector3(0, 0, 0),
-        lighting: true,
-        backfaceCulling: false);
-    shirt = Object(
-      fileName: 'assets/shirt_$userid.obj',
-      scale: Vector3(0.09, 0.09, 0.09),
-      position: Vector3(0, 0, 0),
-      lighting: true,
-    );
-    garmentShortPant = Object(
-        fileName: 'assets/short-pant_$userid.obj',
-        scale: Vector3(0.09, 0.09, 0.09),
-        position: Vector3(0, 0, 0),
-        lighting: true);
-    pant = Object(
-        fileName: 'assets/pant_$userid.obj',
-        scale: Vector3(0.09, 0.09, 0.09),
-        position: Vector3(0, 0, 0),
-        lighting: true);
-    tshirt = Object(
-      fileName: 'assets/t-shirt_31.obj',
-      // scale: Vector3(0.15, 0.15, 0.15),
-      // position: Vector3(0, 0, 0),
-      lighting: true,
-      // backfaceCulling: false
-    );
-    skirt = Object(
-        fileName: 'assets/skirt_$userid.obj',
-        scale: Vector3(0.09, 0.09, 0.09),
-        position: Vector3(0, 0, 0),
-        lighting: true);
-    // loadTexture();
-
-    human.updateTransform();
-  }
-=======
   Object pant = Object(
-      fileName: 'assets/pant_19Al4C30oiUxOK6PLqffKBwj2qE2.obj',
-      scale: Vector3(0.08, 0.09, 0.09),
+      fileName: 'assets/pant_$userid.obj',
+      scale: Vector3(0.08, 0.08, 0.10),
       position: Vector3(0, 0, 0),
-      lighting: true);
+      lighting: true,
+      backfaceCulling: false);
   Object tshirt = Object(
     fileName: 'assets/t-shirt_$userid.obj',
     scale: Vector3(0.16, 0.17, 0.18),
@@ -152,7 +101,6 @@ class _HumanModelPageState extends State<HumanModelPage> {
       scale: Vector3(0.09, 0.09, 0.09),
       position: Vector3(0, 0, 0),
       lighting: true);
->>>>>>> 1470e588bd82a1f6be968bf7152d628f63dbc28e
 
   @override
   Widget build(BuildContext context) {
@@ -174,6 +122,7 @@ class _HumanModelPageState extends State<HumanModelPage> {
             child: Center(
               child: Cube(
                 onSceneCreated: (Scene scene) {
+                  // Load and add the body object
                   loadAsset('assets/body_$userid.obj');
                   scene.world.add(Object(
                     fileName: 'assets/body_$userid.obj',
@@ -181,51 +130,80 @@ class _HumanModelPageState extends State<HumanModelPage> {
                     position: Vector3(0, 0, 0),
                     lighting: true,
                   ));
-                  //chosenCateg = 'short-pant';
-                  if (chosenCateg == 'shirt') {
-                    loadAsset('assets/shirt_$userid.obj');
-                    scene.world.add(shirt);
-                  } else if (chosenCateg == 'short-pant') {
-                    loadAsset('assets/short-pant_29.obj');
-                    scene.world.add(garmentShortPant);
-                    setState(() {
-                      loadImageFromAsset('assets/short-pant_29.jpg')
-                          .then((value) {
-                        garmentShortPant.mesh.texture = value;
-                        scene.updateTexture();
+
+                  // Add the previous garment
+                  // if (prevGar != null) {
+                  //   if (prevGar == 'short-pant') {
+                  //     loadAsset('assets/short-pant_$userid.obj');
+                  //     scene.world.add(garmentShortPant);
+
+                  //     setState(() {
+                  //       loadImageFromAsset('assets/short-pant_$userid.jpg')
+                  //           .then((value) {
+                  //         garmentShortPant.mesh.texture = value;
+                  //         scene.updateTexture();
+                  //       });
+                  //     });
+                  //   } else if (prevGar == 'pant') {
+                  //     scene.world.add(pant);
+                  //     loadAsset('assets/pant_$userid.obj');
+                  //     loadImageFromAsset('assets/pant_$userid.jpg')
+                  //         .then((value) {
+                  //       pant.mesh.texture = value;
+                  //       // scene.updateTexture();
+                  //     });
+                  //   } else if (prevGar == 't-shirt') {
+                  //     scene.world.add(tshirt);
+                  //     setState(() {
+                  //       loadImageFromAsset('assets/t-shirt_$userid.jpg')
+                  //           .then((value) {
+                  //         tshirt.mesh.texture = value;
+                  //         // scene.updateTexture();
+                  //       });
+                  //     });
+                  //   } else if (prevGar == 'skirt') {
+                  //     loadAsset('assets/skirt_$userid.obj');
+                  //     scene.world.add(skirt);
+                  //   }
+                  // }
+                  // Add the current garment
+                  if (chosenCateg != null) {
+                    if (chosenCateg == 'short-pant') {
+                      loadAsset('assets/short-pant_$userid.obj');
+                      scene.world.add(garmentShortPant);
+
+                      setState(() {
+                        loadImageFromAsset('assets/short-pant_$userid.jpg')
+                            .then((value) {
+                          garmentShortPant.mesh.texture = value;
+                          scene.updateTexture();
+                        });
                       });
-                    });
-                  } else if (chosenCateg == 'pant') {
-                    loadAsset('assets/pant_19Al4C30oiUxOK6PLqffKBwj2qE2.obj');
-                    scene.world.add(pant);
-                    loadImageFromAsset(
-                            'assets/pant_19Al4C30oiUxOK6PLqffKBwj2qE2.jpg')
-                        .then((value) {
-                      pant.mesh.texture = value;
-                      scene.updateTexture();
-                    });
-                  } else if (chosenCateg == 't-shirt') {
-                    scene.world.add(tshirt);
-                    setState(() {
-                      loadImageFromAsset('assets/t-shirt_$userid.jpg')
+                    } else if (chosenCateg == 'pant') {
+                      scene.world.add(pant);
+                      loadAsset('assets/pant_$userid.obj');
+                      loadImageFromAsset('assets/pant_$userid.jpg')
                           .then((value) {
-                        tshirt.mesh.texture = value;
-                        //scene.updateTexture();
+                        pant.mesh.texture = value;
+                        // scene.updateTexture();
                       });
-                    });
-                  } else if (chosenCateg == 'skirt') {
-                    loadAsset('assets/skirt_$userid.obj');
-                    scene.world.add(skirt);
+                    } else if (chosenCateg == 't-shirt') {
+                      scene.world.add(tshirt);
+                      setState(() {
+                        loadImageFromAsset('assets/t-shirt_$userid.jpg')
+                            .then((value) {
+                          tshirt.mesh.texture = value;
+                          // scene.updateTexture();
+                        });
+                      });
+                    } else if (chosenCateg == 'skirt') {
+                      loadAsset('assets/skirt_$userid.obj');
+                      scene.world.add(skirt);
+                    }
                   }
 
                   scene.camera.zoom = 15;
                   scene.updateTexture();
-                  // scene.world.add(Object(fileName: 'assets/turtle.obj'));
-                  // scene.camera.position.setFrom(Vector3(0, 0, 0.1));
-                  // scene.light.position.setFrom(Vector3(0, 0.2, 0.2));
-                  // scene.light.ambient.rgb = Vector3(0.5, 0.5, 0.5);
-                  // scene.light.position == scene.camera.position;
-                  // scene.textureBlendMode = BlendMode.hardLight;
                 },
               ),
             ),
@@ -241,131 +219,49 @@ class _HumanModelPageState extends State<HumanModelPage> {
                 double height = userData['height'] ?? 0;
                 double hipMeasurement = userData['hip'] ?? 0;
                 String gender = userData['gender'] ?? 0;
-                String suggestedSize = 'Sorry, your size is not available';
+                String suggestedSize =
+                    'Sorry, your size is not available $chosenCateg $prevGar';
                 if (chosenCateg == 't-shirt' && gender == 'male') {
-                  if (chestMeasurement >= 81 &&
-                      chestMeasurement <= 86 &&
-                      height >= 155 &&
-                      height <= 160) {
+                  if (chestMeasurement >= 81 && chestMeasurement <= 86) {
                     suggestedSize = "X-Small";
-                  } else if (chestMeasurement >= 86 &&
-                      chestMeasurement <= 96 &&
-                      height >= 160 &&
-                      height <= 170) {
+                  } else if (chestMeasurement >= 86 && chestMeasurement <= 96) {
                     suggestedSize = "Small";
                   } else if (chestMeasurement >= 96 &&
-                      chestMeasurement <= 106 &&
-                      height >= 170 &&
-                      height <= 175) {
+                      chestMeasurement <= 106) {
                     suggestedSize = "Medium";
                   } else if (chestMeasurement >= 106 &&
-                      chestMeasurement <= 116 &&
-                      height >= 175 &&
-                      height <= 180) {
+                      chestMeasurement <= 116) {
                     suggestedSize = "Large";
                   } else if (chestMeasurement >= 116 &&
-                      chestMeasurement <= 126 &&
-                      height >= 180 &&
-                      height <= 185) {
+                      chestMeasurement <= 126) {
                     suggestedSize = "X-Large";
                   } else if (chestMeasurement >= 126 &&
-                      chestMeasurement <= 132 &&
-                      height >= 185 &&
-                      height <= 190) {
+                      chestMeasurement <= 132) {
                     suggestedSize = "XX-Large";
-                  } else if (chestMeasurement >= 81 &&
-                      chestMeasurement <= 86 &&
-                      height >= 160 &&
-                      height <= 170) {
-                    suggestedSize = "Small/X-Small";
-                  } else if (chestMeasurement >= 86 &&
-                      chestMeasurement <= 96 &&
-                      height >= 170 &&
-                      height <= 175) {
-                    suggestedSize = "Medium/Small";
-                  } else if (chestMeasurement >= 96 &&
-                      chestMeasurement <= 106 &&
-                      height >= 175 &&
-                      height <= 180) {
-                    suggestedSize = "Large/Medium";
-                  } else if (chestMeasurement >= 106 &&
-                      chestMeasurement <= 116 &&
-                      height >= 180 &&
-                      height <= 185) {
-                    suggestedSize = "X-Large/Large";
-                  } else if (chestMeasurement >= 116 &&
-                      chestMeasurement <= 126 &&
-                      height >= 185 &&
-                      height <= 190) {
-                    suggestedSize = "XX-Large/X-Large";
                   } else {
                     suggestedSize = "Size not available";
                   }
                 } else if (chosenCateg == 't-shirt' && gender == 'female') {
-                  if (chestMeasurement >= 80 &&
-                      chestMeasurement <= 86 &&
-                      height >= 150 &&
-                      height <= 155) {
+                  if (chestMeasurement >= 80 && chestMeasurement <= 86) {
                     suggestedSize = "X-Small";
-                  } else if (chestMeasurement >= 86 &&
-                      chestMeasurement <= 92 &&
-                      height >= 155 &&
-                      height <= 165) {
+                  } else if (chestMeasurement >= 86 && chestMeasurement <= 92) {
                     suggestedSize = "Small";
-                  } else if (chestMeasurement >= 92 &&
-                      chestMeasurement <= 96 &&
-                      height >= 165 &&
-                      height <= 170) {
+                  } else if (chestMeasurement >= 92 && chestMeasurement <= 96) {
                     suggestedSize = "Medium";
                   } else if (chestMeasurement >= 96 &&
-                      chestMeasurement <= 102 &&
-                      height >= 170 &&
-                      height <= 175) {
+                      chestMeasurement <= 102) {
                     suggestedSize = "Large";
                   } else if (chestMeasurement >= 102 &&
-                      chestMeasurement <= 106 &&
-                      height >= 175 &&
-                      height <= 180) {
+                      chestMeasurement <= 106) {
                     suggestedSize = "X-Large";
                   } else if (chestMeasurement >= 106 &&
-                      chestMeasurement <= 112 &&
-                      height >= 180 &&
-                      height <= 185) {
+                      chestMeasurement <= 112) {
                     suggestedSize = "XX-Large";
-                  } else if (chestMeasurement >= 80 &&
-                      chestMeasurement <= 86 &&
-                      height >= 155 &&
-                      height <= 165) {
-                    suggestedSize = "Small/X-Small";
-                  } else if (chestMeasurement >= 86 &&
-                      chestMeasurement <= 92 &&
-                      height >= 155 &&
-                      height <= 165) {
-                    suggestedSize = "Small/Medium";
-                  } else if (chestMeasurement >= 92 &&
-                      chestMeasurement <= 96 &&
-                      height >= 165 &&
-                      height <= 170) {
-                    suggestedSize = "Medium/Small";
-                  } else if (chestMeasurement >= 96 &&
-                      chestMeasurement <= 102 &&
-                      height >= 170 &&
-                      height <= 175) {
-                    suggestedSize = "Large/Medium";
-                  } else if (chestMeasurement >= 102 &&
-                      chestMeasurement <= 106 &&
-                      height >= 175 &&
-                      height <= 180) {
-                    suggestedSize = "X-Large/Large";
-                  } else if (chestMeasurement >= 106 &&
-                      chestMeasurement <= 112 &&
-                      height >= 180 &&
-                      height <= 185) {
-                    suggestedSize = "XX-Large/X-Large";
                   } else {
                     suggestedSize = "Size not available";
                   }
-                } else if (chosenCateg == 'short-pant' && gender == 'female') {
+                } else if (chosenCateg == 'short-pant' ||
+                    chosenCateg == 'pant' && gender == 'female') {
                   if (waistMeasurement >= 63 &&
                       waistMeasurement <= 66 &&
                       hipMeasurement >= 86.5 &&
@@ -402,7 +298,8 @@ class _HumanModelPageState extends State<HumanModelPage> {
                       hipMeasurement < 130) {
                     suggestedSize = 'XXXL - 46';
                   }
-                } else if (chosenCateg == 'short-pant' && gender == 'male') {
+                } else if (chosenCateg == 'short-pant' ||
+                    chosenCateg == 'pant' && gender == 'male') {
                   if (waistMeasurement >= 65 &&
                       waistMeasurement <= 78 &&
                       hipMeasurement >= 88 &&
@@ -457,34 +354,46 @@ class _HumanModelPageState extends State<HumanModelPage> {
             },
           ),
           ListTile(
-            title: Container(
-              child: ButtonWidgetdelete(
-                btnText: "Remove Garment",
-                onClick: () {
-                  setState(() {
-                    if (chosenCateg == 't-shirt') {
-                      tshirt.position.setValues(1500, 1500, 1500);
-                      tshirt.updateTransform();
-                    } else if (chosenCateg == 'shirt') {
-                      shirt.position.setValues(1500, 1500, 1500);
-                      shirt.updateTransform();
-                    } else if (chosenCateg == 'pant') {
-                      pant.position.setValues(1500, 1500, 1500);
-                      pant.updateTransform();
-                    } else if (chosenCateg == 'skirt') {
-                      skirt.position.setValues(1500, 1500, 1500);
-                      skirt.updateTransform();
-                    } else if (chosenCateg == 'short-pant') {
-                      garmentShortPant.position.setValues(1500, 1500, 1500);
-                      garmentShortPant.updateTransform();
-                    }
-
-                    print('object');
-                  });
-                },
+              title: Row(
+            children: [
+              Expanded(
+                child: ButtonWidget2(
+                  btnText: "Add Another Item",
+                  onClick: () {
+                    setState(() {
+                      prevGar == chosenCateg;
+                    });
+                    print(prevGar);
+                    Navigator.pushNamed(context, "shop");
+                  },
+                ),
               ),
-            ),
-          )
+              Expanded(
+                child: ButtonWidgetdelete(
+                  btnText: "Remove Garment",
+                  onClick: () {
+                    setState(() {
+                      if (chosenCateg == 't-shirt') {
+                        tshirt.position.setValues(1500, 1500, 1500);
+                        tshirt.updateTransform();
+                      } else if (chosenCateg == 'pant') {
+                        pant.position.setValues(1500, 1500, 1500);
+                        pant.updateTransform();
+                      } else if (chosenCateg == 'skirt') {
+                        skirt.position.setValues(1500, 1500, 1500);
+                        skirt.updateTransform();
+                      } else if (chosenCateg == 'short-pant') {
+                        garmentShortPant.position.setValues(1500, 1500, 1500);
+                        garmentShortPant.updateTransform();
+                      }
+
+                      print('object');
+                    });
+                  },
+                ),
+              )
+            ],
+          )),
         ],
       ),
     );

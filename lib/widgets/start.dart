@@ -154,7 +154,9 @@ class _show3DState extends State<show3D> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => HumanModelPage(humanModelPath: ""),
+            builder: (context) => HumanModelPage(
+              humanModelPath: "",
+            ),
           ),
         );
       }
