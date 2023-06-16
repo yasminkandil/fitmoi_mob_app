@@ -22,18 +22,20 @@ Future<Map<String, String>> sendRequest({
   required String clothType,
   required String prodId,
 }) async {
-  final url = Uri.parse('http://192.168.100.130:8080/tryy');
+  final url = Uri.parse('http://192.168.100.130:8050/tryy');
 
   final f_imgdata = await frontImage.readAsBytes();
   final b_imgdata = await backImage.readAsBytes();
   final frontPath = base64Encode(f_imgdata);
   final backPath = base64Encode(b_imgdata);
+  // final prodId = base64Encode(b_imgdata);
 
   final body = jsonEncode({
     'id': id,
     'frontPath': frontPath,
     'backPath': backPath,
     'clothType': clothType,
+    'prodId': prodId
   });
 
   final response = await http.post(
