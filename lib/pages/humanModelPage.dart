@@ -218,7 +218,7 @@ class _HumanModelPageState extends State<HumanModelPage> {
                       chestMeasurement <= 106) {
                     suggestedSize = "X-Large";
                   } else if (chestMeasurement >= 106 &&
-                      chestMeasurement <= 112) {
+                      chestMeasurement <= 118) {
                     suggestedSize = "XX-Large";
                   } else {
                     suggestedSize = "Size not available";
