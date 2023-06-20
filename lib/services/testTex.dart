@@ -22,7 +22,9 @@ Future<Map<String, String>> sendRequest({
   required String clothType,
   required String prodId,
 }) async {
-  final url = Uri.parse('http://192.168.100.130:8050/tryy');
+  final subcategory = await getSubcategoryFromFirebase(clothType);
+
+  final url = Uri.parse('http://192.168.100.130:8080/tryy');
 
   final f_imgdata = await frontImage.readAsBytes();
   final b_imgdata = await backImage.readAsBytes();
@@ -114,4 +116,19 @@ Future<void> deleteAssetFile(String name) async {
   // Delete the file
   File file = File(path);
   await file.delete();
+}
+
+Future<String> getSubcategoryFromFirebase(String clothType) async {
+  // Retrieve subcategory from Firebase based on clothType
+  final querySnapshot = await FirebaseFirestore.instance
+      .collection('product')
+      .where('subcategory', isEqualTo: clothType)
+      .get();
+
+  if (querySnapshot.docs.isNotEmpty) {
+    final subcategory = querySnapshot.docs.first.data()['subcategory'];
+    return subcategory;
+  }
+
+  throw Exception('Subcategory not found for clothType: $clothType.');
 }
