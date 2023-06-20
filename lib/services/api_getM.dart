@@ -3,8 +3,11 @@ import 'dart:io' as Io;
 import 'dart:io';
 import 'dart:typed_data';
 import 'package:fitmoi_mob_app/models/measurments.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/io_client.dart';
+
+class NoHumanDetectedException implements Exception {}
 
 class Api_3DService {
   Future getmeasurements(
@@ -14,51 +17,59 @@ class Api_3DService {
     File sideImageFile,
     File backImageFile,
   ) async {
-    List<int> frontImageBytes = await File(frontImageFile.path).readAsBytes();
+    List<int> frontImageBytes = await frontImageFile.readAsBytes();
     String frontBase64Encode = base64.encode(frontImageBytes);
-    List<int> sideimageBytes = await File(sideImageFile.path).readAsBytes();
-    String sidebase64Encode = base64.encode(sideimageBytes);
-    List<int> backimageBytes = await File(backImageFile.path).readAsBytes();
-    String backbase64Encode = base64.encode(backimageBytes);
-    var measurments = {
+    List<int> sideImageBytes = await sideImageFile.readAsBytes();
+    String sideBase64Encode = base64.encode(sideImageBytes);
+    List<int> backImageBytes = await backImageFile.readAsBytes();
+    String backBase64Encode = base64.encode(backImageBytes);
+
+    var measurementsData = {
       "uniqueId": unique,
       "height": "${height}",
       "frontImage": "${frontBase64Encode}",
-      "sideImage": "${sidebase64Encode}",
-      "backImage": "${backbase64Encode}",
-
-      //"weight": "${weight}",
+      "sideImage": "${sideBase64Encode}",
+      "backImage": "${backBase64Encode}",
     };
-    var JsonBody = measurments;
+
+    var jsonBody = measurementsData;
     var response = await http.post(
-        //Uri.parse("http://192.168.100.74:8000/get_measurement"),
+      Uri.parse("http://192.168.1.108:8000/get_measurement"),
+      body: jsonEncode(jsonBody),
+      headers: {"content-type": "application/json"},
+    );
 
-        Uri.parse("http://192.168.1.108:8000/get_measurement"),
-        body: jsonEncode(JsonBody),
-        headers: {"content-type": "application/json"});
-    bool completed = false;
-    var wait = {"waiting": unique, "uniqueId": unique};
-    while (!completed) {
-      await _sleep(4);
-      var response2 =
-          await http.post(Uri.parse("http://192.168.1.4:8050/get_measurement"),
+    var jsonResponse = jsonDecode(response.body);
+    var status = jsonResponse['Status'];
 
-              //Uri.parse("http://192.168.100.74:8000/get_measurement"),
-              body: jsonEncode(wait),
-              headers: {"content-type": "application/json"});
-
-      var status = jsonResponse2['Status'];
-      if (status == 'Done') {
-        completed = true;
-        var measurements = Measurements(
-            chest: jsonResponse2["measurements"]['chest'],
-            hip: jsonResponse2['measurements']["hip"],
-            back: jsonResponse2['measurements']["back"],
-            waist: jsonResponse2['measurements']['waist']);
-        return measurements;
-      }
+    if (status == 'NoHuman') {
+      // Handle the case where no human is detected in the image
+      // Display an appropriate message to the user or take necessary action
+      Fluttertoast.showToast(msg: "No human detected in image");
+      throw NoHumanDetectedException();
     }
-    return null;
+
+    while (status != 'Done') {
+      await Future.delayed(Duration(seconds: 4));
+
+      var response2 = await http.post(
+        Uri.parse("http://192.168.1.108:8000/get_measurement"),
+        body: jsonEncode({"waiting": unique, "uniqueId": unique}),
+        headers: {"content-type": "application/json"},
+      );
+
+      jsonResponse = jsonDecode(response2.body);
+      status = jsonResponse['Status'];
+    }
+
+    var measurementsResult = Measurements(
+      chest: jsonResponse["measurements"]['chest'],
+      hip: jsonResponse['measurements']["hip"],
+      back: jsonResponse['measurements']["back"],
+      waist: jsonResponse['measurements']['waist'],
+    );
+
+    return measurementsResult;
   }
 
   Future _sleep(duration) {

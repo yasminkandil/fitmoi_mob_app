@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fitmoi_mob_app/home/home_screen.dart';
+import 'package:fitmoi_mob_app/models/user_model.dart';
 import 'package:flutter/material.dart';
 
 import '../controllers/search_product.dart';
@@ -7,6 +8,7 @@ import '../pages/my_drawer_header.dart';
 import '../shop/details/components/body.dart';
 import '../utils/color.dart';
 import '../widgets/header_container.dart';
+import '../widgets/start.dart';
 import 'categoryhome.dart';
 
 class Navigation_bar extends StatefulWidget {
@@ -104,8 +106,10 @@ class HomeNavbar extends State<Navigation_bar> {
               ? menuItem(10, "Login", Icons.login_rounded,
                   currentPage == Sections.login ? true : false)
               : Container(),
-          menuItem(3, "Shop", Icons.category_rounded,
+
+          menuItem(3, "View 3D model", Icons.category_rounded,
               currentPage == Sections.Categories ? true : false),
+
           menuItem(8, "Cart", Icons.shop_two_outlined,
               currentPage == Sections.Cart ? true : false),
           // menuItem(1, "Try-On", Icons.image,
@@ -154,7 +158,12 @@ class HomeNavbar extends State<Navigation_bar> {
             }
             currentPage = Sections.contacts;
           } else if (id == 3) {
-            Navigator.pushNamed(context, '3d');
+            if (FirebaseAuth.instance.currentUser == null) {
+              Navigator.pushNamed(context, 'must_have_account');
+            } else {
+              Navigator.pushNamed(context, '3d');
+            }
+
             currentPage = Sections.Categories;
           } else if (id == 4) {
             if (FirebaseAuth.instance.currentUser == null) {
@@ -173,6 +182,7 @@ class HomeNavbar extends State<Navigation_bar> {
           } else if (id == 6) {
             favprod.clear();
             FirebaseAuth.instance.signOut();
+            userid == null;
             Navigator.pushNamed(context, 'homepage');
 
             currentPage = Sections.Log_Out;

@@ -80,10 +80,11 @@ class _RecommPageState extends State<RecommPage> {
     var jsonResponse2 = jsonDecode(response.body);
     //print(jsonResponse2);
     var predic = RecPredict(
-        imgOutputs: jsonResponse2['img_outputs'],
-        revisedScore: jsonResponse2['revised_score'],
-        origScore: jsonResponse2['original_score'],
-        message: jsonResponse2['message']);
+      imgOutputs: jsonResponse2['img_outputs'],
+      revisedScore: jsonResponse2['revised_score'],
+      origScore: jsonResponse2['original_score'],
+      message: jsonResponse2['message'],
+    );
     var imageOutputs = jsonResponse2['img_outputs'];
     var score = jsonResponse2['revised_score'];
     var original = jsonResponse2['original_score'];

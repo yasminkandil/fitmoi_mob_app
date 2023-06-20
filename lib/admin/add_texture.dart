@@ -44,6 +44,7 @@ var downloadUrlT;
 var imageeT;
 var greyimageT =
     'https://media.tarkett-image.com/large/TH_24567080_24594080_24596080_24601080_24563080_24565080_24588080_001.jpg';
+String clothType = ''; // Initialize the clothType variable
 
 setImage(String imagee) {
   imagee = imagee;
@@ -76,6 +77,8 @@ class _AddTexturePageState extends State<AddTexturePage> {
 
   File? _frontimage = null;
   File? _backimage = null;
+
+  // get clothType => null;
 
   _uploadTexToStorage(texx) async {
     final _storage = FirebaseStorage.instance;
@@ -152,35 +155,66 @@ class _AddTexturePageState extends State<AddTexturePage> {
           children: <Widget>[
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+              child: Column(
                 children: [
-                  UploadImages(
-                      textt: "Front image",
-                      onPressed: () async {
-                        await _imgFromGallery(context, true);
-                        //uploadImage();
-                      },
-                      imagepath: greyimage),
-                  UploadImages(
-                      textt: "Back image",
-                      onPressed: () async {
-                        await _imgFromGallery(context, false);
-                      },
-                      imagepath: greyimage2),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      UploadImages(
+                        textt: "Front image",
+                        onPressed: () async {
+                          await _imgFromGallery(context, true);
+                          //uploadImage();
+                        },
+                        imagepath: greyimage,
+                      ),
+                      UploadImages(
+                        textt: "Back image",
+                        onPressed: () async {
+                          await _imgFromGallery(context, false);
+                        },
+                        imagepath: greyimage2,
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                      height: 16), // Add spacing between the row and text field
+                  // TextField(
+                  //   decoration: InputDecoration(
+                  //     labelText: 'Cloth Type',
+                  //   ),
+                  //   onChanged: (value) {
+                  //     // Handle changes in the cloth type
+                  //     // You can store the value in a variable or pass it to a callback function
+                  //     var clothType = value;
+                  //   },
+                  // ),
                 ],
               ),
             ),
             ButtonWidget(
                 btnText: "Add Textures",
                 onClick: () async {
+// Retrieve the document from Firebase using the prodId
+                  DocumentSnapshot snapshot = await FirebaseFirestore.instance
+                      .collection('product')
+                      .doc(widget.prodid)
+                      .get();
+
+                  String subcategory = snapshot.get('subcategory');
+
+                  setState(() {
+                    clothType = subcategory;
+                  });
+
                   //sendImageToAPI(greyimage);
                   texture = await sendRequest(
-                      id: '0',
-                      frontImage: _frontimage!,
-                      backImage: _backimage!,
-                      clothType: "shirt",
-                      prodId: widget.prodid);
+                    id: '0',
+                    frontImage: _frontimage!,
+                    backImage: _backimage!,
+                    clothType: clothType,
+                    prodId: widget.prodid,
+                  );
 
                   final update = FirebaseFirestore.instance
                       .collection('product')
@@ -199,9 +233,13 @@ class _AddTexturePageState extends State<AddTexturePage> {
                   // uploadImagesToDirectory();
                 }),
             SizedBox(
+              height: 20,
+              width: 20,
+            ),
+            SizedBox(
               height: 200,
               width: 200,
-              child: Image.network(greyimageT),
+              child: Image.asset('assets/${clothType}_${widget.prodid}.jpg'),
             )
           ],
         ),

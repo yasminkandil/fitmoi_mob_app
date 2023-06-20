@@ -119,7 +119,7 @@ class buildCategory extends StatelessWidget {
                           ),
                         ),
                       );
-                      chosenCateg = "short-pant";
+                      chosenCateg = 'pant';
                       selected = 1;
                     } else if (data['subCategF'] == 'short-pant') {
                       Navigator.push(
@@ -133,30 +133,6 @@ class buildCategory extends StatelessWidget {
                       );
                       chosenCateg = "short-pant";
                       selected = 2;
-                    } else if (data['subCategF'] == 'skirt') {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => Products(
-                            cat: 'female',
-                            subcat: 'skirt',
-                          ),
-                        ),
-                      );
-                      chosenCateg = "skirt";
-                      selected = 3;
-                    } else if (data['subCategF'] == 'shirt') {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => Products(
-                            cat: 'female',
-                            subcat: 'shirt',
-                          ),
-                        ),
-                      );
-                      chosenCateg = "shirt";
-                      selected = 4;
                     }
                   },
                   child: Padding(
@@ -167,15 +143,15 @@ class buildCategory extends StatelessWidget {
                         Text("${data['subCategF']}",
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                color: selected == index
-                                    ? mintColors
+                                color: selected == data[index]
+                                    ? const Color.fromARGB(72, 0, 0, 0)
                                     : const Color.fromARGB(72, 0, 0, 0))),
                         Container(
                           margin: const EdgeInsets.only(top: 15 / 4),
                           height: 2,
                           width: 30,
-                          color: selected == index
-                              ? mintColors
+                          color: selected == data[index]
+                              ? Colors.black
                               : Colors.transparent,
                         )
                       ],
@@ -197,24 +173,13 @@ class buildCategory extends StatelessWidget {
                     : <String, dynamic>{};
                 return GestureDetector(
                   onTap: () {
-                    if (data['subCategM'] == "shirt") {
+                    if (data['subCategM'] == 'pant') {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
                           builder: (context) => Products(
                             cat: 'male',
-                            subcat: 'shirt',
-                          ),
-                        ),
-                      );
-                      chosenCateg = "shirt";
-                    } else if (data['subCategM'] == 'pant') {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => Products(
-                            cat: 'male',
-                            subcat: 'pants',
+                            subcat: 'pant',
                           ),
                         ),
                       );

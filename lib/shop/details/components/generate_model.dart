@@ -15,6 +15,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../../models/user_model.dart';
+import '../../../pages/humanModelPage.dart';
 import '../../../utils/color.dart';
 import '../../../widgets/btn_widget.dart';
 import '../../../widgets/image_text_inp.dart';
@@ -38,6 +39,8 @@ class TryyOn extends StatefulWidget {
   State<TryyOn> createState() => _TryyOnState();
 }
 
+Gender _g = Gender.female;
+
 class _TryyOnState extends State<TryyOn> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   late VoidCallback _showPersBottomSheetCallBack;
@@ -49,7 +52,6 @@ class _TryyOnState extends State<TryyOn> {
   }
 
   final formKey = GlobalKey<FormState>();
-  Gender _g = Gender.female;
 
   _imgFromGallery(BuildContext context, bool isFront, bool isSide) async {
     final picker = ImagePicker();
@@ -78,6 +80,17 @@ class _TryyOnState extends State<TryyOn> {
         });
       }
     }
+  }
+
+  String userID = FirebaseAuth.instance.currentUser!.uid;
+  Stream<Map<String, dynamic>> getUserDataStream() {
+    // Assuming you have a collection called 'users' in Firestore
+    // Replace 'userId' with the actual ID of the user
+    return FirebaseFirestore.instance
+        .collection('users')
+        .doc(userID)
+        .snapshots()
+        .map((snapshot) => snapshot.data() ?? {});
   }
 
   _takePictureFromCamera(bool isFront, bool isSide) async {
@@ -176,7 +189,6 @@ class _TryyOnState extends State<TryyOn> {
   }
 
   bool doesImageExist = false;
-  String userid = FirebaseAuth.instance.currentUser!.uid;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -184,16 +196,26 @@ class _TryyOnState extends State<TryyOn> {
         onTap: () async {
           if (FirebaseAuth.instance.currentUser != null) {
             try {
-              await rootBundle.load('assets/body_$userid.obj');
+              await rootBundle.load('assets/body_$userID.obj');
               doesImageExist = true;
             } catch (_) {}
 
             if (doesImageExist) {
-              Fluttertoast.showToast(
-                msg: "Model Already Exists",
-              );
-              DialogggBuilder(context)
-                  .showAlert("Start", _g.name, widget.prodId);
+              Map<String, dynamic>? userData = await getUserData();
+
+              if (userData != null && userData.isNotEmpty) {
+                String gender = userData['gender'] ?? 'unknown';
+
+                Fluttertoast.showToast(
+                  msg: "Model Already Exists",
+                );
+                DialogggBuilder(context)
+                    .showAlert("Start", gender, widget.prodId);
+              } else {
+                Fluttertoast.showToast(
+                  msg: "An Error Occured",
+                );
+              }
             } else {
               setState(() {
                 showModalBottomSheet(
@@ -328,54 +350,78 @@ class _TryyOnState extends State<TryyOn> {
                                             Api_3DService measurementService =
                                                 Api_3DService();
                                             Measurements measurements;
-                                            measurements =
-                                                await measurementService
-                                                    .getmeasurements(
-                                              FirebaseAuth
-                                                  .instance.currentUser!.uid,
-                                              double.parse(
-                                                  _heightController.text),
-                                              frontimagee!,
-                                              sideimagee!,
-                                              backimagee!,
-                                            );
+
+                                            try {
+                                              measurements =
+                                                  await measurementService
+                                                      .getmeasurements(
+                                                FirebaseAuth
+                                                    .instance.currentUser!.uid,
+                                                double.parse(
+                                                    _heightController.text),
+                                                frontimagee!,
+                                                sideimagee!,
+                                                backimagee!,
+                                              );
+
+                                              if (measurements == null) {
+                                                DialoggBuilder(context).showAlert(
+                                                    'An error occurred while fetching measurements');
+                                                return;
+                                              }
+                                            } on NoHumanDetectedException {
+                                              Navigator.pop(
+                                                  context); // Dismiss loading indicator
+                                              DialoggBuilder(context).showAlert(
+                                                  'No human detected in the image');
+                                              return;
+                                            } catch (e) {
+                                              Navigator.pop(
+                                                  context); // Dismiss loading indicator
+                                              DialoggBuilder(context).showAlert(
+                                                  'An error occurred');
+                                              return;
+                                            }
+
                                             measurements.height = double.parse(
                                                 _heightController.text);
                                             Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        bodyMeasurments(
-                                                          measurements:
-                                                              measurements,
-                                                          height:
-                                                              _heightController
-                                                                  .text,
-                                                          gender: _g.name,
-                                                          prodId: widget.prodId,
-                                                        )));
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    bodyMeasurments(
+                                                  measurements: measurements,
+                                                  height:
+                                                      _heightController.text,
+                                                  gender: _g.name.toString(),
+                                                  prodId: widget.prodId,
+                                                ),
+                                              ),
+                                            );
+
                                             final addHandW = FirebaseFirestore
                                                 .instance
                                                 .collection('users')
-                                                .doc(userid)
+                                                .doc(userID)
                                                 .update({
                                               'height': double.parse(
                                                   _heightController.text),
                                               'gender': _g.name,
                                             }).then((value) => null);
+
                                             print(measurements);
                                           } else if (frontimagee == null) {
                                             DialoggBuilder(context).showAlert(
-                                                'Please Upload front image ');
+                                                'Please Upload front image');
                                           } else if (sideimagee == null) {
                                             DialoggBuilder(context).showAlert(
-                                                'Please Upload side image ');
+                                                'Please Upload side image');
                                           } else if (backimagee == null) {
                                             DialoggBuilder(context).showAlert(
-                                                'Please Upload bcak image ');
+                                                'Please Upload back image');
                                           } else {
                                             DialoggBuilder(context)
-                                                .showAlert('An Error Occured');
+                                                .showAlert('An Error Occurred');
                                           }
                                         },
                                       ),

@@ -36,24 +36,6 @@ class _RecResultState extends State<RecResult> {
             Row(
               children: [
                 Text(
-                  'original Score ',
-                  style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: GreyColors),
-                ),
-                Text(
-                  widget.resultss.revisedScore.toStringAsFixed(2),
-                  style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.red),
-                ),
-              ],
-            ),
-            Row(
-              children: [
-                Text(
                   'Revised Score ',
                   style: TextStyle(
                       fontSize: 20,
@@ -61,11 +43,29 @@ class _RecResultState extends State<RecResult> {
                       color: GreyColors),
                 ),
                 Text(
-                  widget.resultss.origScore.toStringAsFixed(2),
+                  widget.resultss.revisedScore.toStringAsFixed(3),
                   style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
                       color: Colors.green),
+                ),
+              ],
+            ),
+            Row(
+              children: [
+                Text(
+                  'original Score ',
+                  style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: GreyColors),
+                ),
+                Text(
+                  widget.resultss.origScore.toStringAsFixed(3),
+                  style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.red),
                 ),
               ],
             ),

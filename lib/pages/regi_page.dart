@@ -125,13 +125,36 @@ class _RegisterPageState extends State<RegisterPage> {
                               UploadPP(
                                   textt: "Upload Profile Image",
                                   function: () async {
-                                    //sideee =
-                                    //print(sideee);
-                                    setState(() async {
-                                      greyimage =
-                                          await uploadImagee('imageName');
-                                      print(greyimage);
-                                    });
+                                    final _storage = FirebaseStorage.instance;
+                                    final _picker = ImagePicker();
+                                    PickedFile? image;
+
+                                    //Check Permissions
+                                    await Permission.photos.request();
+
+                                    var permissionStatus =
+                                        await Permission.photos.status;
+
+                                    //Select Image
+                                    image = await _picker.getImage(
+                                        source: ImageSource.gallery);
+                                    var file = File(image!.path);
+
+                                    if (image != null) {
+                                      //Upload to Firebase
+                                      var snapshot = await _storage
+                                          .ref()
+                                          .child(p.basename(image.path))
+                                          .putFile(file);
+
+                                      downloadUrl =
+                                          await snapshot.ref.getDownloadURL();
+
+                                      setState(() {
+                                        imageUrl = downloadUrl;
+                                        greyimage = imageUrl;
+                                      });
+                                    }
                                   },
                                   imagepath: greyimage),
                             ],
