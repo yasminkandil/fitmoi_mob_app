@@ -44,6 +44,7 @@ var downloadUrlT;
 var imageeT;
 var greyimageT =
     'https://media.tarkett-image.com/large/TH_24567080_24594080_24596080_24601080_24563080_24565080_24588080_001.jpg';
+String clothType = ''; // Initialize the clothType variable
 
 setImage(String imagee) {
   imagee = imagee;
@@ -194,8 +195,6 @@ class _AddTexturePageState extends State<AddTexturePage> {
             ButtonWidget(
                 btnText: "Add Textures",
                 onClick: () async {
-                  String clothType = ''; // Initialize the clothType variable
-
 // Retrieve the document from Firebase using the prodId
                   DocumentSnapshot snapshot = await FirebaseFirestore.instance
                       .collection('product')
@@ -204,7 +203,9 @@ class _AddTexturePageState extends State<AddTexturePage> {
 
                   String subcategory = snapshot.get('subcategory');
 
-                  clothType = subcategory;
+                  setState(() {
+                    clothType = subcategory;
+                  });
 
                   //sendImageToAPI(greyimage);
                   texture = await sendRequest(
@@ -232,9 +233,13 @@ class _AddTexturePageState extends State<AddTexturePage> {
                   // uploadImagesToDirectory();
                 }),
             SizedBox(
+              height: 20,
+              width: 20,
+            ),
+            SizedBox(
               height: 200,
               width: 200,
-              child: Image.network(greyimageT),
+              child: Image.asset('assets/${clothType}_${widget.prodid}.jpg'),
             )
           ],
         ),
