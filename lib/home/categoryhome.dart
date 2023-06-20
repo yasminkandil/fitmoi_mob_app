@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
+import '../models/user_model.dart';
 import '../pages/products_all.dart';
 import '../read data/get_categoryhome.dart';
 import '../widgets/app_bar.dart';
@@ -11,6 +12,8 @@ class CategoryGender extends StatefulWidget {
   @override
   State<CategoryGender> createState() => _CategoryGenderState();
 }
+
+Gender _g = Gender.female;
 
 class _CategoryGenderState extends State<CategoryGender> {
   @override
@@ -37,6 +40,8 @@ class _CategoryGenderState extends State<CategoryGender> {
                       ),
                     ),
                   );
+
+                  _g = Gender.female;
                 },
                 child: ClipRRect(
                   //borderRadius: BorderRadius.circular(20.0),
@@ -62,6 +67,8 @@ class _CategoryGenderState extends State<CategoryGender> {
                       ),
                     ),
                   );
+
+                  _g = Gender.male;
                 },
                 child: ClipRRect(
                   // borderRadius: BorderRadius.circular(20.0),

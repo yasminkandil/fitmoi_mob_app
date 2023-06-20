@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fitmoi_mob_app/home/home_screen.dart';
-import 'package:fitmoi_mob_app/pages/humanModelPage.dart';
+import 'package:fitmoi_mob_app/models/user_model.dart';
 import 'package:flutter/material.dart';
 
 import '../controllers/search_product.dart';
@@ -8,6 +8,7 @@ import '../pages/my_drawer_header.dart';
 import '../shop/details/components/body.dart';
 import '../utils/color.dart';
 import '../widgets/header_container.dart';
+import '../widgets/start.dart';
 import 'categoryhome.dart';
 
 class Navigation_bar extends StatefulWidget {

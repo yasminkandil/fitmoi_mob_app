@@ -13,6 +13,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_cube/flutter_cube.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/material/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 import 'dart:ui' as ui;
 
@@ -28,27 +29,8 @@ class HumanModelPage extends StatefulWidget {
 }
 
 String userid = FirebaseAuth.instance.currentUser!.uid;
-String chosenCateg = 'short-pant';
-
-//List<dynamic> categoryList = [];
-String prevGar = 't-shirt';
 CollectionReference users = FirebaseFirestore.instance.collection('users');
 DocumentReference userRef = users.doc(userid);
-Future<String> getChestData() async {
-  DocumentSnapshot userSnapshot = await userRef.get();
-  if (userSnapshot.exists) {
-    Map<String, dynamic>? userData =
-        userSnapshot.data() as Map<String, dynamic>?;
-    dynamic chestData = userData!['chest'];
-    dynamic backData = userData['back'];
-    dynamic waistData = userData['waist'];
-    dynamic hipData = userData['hip'];
-
-    return userData.toString();
-  } else {
-    return 'User not found';
-  }
-}
 
 Future<Map<String, dynamic>> getUserData() async {
   DocumentSnapshot userSnapshot = await userRef.get();
@@ -68,39 +50,25 @@ Future<dynamic> loadAsset(String assetPath) async {
 }
 
 class _HumanModelPageState extends State<HumanModelPage> {
-  // late Object human;
-
-  // late Object shirt;
-  // late Object pant;
-  // late Object skirt;
-  // late Object tshirt;
-
   bool remove = false;
-  late Texture tshirtTexture;
+
   Object garmentShortPant = Object(
       fileName: 'assets/short-pant_$userid.obj',
       scale: Vector3(0.09, 0.09, 0.09),
       position: Vector3(0, 0, 0),
       lighting: true);
   Object pant = Object(
-      fileName: 'assets/pant_$userid.obj',
-      scale: Vector3(0.08, 0.08, 0.10),
-      position: Vector3(0, 0, 0),
-      lighting: true,
-      backfaceCulling: false);
+    fileName: 'assets/pant_$userid.obj',
+    scale: Vector3(0.09, 0.08, 0.10),
+    position: Vector3(0, 0, 0),
+    lighting: true,
+  );
   Object tshirt = Object(
     fileName: 'assets/t-shirt_$userid.obj',
     scale: Vector3(0.16, 0.17, 0.18),
     position: Vector3(0, 0, 0),
     lighting: true,
-    backfaceCulling: false,
-    // isAsset: false
   );
-  Object skirt = Object(
-      fileName: 'assets/skirt_$userid.obj',
-      scale: Vector3(0.09, 0.09, 0.09),
-      position: Vector3(0, 0, 0),
-      lighting: true);
 
   @override
   Widget build(BuildContext context) {
@@ -118,94 +86,90 @@ class _HumanModelPageState extends State<HumanModelPage> {
               style: TextStyle(fontSize: 16.0, color: mintColors),
             ),
           ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Expanded(
+                child: ButtonWidget2(
+                  btnText: "Add Another Item",
+                  onClick: () {
+                    Navigator.pushNamed(context, "homepage");
+                  },
+                  // ),
+                ),
+              ),
+            ],
+          ),
           Expanded(
             child: Center(
-              child: Cube(
-                onSceneCreated: (Scene scene) {
-                  // Load and add the body object
-                  loadAsset('assets/body_$userid.obj');
-                  scene.world.add(Object(
-                    fileName: 'assets/body_$userid.obj',
-                    scale: Vector3.all(0.3),
-                    position: Vector3(0, 0, 0),
-                    lighting: true,
-                  ));
+              child: Cube(onSceneCreated: (Scene scene) async {
+                // Load and add the body object
+                loadAsset('assets/body_$userid.obj');
+                scene.world.add(Object(
+                  fileName: 'assets/body_$userid.obj',
+                  scale: Vector3.all(0.3),
+                  position: Vector3(0, 0, 0),
+                  lighting: true,
+                ));
+                Map<String, dynamic>? userData = await getUserData();
 
-                  // Add the previous garment
-                  // if (prevGar != null) {
-                  //   if (prevGar == 'short-pant') {
-                  //     loadAsset('assets/short-pant_$userid.obj');
-                  //     scene.world.add(garmentShortPant);
+                if (userData != null && userData.isNotEmpty) {
+                  double height = userData['height'] ?? 0;
+                  double weight = userData['weight'] ?? 0;
+                  if (height >= 170 &&
+                      height <= 185 &&
+                      weight >= 70 &&
+                      weight <= 85) {
+                    tshirt.scale.setValues(0.16, 0.17, 0.18);
+                    tshirt.updateTransform();
+                    scene.world.add(tshirt);
 
-                  //     setState(() {
-                  //       loadImageFromAsset('assets/short-pant_$userid.jpg')
-                  //           .then((value) {
-                  //         garmentShortPant.mesh.texture = value;
-                  //         scene.updateTexture();
-                  //       });
-                  //     });
-                  //   } else if (prevGar == 'pant') {
-                  //     scene.world.add(pant);
-                  //     loadAsset('assets/pant_$userid.obj');
-                  //     loadImageFromAsset('assets/pant_$userid.jpg')
-                  //         .then((value) {
-                  //       pant.mesh.texture = value;
-                  //       // scene.updateTexture();
-                  //     });
-                  //   } else if (prevGar == 't-shirt') {
-                  //     scene.world.add(tshirt);
-                  //     setState(() {
-                  //       loadImageFromAsset('assets/t-shirt_$userid.jpg')
-                  //           .then((value) {
-                  //         tshirt.mesh.texture = value;
-                  //         // scene.updateTexture();
-                  //       });
-                  //     });
-                  //   } else if (prevGar == 'skirt') {
-                  //     loadAsset('assets/skirt_$userid.obj');
-                  //     scene.world.add(skirt);
-                  //   }
-                  // }
-                  // Add the current garment
-                  if (chosenCateg != null) {
-                    if (chosenCateg == 'short-pant') {
-                      loadAsset('assets/short-pant_$userid.obj');
-                      scene.world.add(garmentShortPant);
-
-                      setState(() {
-                        loadImageFromAsset('assets/short-pant_$userid.jpg')
-                            .then((value) {
-                          garmentShortPant.mesh.texture = value;
-                          scene.updateTexture();
-                        });
-                      });
-                    } else if (chosenCateg == 'pant') {
-                      scene.world.add(pant);
-                      loadAsset('assets/pant_$userid.obj');
-                      loadImageFromAsset('assets/pant_$userid.jpg')
-                          .then((value) {
-                        pant.mesh.texture = value;
-                        // scene.updateTexture();
-                      });
-                    } else if (chosenCateg == 't-shirt') {
-                      scene.world.add(tshirt);
-                      setState(() {
-                        loadImageFromAsset('assets/t-shirt_$userid.jpg')
-                            .then((value) {
-                          tshirt.mesh.texture = value;
-                          // scene.updateTexture();
-                        });
-                      });
-                    } else if (chosenCateg == 'skirt') {
-                      loadAsset('assets/skirt_$userid.obj');
-                      scene.world.add(skirt);
-                    }
+                    pant.scale.setValues(0.09, 0.08, 0.11);
+                    pant.updateTransform();
+                    scene.world.add(pant);
+                    garmentShortPant.scale.setValues(0.09, 0.08, 0.11);
+                    garmentShortPant.updateTransform();
+                    scene.world.add(garmentShortPant);
+                  } else if (height >= 170 &&
+                      height <= 190 &&
+                      weight >= 86 &&
+                      weight <= 100) {
+                    tshirt.scale.setValues(0.16, 0.17, 0.18);
+                    tshirt.updateTransform();
+                    scene.world.add(tshirt);
+                    pant.scale.setValues(0.09, 0.09, 0.11);
+                    pant.updateTransform();
+                    scene.world.add(pant);
+                    garmentShortPant.scale.setValues(0.09, 0.09, 0.11);
+                    garmentShortPant.updateTransform();
+                    scene.world.add(garmentShortPant);
+                  } else if (height >= 150 &&
+                      height <= 169 &&
+                      weight >= 50 &&
+                      weight <= 69) {
+                    tshirt.scale.setValues(0.15, 0.15, 0.17);
+                    tshirt.updateTransform();
+                    scene.world.add(tshirt);
+                    pant.scale.setValues(0.07, 0.07, 0.09);
+                    pant.updateTransform();
+                    scene.world.add(pant);
+                    garmentShortPant.scale.setValues(0.07, 0.07, 0.09);
+                    garmentShortPant.updateTransform();
+                    scene.world.add(garmentShortPant);
+                  } else {
+                    scene.world.add(pant);
+                    scene.world.add(garmentShortPant);
+                    scene.world.add(tshirt);
                   }
+                } else {
+                  Fluttertoast.showToast(
+                    msg: "An error occured",
+                  );
+                }
 
-                  scene.camera.zoom = 15;
-                  scene.updateTexture();
-                },
-              ),
+                scene.camera.zoom = 15;
+                scene.updateTexture();
+              }),
             ),
           ),
           FutureBuilder<Map<String, dynamic>>(
@@ -219,8 +183,7 @@ class _HumanModelPageState extends State<HumanModelPage> {
                 double height = userData['height'] ?? 0;
                 double hipMeasurement = userData['hip'] ?? 0;
                 String gender = userData['gender'] ?? 0;
-                String suggestedSize =
-                    'Sorry, your size is not available $chosenCateg $prevGar';
+                String suggestedSize = 'Sorry, your size is not available ';
                 if (chosenCateg == 't-shirt' && gender == 'male') {
                   if (chestMeasurement >= 81 && chestMeasurement <= 86) {
                     suggestedSize = "X-Small";
@@ -357,37 +320,38 @@ class _HumanModelPageState extends State<HumanModelPage> {
               title: Row(
             children: [
               Expanded(
-                child: ButtonWidget2(
-                  btnText: "Add Another Item",
+                child: ButtonWidgetdelete(
+                  btnText: "Remove Pant",
                   onClick: () {
                     setState(() {
-                      prevGar == chosenCateg;
+                      pant.position.setValues(1500, 1500, 1500);
+                      pant.updateTransform();
                     });
-                    print(prevGar);
-                    Navigator.pushNamed(context, "shop");
                   },
                 ),
               ),
               Expanded(
                 child: ButtonWidgetdelete(
-                  btnText: "Remove Garment",
+                  btnText: "Remove Short",
                   onClick: () {
                     setState(() {
-                      if (chosenCateg == 't-shirt') {
-                        tshirt.position.setValues(1500, 1500, 1500);
-                        tshirt.updateTransform();
-                      } else if (chosenCateg == 'pant') {
-                        pant.position.setValues(1500, 1500, 1500);
-                        pant.updateTransform();
-                      } else if (chosenCateg == 'skirt') {
-                        skirt.position.setValues(1500, 1500, 1500);
-                        skirt.updateTransform();
-                      } else if (chosenCateg == 'short-pant') {
-                        garmentShortPant.position.setValues(1500, 1500, 1500);
-                        garmentShortPant.updateTransform();
-                      }
+                      garmentShortPant.position.setValues(1500, 1500, 1500);
+                      garmentShortPant.updateTransform();
 
-                      print('object');
+                      // print('object');
+                    });
+                  },
+                ),
+              ),
+              Expanded(
+                child: ButtonWidgetdelete(
+                  btnText: "Remove T-shirt",
+                  onClick: () {
+                    setState(() {
+                      tshirt.position.setValues(1500, 1500, 1500);
+                      tshirt.updateTransform();
+
+                      // print('object');
                     });
                   },
                 ),

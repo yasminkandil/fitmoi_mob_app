@@ -7,6 +7,8 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/io_client.dart';
 
+class NoHumanDetectedException implements Exception {}
+
 class Api_3DService {
   Future getmeasurements(
     String unique,
@@ -22,7 +24,7 @@ class Api_3DService {
     List<int> backImageBytes = await backImageFile.readAsBytes();
     String backBase64Encode = base64.encode(backImageBytes);
 
-    var measurements = {
+    var measurementsData = {
       "uniqueId": unique,
       "height": "${height}",
       "frontImage": "${frontBase64Encode}",
@@ -30,48 +32,44 @@ class Api_3DService {
       "backImage": "${backBase64Encode}",
     };
 
-    var jsonBody = measurements;
+    var jsonBody = measurementsData;
     var response = await http.post(
       Uri.parse("http://192.168.1.108:8000/get_measurement"),
       body: jsonEncode(jsonBody),
       headers: {"content-type": "application/json"},
     );
 
-    bool completed = false;
-    var wait = {"waiting": unique, "uniqueId": unique};
+    var jsonResponse = jsonDecode(response.body);
+    var status = jsonResponse['Status'];
 
-    while (!completed) {
+    if (status == 'NoHuman') {
+      // Handle the case where no human is detected in the image
+      // Display an appropriate message to the user or take necessary action
+      Fluttertoast.showToast(msg: "No human detected in image");
+      throw NoHumanDetectedException();
+    }
+
+    while (status != 'Done') {
       await Future.delayed(Duration(seconds: 4));
 
       var response2 = await http.post(
         Uri.parse("http://192.168.1.108:8000/get_measurement"),
-        body: jsonEncode(wait),
+        body: jsonEncode({"waiting": unique, "uniqueId": unique}),
         headers: {"content-type": "application/json"},
       );
 
-      var jsonResponse2 = jsonDecode(response2.body);
-      var status = jsonResponse2['Status'];
-
-      if (status == 'Done') {
-        completed = true;
-        var measurements = Measurements(
-          chest: jsonResponse2["measurements"]['chest'],
-          hip: jsonResponse2['measurements']["hip"],
-          back: jsonResponse2['measurements']["back"],
-          waist: jsonResponse2['measurements']['waist'],
-        );
-
-        return measurements;
-      } else if (status == 'NoHuman') {
-        completed = true;
-        // Handle the case where no human is detected in the image
-        // Display an appropriate message to the user or take necessary action
-        Fluttertoast.showToast(msg: "No human detected in image");
-        return null;
-      }
+      jsonResponse = jsonDecode(response2.body);
+      status = jsonResponse['Status'];
     }
 
-    return null;
+    var measurementsResult = Measurements(
+      chest: jsonResponse["measurements"]['chest'],
+      hip: jsonResponse['measurements']["hip"],
+      back: jsonResponse['measurements']["back"],
+      waist: jsonResponse['measurements']['waist'],
+    );
+
+    return measurementsResult;
   }
 
   Future _sleep(duration) {

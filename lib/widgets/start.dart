@@ -17,6 +17,8 @@ import 'package:restart_app/restart_app.dart';
 import '../pages/humanModelPage.dart';
 import 'package:http/http.dart' as http;
 
+//List<String> garmentss = [];
+
 class DialogggBuilder {
   DialogggBuilder(this.context);
 
@@ -90,7 +92,7 @@ class _show3DState extends State<show3D> {
     // String texturebase64Encode;
     // List<int> textureBytes;
 // Assuming the ID of the user is stored in a variable called 'userId'
-    String userId = FirebaseAuth.instance.currentUser!.uid;
+    // String userId = FirebaseAuth.instance.currentUser!.uid;
     // File data = (await storageReference
     //     .child('textures/up0fa301d0-b522-11ed-b6b2-c952595972f0.jpg').getData()) as File;
 
@@ -124,7 +126,9 @@ class _show3DState extends State<show3D> {
       'uniqueId': uniqueId, // Set your uniqueId here
       'garmentClass': garmentClass,
       'gender': gender,
-      'texture': base64Image // Set your garmentClass here
+      'texture': base64Image,
+      'prodId': productId
+      // Set your garmentClass here
     };
 
     final response = await http.post(
@@ -149,7 +153,7 @@ class _show3DState extends State<show3D> {
         //_garmentImage = responseBody['garment-image'];
       });
       if (_status == 'True') {
-        sleep(Duration(seconds: 15));
+        sleep(Duration(seconds: 20));
         //Restart.restartApp();
         Navigator.push(
           context,
@@ -222,11 +226,14 @@ class _show3DState extends State<show3D> {
   Widget _getButton(BuildContext context) {
     return ElevatedButton(
       onPressed: () {
-        Fluttertoast.showToast(msg: "Please wait....");
+        Fluttertoast.showToast(
+          msg: "Please wait....",
+          toastLength: Toast.LENGTH_LONG,
+        );
         _fitModel(widget.gender, userid, c.chosenCateg, widget.productId)
             .then((value) {
           sleep(
-            const Duration(seconds: 10),
+            const Duration(seconds: 30),
           );
         });
       },
